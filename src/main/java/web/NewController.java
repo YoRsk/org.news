@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import service.CommentService;
 import service.NewService;
@@ -21,13 +22,13 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author yangxin
- * @time 2018/12/27  14:58
+ * @author pengliuyi
+ * @time 2021/3/16  12:51
  */
 @Controller
 @RequestMapping("/new")
 public class NewController {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private HttpSession session;
@@ -41,31 +42,31 @@ public class NewController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/adminIndex.html")
+    @GetMapping(value = "/adminIndex")
     public String adminIndex(Model model) {
         User user = (User) session.getAttribute("user");
         if (user != null) {//表示已经登录
             List<NewsData> list = newService.selectAllNews();
             model.addAttribute("Newslist", list);
-            return "AdminIndex";
+            return "adminIndex";
         }else{
-            return "redirect:/user/adminLogin.html";
+            return "redirect:/user/adminLogin";
         }
     }
 
-    @RequestMapping(value = "/commentlist.html")
-    public String commentlist(Model model){
+    @GetMapping(value = "/commentList")
+    public String commentList(Model model){
         User user = (User) session.getAttribute("user");
         if (user != null) {//表示已经登录
             List<CommentData> commentData = commentService.selectAllComment();
-            model.addAttribute("commentlist", commentData);
+            model.addAttribute("commentList", commentData);
             return "AdminIndexComment";
         }else{
-            return "redirect:/user/adminLogin.html";
+            return "redirect:/user/adminLogin";
         }
     }
 
-    @RequestMapping(value = "/userlist.html")
+    @GetMapping(value = "/userList")
     public String userlist(Model model){
         User user = (User) session.getAttribute("user");
         if (user != null) {//表示已经登录
@@ -73,7 +74,7 @@ public class NewController {
             model.addAttribute("userList", list);
             return "AdminIndexUser";
         }else{
-            return "redirect:/user/adminLogin.html";
+            return "redirect:/user/adminLogin";
         }
     }
 
@@ -99,9 +100,9 @@ public class NewController {
             model.addAttribute("editResult", result);
         }
         if (login.getUserType() == 2)
-            return "redirect:/new/commentlist.html";
+            return "redirect:/new/commentList";
         else
-            return "redirect:/user/index.html";
+            return "redirect:/user/index";
     }
 
     @RequestMapping("/submitcomment")
@@ -253,7 +254,7 @@ public class NewController {
     /*
     * 模糊查询新闻
     * */
-    @RequestMapping(value = "/seleceByLike")
+    @RequestMapping(value = "/selectByLike")
     public String selectNewsByLike(String selectkey,Model model){
         logger.info("############yangxin专用日志###########  模糊查询功能模块的前台返回的字段数据："+selectkey);
         if(!selectkey.equals("")){

@@ -27,15 +27,14 @@ import java.util.Map;
  * 登录接口 ：POST/login
  * 注册：POST/user/resgister
  * 更新：POST/user/update
- *
- * @author yangxin
- * @time 2018/12/26  9:31
+ * @author pengliuyi
+ * @time 2021/3/14  13:11
  */
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
     //日志打印。
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private HttpSession session;
@@ -188,21 +187,20 @@ public class UserController {
         for (int key : loginMap.keySet()) {
             if (adminuserCheck.getUserId() == key) {
                 if (session.getId().equals(loginMap.get(key))) {
-
-                    NewsResult<User> result = new NewsResult<User>(false,
-                            adminuserCheck.getUserName() + "在同一地点重复登录");
-                    model.addAttribute("adminresult", result);
-                    return "AdminLogin";
-                } else {
-                    NewsResult<User> result = new NewsResult<User>(false,
-                            adminuserCheck.getUserName() + "异地已登录，请先退出登录");
-                    model.addAttribute("adminresult", result);
-                    return "AdminLogin";
+//                    NewsResult<User> result = new NewsResult<User>(false,
+//                            adminuserCheck.getUserName() + "在同一地点重复登录");
+//                    model.addAttribute("adminresult", result);
+                    return "adminIndex";//已登录，返回用户首页
+//                } else {
+//                    NewsResult<User> result = new NewsResult<User>(false,
+//                            adminuserCheck.getUserName() + "异地已登录，请先退出登录");
+//                    model.addAttribute("adminresult", result);
+//                    return "AdminLogin";
                 }
             }
         }
         User user = userService.login(username, password);
-        if (user != null && user.getUserType() == 2) {
+        if (user != null && user.getUserType() == 1) {
             NewsResult<User> result = new NewsResult<User>(true, user);
             model.addAttribute("adminresult", result);
             model.addAttribute("customer", user);
@@ -213,7 +211,7 @@ public class UserController {
             session.setAttribute("user", adminuserCheck);
             // session 销毁时间
             session.setMaxInactiveInterval(10 * 60);
-            return "redirect:/new/adminIndex.html";
+            return "redirect:/new/adminIndex";
         } else {
             NewsResult<User> result = new NewsResult<User>(false, "用户名或者密码错误或者你不是管理员");
             model.addAttribute("adminresult", result);
@@ -241,15 +239,15 @@ public class UserController {
         for (int key : loginMap.keySet()) {
             if (userCheck.getUserId() == key) {
                 if (session.getId().equals(loginMap.get(key))) {
-                    NewsResult<User> result = new NewsResult<User>(false,
-                            userCheck.getUserName() + "在同一地点重复登录");
-                    model.addAttribute("result", result);
+//                    NewsResult<User> result = new NewsResult<User>(false,
+//                            userCheck.getUserName() + "在同一地点重复登录");
+//                    model.addAttribute("result", result);
                     return "login";
-                } else {
-                    NewsResult<User> result = new NewsResult<User>(false,
-                            userCheck.getUserName() + "异地已登录，请先退出登录");
-                    model.addAttribute("result", result);
-                    return "login";
+//                } else {
+//                    NewsResult<User> result = new NewsResult<User>(false,
+//                            userCheck.getUserName() + "异地已登录，请先退出登录");
+//                    model.addAttribute("result", result);
+//                    return "login";
                 }
             }
         }
@@ -264,10 +262,10 @@ public class UserController {
             application.setAttribute("loginMap", loginMap);
             // 将用户保存在session当中
             session.setAttribute("user", userCheck);
-            logger.info("############yangxin专用日志###########  登录功能模块的插入数据："+userCheck);
+            logger.info("############pengliuyi专用日志###########  登录功能模块的插入数据："+userCheck);
             // session 销毁时间
             session.setMaxInactiveInterval(10 * 60);
-            return "redirect:/user/index.html";
+            return "redirect:/user/index";
         } else {
             NewsResult<User> result = new NewsResult<User>(false, "用户名或者密码错误");
             model.addAttribute("result", result);
@@ -286,8 +284,8 @@ public class UserController {
         model.addAttribute("resultLogout", result);
         logger.info("############yangxin专用日志###########  注销功能模块的正常");
         if (usercheckLog.getUserType() == 2)
-            return "redirect:/user/adminLogin.html";
-        return "redirect:/user/login1.html";
+            return "redirect:/user/adminLogin";
+        return "redirect:/user/login";
     }
 
 

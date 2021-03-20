@@ -17,7 +17,7 @@
                         ${result.errMes}</label>
                     <h4 class="mb"><i class="fa fa-angle-right"></i>用户注册</h4>
                     <form class="form-horizontal style-form" method="post" onsubmit="return checkAll()"
-                          action="${pageContext.request.contextPath}/user/toregister">
+                          action="${pageContext.request.contextPath}/user/toRegister">
 
                         <div class="form-group">
                             <label class="col-sm-2 col-sm-2 control-label">用户名(昵称)</label>

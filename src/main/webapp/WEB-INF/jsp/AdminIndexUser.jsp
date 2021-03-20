@@ -31,7 +31,7 @@
                 <%
                 }else{
                 %>
-                <li><a class="logout" href="${pageContext.request.contextPath}/user/adminLogin.html">ToLogin</a></li>
+                <li><a class="logout" href="${pageContext.request.contextPath}/user/adminLogin">ToLogin</a></li>
                 <%
                     }
                 %>
@@ -74,25 +74,25 @@
                     }
                 %>
                 <li class="mt">
-                    <a href="/new/adminIndex.html">
+                    <a href="${pageContext.request.contextPath}/new/adminIndex">
                         <i class="fa fa-dashboard"></i>
                         <span>首 页</span>
                     </a>
                 </li>
                 <li class="sub-menu dcjq-parent-li">
-                    <a href="${pageContext.request.contextPath}/new/adminIndex.html" class="dcjq-parent">
+                    <a href="${pageContext.request.contextPath}/new/adminIndex" class="dcjq-parent">
                         <i class="fa fa-desktop"></i>
                         <span>文章列表</span>
                         <span class="dcjq-icon"></span></a>
                 </li>
                 <li class="sub-menu dcjq-parent-li">
-                    <a href="${pageContext.request.contextPath}/new/commentlist.html" class="dcjq-parent">
+                    <a href="${pageContext.request.contextPath}/new/commentList" class="dcjq-parent">
                         <i class="fa fa-desktop"></i>
                         <span>评论列表</span>
                         <span class="dcjq-icon"></span></a>
                 </li>
                 <li class="sub-menu dcjq-parent-li">
-                    <a href="${pageContext.request.contextPath}/new/userlist.html" class="dcjq-parent">
+                    <a href="${pageContext.request.contextPath}/new/userList" class="dcjq-parent">
                         <i class="fa fa-desktop"></i>
                         <span>用户列表</span>
                         <span class="dcjq-icon"></span></a>
@@ -107,6 +107,8 @@
             <!-- sidebar menu end-->
         </div>
     </aside>
+
+
 
 
     <!--sidebar end-->
@@ -199,10 +201,10 @@
     <footer class="site-footer">
         <div class="text-center">
             <p>
-                © Copyrights <strong>杨鑫</strong>. All Rights Reserved
+                © Copyrights <strong>彭刘羿</strong>. All Rights Reserved
             </p>
             <div class="credits">
-                Created with template by <a href="https://github.com/fireshoot/YxNews">Github</a>
+                Created by <a href="https://github.com/YoRsk">MyGithub</a>
             </div>
             <a href="adminIndex.html#" class="go-top">
                 <i class="fa fa-angle-up"></i>

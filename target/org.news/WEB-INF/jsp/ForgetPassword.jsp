@@ -10,7 +10,7 @@
 <div id="login-page">
     <div class="container">
         <form class="form-login"  onsubmit="return forgetcheckAll()"
-              action="${pageContext.request.contextPath}/user/toforgetpassword" method="post">
+              action="${pageContext.request.contextPath}/user/toForgetPassword" method="post">
             <h2 class="form-login-heading">找回密码</h2>
             <div class="login-wrap">
                 <input type="text" id="username" onblur="checkname()" name="username" class="form-control" placeholder="User Name" autofocus>
