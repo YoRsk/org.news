@@ -17,7 +17,7 @@
                 <label class="checkbox">
                     <input type="checkbox" value="remember-me"> Remember me
                     <span class="pull-right">
-            <a data-toggle="modal" href="${pageContext.request.contextPath}/user/forgetpassword.html"> 忘记密码?</a>
+            <a data-toggle="modal" href="${pageContext.request.contextPath}/user/forgetPassword"> 忘记密码?</a>
             </span>
                 </label>
                 <button class="btn btn-theme btn-block" id="submit" type="submit"><i class="fa fa-lock"></i>登 录</button>
@@ -31,7 +31,7 @@
                 <span id="killPhoneMessage" class="glyphicon"></span>
                 <div class="registration">
                     还没有账户?<br/>
-                    <a class="" href="${pageContext.request.contextPath}/user/register.html">
+                    <a class="" href="${pageContext.request.contextPath}/user/register">
                         注册一个
                     </a>
                 </div>

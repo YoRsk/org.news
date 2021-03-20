@@ -9,7 +9,7 @@
 <body>
 <div id="login-page">
     <div class="container">
-        <form class="form-login" action="${pageContext.request.contextPath}/user/toadminLogin" method="post">
+        <form class="form-login" action="${pageContext.request.contextPath}/user/toAdminLogin" method="post">
             <h2 class="form-login-heading">管理员登录</h2>
             <div class="login-wrap">
                 <input type="text" id="username" name="username" class="form-control" placeholder="User ID" autofocus>

@@ -17,7 +17,7 @@
                         ${result.errMes}</label>
                     <h4 class="mb"><i class="fa fa-angle-right"></i>用户注册</h4>
                     <form class="form-horizontal style-form" method="post" onsubmit="return checkAll()"
-                          action="${pageContext.request.contextPath}/user/toregister">
+                          action="${pageContext.request.contextPath}/user/toRegister">
 
                         <div class="form-group">
                             <label class="col-sm-2 col-sm-2 control-label">用户名(昵称)</label>
@@ -51,7 +51,7 @@
                             <div class="col-sm-10">
                                 <input class="form-control" id="email" name="userEmail"
                                        onblur="checkemail()" <%--id="focusedInput"--%> type="text">
-                                <span id="tip_email" style="color: rebeccapurple"></span>
+                                <span class="help-block" id="tip_email"></span>
                             </div>
 
                         </div>
@@ -67,8 +67,8 @@
                             <label class="col-sm-2 col-sm-2 control-label">年 龄</label>
                             <div class="col-sm-10">
                                 <input type="text" id="age" onblur="Age()" name="userAge" class="form-control"
-                                       placeholder="0-100">
-                                <span id="tip_age" style="color: rebeccapurple"></span>
+                                       placeholder="0-120">
+                                <span class="help-block" id="tip_age"></span>
                             </div>
 
                         </div>

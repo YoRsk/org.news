@@ -53,7 +53,7 @@ public class UserDaoTest {
 
     @Test
     public void queryByOnlyEmailTest(){
-        System.out.println("User:"+userDao.queryByOnlyEmail("7574","yangxin"));
+        System.out.println("User:"+userDao.queryByOnlyEmail("782527347@qq.com","pengliuyi"));
     }
 
     @Test

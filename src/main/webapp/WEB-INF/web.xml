@@ -12,6 +12,9 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
             springmvc 的实现路径是Mybatis->spring->springMvc.
         -->
         <init-param>
+            <!--contextLoaderListener class ->contextLoader class
+            public static final String CONFIG_LOCATION_PARAM = "contextConfigLocation";
+            -->
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:spring/spring*.xml</param-value>
         </init-param>
@@ -39,7 +42,7 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     </filter-mapping>
 
     <listener>
-        <listener-class>Listenner.SessionListener</listener-class>
+        <listener-class>Listener.SessionListener</listener-class>
     </listener>
 
 </web-app>

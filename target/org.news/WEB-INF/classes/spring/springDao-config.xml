@@ -25,18 +25,18 @@
 
     <!-- 3.配置sqlSessionFactory-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"></property>
+        <property name="dataSource" ref="dataSource"/>
         <!-- 配置数据源，扫描mybatis配置文件，mapper和entity-->
-        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
-        <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
-        <property name="typeAliasesPackage" value="entity"></property>
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <property name="typeAliasesPackage" value="entity"/>
     </bean>
 
     <!-- 4.配置Dao接口扫描，实现动态接口注入-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
-        
-        <property name="basePackage" value="dao"></property>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+
+        <property name="basePackage" value="dao"/>
     </bean>
     <bean id="redisDao" class="dao.RedisDao">
         <constructor-arg index="0" value="localhost"/>

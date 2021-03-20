@@ -1,12 +1,8 @@
 package web;
 
-import Listenner.SessionListener;
 import dto.*;
-import entity.Comment;
-import entity.New;
 import entity.User;
 import enums.UserRegisterEnums;
-import org.omg.PortableInterceptor.SUCCESSFUL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +16,6 @@ import service.UserService;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.net.URLEncoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -60,7 +55,7 @@ public class UserController {
     /*
      * 跳转登录页面
      * */
-    @RequestMapping(value = "/login1.html")
+    @GetMapping(value = "/login")
     public String login() {
         return "login";
     }
@@ -80,7 +75,7 @@ public class UserController {
     /*
      * 跳转到注册页面
      * */
-    @RequestMapping(value = "/register.html")
+    @GetMapping(value = "/register")
     public String register() {
         return "register";
     }
@@ -88,7 +83,7 @@ public class UserController {
     /*
      * 跳转到找回密码
      * */
-    @RequestMapping(value = "/forgetpassword.html")
+    @GetMapping(value = "/forgetPassword")
     public String forgetpassword() {
         return "ForgetPassword";
     }
@@ -96,7 +91,7 @@ public class UserController {
     /*
      * 跳转到管理员登录
      * */
-    @RequestMapping(value = "/adminLogin.html")
+    @GetMapping(value = "/adminLogin")
     public String adminLogin() {
         return "AdminLogin";
     }
@@ -104,7 +99,7 @@ public class UserController {
     /*
      * 跳转到用户中心,未登录则条状到登录
      * */
-    @RequestMapping(value = "/center.html")
+    @GetMapping(value = "/center")
     public String center(Model model) {
         User user = (User) session.getAttribute("user");
         if (user != null) {//表示已经登录
@@ -116,7 +111,7 @@ public class UserController {
         } else {
             NewsResult<String> result = new NewsResult<>(false, "未登录");
             model.addAttribute("result", result);
-            return "redirect:/user/login1.html";
+            return "redirect:/user/login";
         }
     }
 
@@ -128,9 +123,9 @@ public class UserController {
      *
      *               已经处理事务
      * */
-    @PostMapping(value = "/toregister")
-    public String toregister(User user, Model model) {
-        logger.info("############yangxin专用日志###########  注册功能模块的前台传来的注册数据：" + user);
+    @PostMapping(value = "/toRegister")
+    public String toRegister(User user, Model model) {
+        logger.info("############pengliuyi专用日志###########  注册功能模块的前台传来的注册数据：" + user);
         User existUser = userService.selectByName(user.getUserName());
         if (existUser != null) {//说明昵称已经存在
             NewsResult<User> register = new NewsResult<User>(false, UserRegisterEnums.DBAEXIST.getStateInfo());
@@ -155,8 +150,8 @@ public class UserController {
     /*
      * 忘记密码找回密码逻辑
      * */
-    @PostMapping(value = "/toforgetpassword")
-    public String toforgetpassword(String username, String email, String password, Model model) {
+    @PostMapping(value = "/toForgetPassword")
+    public String toForgetPassword(String username, String email, String password, Model model) {
         User user = userService.selectByEmail(email, username);
         user.setUserPassword(password);
         logger.info(username + "," + email + "," + password);
@@ -181,8 +176,8 @@ public class UserController {
     /*
      * 实现管理员登录逻辑
      * */
-    @PostMapping(value = "/toadminLogin")
-    public String toadminLogin(String username, String password, Model model) {
+    @PostMapping(value = "/toAdminLogin")
+    public String toAdminLogin(String username, String password, Model model) {
         User adminuserCheck = userService.selectByName(username);
         ServletContext application = session.getServletContext();
         @SuppressWarnings("unchecked")
@@ -193,6 +188,7 @@ public class UserController {
         for (int key : loginMap.keySet()) {
             if (adminuserCheck.getUserId() == key) {
                 if (session.getId().equals(loginMap.get(key))) {
+
                     NewsResult<User> result = new NewsResult<User>(false,
                             adminuserCheck.getUserName() + "在同一地点重复登录");
                     model.addAttribute("adminresult", result);
@@ -232,12 +228,12 @@ public class UserController {
      *
      * */
     @PostMapping(value = "/login")
-    public String tologin(String username,
+    public String toLogin(String username,
                           String password, Model model) {
         User userCheck = userService.selectByName(username);
         //检查是否已经登录
         ServletContext application = session.getServletContext();
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked")//取消类型强制转换的警告
         Map<Integer, Object> loginMap = (Map<Integer, Object>) application.getAttribute("loginMap");
         if (loginMap == null) {
             loginMap = new HashMap<Integer, Object>();

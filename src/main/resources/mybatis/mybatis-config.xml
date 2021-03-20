@@ -13,5 +13,7 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
         
     </settings>
-    
+    <!--mapper肯定是不能配在mybatis-config.xml的<Mappers>里了，因为里面的方式都需要接口和xml在统一文件夹下
+    其次，在sqlSessionFactory.mapperLocations指定mapper.xml的路径，
+    在mapperScannerConfigurer.basePackage指定mapper接口的包名。-->
 </configuration>

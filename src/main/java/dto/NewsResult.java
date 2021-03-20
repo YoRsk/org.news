@@ -9,7 +9,7 @@ public class NewsResult<T> {
 
     private T data;
 
-    private String errMes;
+    private String errMes;//返回的错误字符串信息
 
     public NewsResult(boolean success, String errMes) {
         this.success = success;

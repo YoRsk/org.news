@@ -12,7 +12,7 @@
                ②: 提供一系列的功能：Url的数据绑定，数字和日期的format @NumberFormat，@DataTimeFormat
                xml,json的默认读写支持。
     -->
-    <mvc:annotation-driven></mvc:annotation-driven>
+    <mvc:annotation-driven/>
     <!-- servletMapping的映射路径是"/"-->
     <!-- 静态资源默认servlet配置
          1.加入对静态资源的处理：js,gif,png

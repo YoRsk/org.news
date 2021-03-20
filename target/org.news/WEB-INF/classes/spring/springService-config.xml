@@ -7,7 +7,7 @@
     <context:component-scan base-package="service"/>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"></property>
+        <property name="dataSource" ref="dataSource"/>
         <!--ref="dataSource"标红表示在当前的配置下面找不到这个dataSource这个配置，显然这个配置在springDao-config.xml中
             进行配置的，所以在运行中会自动的合并这两个配置文件并且找到这个DataSource。
         -->
@@ -16,5 +16,5 @@
     <!--配置基于注解的声明式事务
         默认使用注解来管理事务驱动
     -->
-    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>
