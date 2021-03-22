@@ -426,21 +426,20 @@
             <div class="comment_box">
                 <div class="new_comment">
                     <div class="header1" id="J_Header"><h1 class="header-title">网友评论</h1>
-                        <p class="header-protocol">文明上网理性发言，请遵守<a
-                                href="" target="_blank">新闻评论服务协议</a></p>
-                        <a class="header-number" href=""> <i id="J_CommentTotal"></i>条评论
-                        </a></div>
+                        <p class="header-protocol">文明上网理性发言，请遵守新闻评论服务协议</p>
+                        </div>
                     <div class="box" id="J_Post">
                         <div class="common-avatar my-avatar J_userCenter"><img
                                 src="${pageContext.request.contextPath}/resource/img/friends/avatar.png"
                                 width="100%" height="100%"></div>
                         <div>${insertComment.errMes}</div>
                         <div class="box-content box-login">
-                            <form action="/new/submitcomment" method="post">
+                            <form action="${pageContext.request.contextPath}/new/submitcomment" method="post">
+                                <input name="newId" value="${detaildata.aNew.newId}" style="display: none">
+
                                 <div class="box-textarea-block">
                                 <textarea class="box-textarea J_Textarea" name="commentContent" id="J_Textarea"
                                           placeholder="说两句吧..."></textarea></div>
-                                <input name="newId" value="${detaildata.aNew.newId}" style="display: none">
                                 <button class="btn btn-danger btn-xs" type="submit">提交评论</button>
                             </form>
                             </li>
@@ -460,7 +459,7 @@
                                 <c:forEach var="comment" items="${commentlist}">
 
                                     <div class="common-avatar J_User" data-userid="692770537"><img
-                                            src="${pageContext.request.contextPath}/resource/img/friends/fr-08.jpg"
+                                            src="${pageContext.request.contextPath}/resource/img/friends/avatar.png"
                                             width="100%" height="100%"></div>
                                     <div class="comment-block" id="J_CommentBlock6484404667763062250"><p
                                             class="comment-user"><span class="comment-username J_User"
@@ -470,10 +469,6 @@
                                         <div class="comment-content J_CommentContent">
                                                 ${comment.comment.content}
                                         </div>
-                                    </div>
-                                    <div class="J_Report comment-report" id=""
-                                         data-userid="" data-targetid=""
-                                         data-id="">举报
                                     </div>
                                 </c:forEach>
                             </div>
@@ -486,5 +481,17 @@
         <!-- /wrapper -->
     </section>
 </div>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script>
+    function reply(obj) {
+        /*var commentId = $(obj).data('commentid');
+        var commentNickname = $(obj).data('commentnickname');
+        $("[name='content']").attr("placeholder", "@"+commentNickname).focus();
+        $("[name='parentComment.id']").val(commentId);*/
+        $(window).scrollTo($('#J_Short'),500);//没用
+    }
+</script>
 </body>
 </html>

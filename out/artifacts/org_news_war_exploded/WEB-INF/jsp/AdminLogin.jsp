@@ -25,6 +25,13 @@
                         session.removeAttribute("adminresult");
                     %>
                 </div>
+                <hr>
+                <div class="registration">
+                  <span class="pull-right">
+                      <a href="${pageContext.request.contextPath}/user/login">用户登录</a>
+                  </span>
+                </div>
+                <br>
             </div>
         </form>
     </div>

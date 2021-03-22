@@ -15,11 +15,14 @@
                 <br>
                 <input type="password" id="password" name="password" class="form-control" placeholder="Password">
                 <label class="checkbox">
-                    <input type="checkbox" value="remember-me"> Remember me
+                    <div class="col-sm-offset-1">
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </div>
                     <span class="pull-right">
-            <a data-toggle="modal" href="${pageContext.request.contextPath}/user/forgetPassword"> 忘记密码?</a>
-            </span>
+                        <a data-toggle="modal" href="${pageContext.request.contextPath}/user/forgetPassword"> 忘记密码?</a>
+                </span>
                 </label>
+
                 <button class="btn btn-theme btn-block" id="submit" type="submit"><i class="fa fa-lock"></i>登 录</button>
                 <hr>
                 <div style="color: rebeccapurple">
@@ -28,9 +31,11 @@
                         session.removeAttribute("result");
                     %>
                 </div>
-                <span id="killPhoneMessage" class="glyphicon"></span>
+                <span class="pull-right">
+                        <a href="${pageContext.request.contextPath}/user/adminLogin">管理员登录</a>
+                </span>
                 <div class="registration">
-                    还没有账户?<br/>
+                    还没有账户?
                     <a class="" href="${pageContext.request.contextPath}/user/register">
                         注册一个
                     </a>
