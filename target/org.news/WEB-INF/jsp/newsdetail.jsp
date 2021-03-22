@@ -432,7 +432,7 @@
                         </a></div>
                     <div class="box" id="J_Post">
                         <div class="common-avatar my-avatar J_userCenter"><img
-                                src="${pageContext.request.contextPath}/resource/img/friends/fr-08.jpg"
+                                src="${pageContext.request.contextPath}/resource/img/friends/avatar.png"
                                 width="100%" height="100%"></div>
                         <div>${insertComment.errMes}</div>
                         <div class="box-content box-login">
