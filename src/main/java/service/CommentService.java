@@ -6,10 +6,7 @@ import entity.Comment;
 
 import java.util.List;
 
-/**
- * @author yangxin
- * @time 2018/12/25  14:16
- */
+
 public interface CommentService {
     /*
     * 添加评论

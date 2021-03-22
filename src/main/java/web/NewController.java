@@ -21,10 +21,6 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author pengliuyi
- * @time 2021/3/16  12:51
- */
 @Controller
 @RequestMapping("/new")
 public class NewController {
@@ -127,20 +123,20 @@ public class NewController {
         } else {//表示未登录
             NewsResult<Comment> result = new NewsResult<Comment>(false, CommentEnums.UNLOGIN.getStateInfo());
             model.addAttribute("insertComment", result);
-            return "redirect:/user/login1.html";
+            return "redirect:/user/login";
         }
         return "redirect:/new/detail?newId=" + newId;
     }
 
-    @RequestMapping(value = "/editor.html")
+    @RequestMapping(value = "/editor")
     public String editor(int index) {
         User user = (User) session.getAttribute("user");
         if (user != null) {//表示已经登录
             return "editor";
         }else{
             if(index==1)
-            return "redirect:/user/login1.html";
-            return "redirect:/user/adminLogin.html";
+            return "redirect:/user/login";
+            return "redirect:/user/adminLogin";
         }
     }
 
@@ -176,8 +172,8 @@ public class NewController {
                     NewsResult<New> result = new NewsResult<New>(true, news);
                     model.addAttribute("insertNewResult", result);
                     if(user.getUserType()==2)
-                    return "redirect:/new/adminIndex.html";
-                    return "redirect:/user/index.html";
+                    return "redirect:/new/adminIndex";
+                    return "redirect:/user/index";
                 }
             }
         } else {
@@ -200,8 +196,8 @@ public class NewController {
             model.addAttribute("result", result);
         }
         if(tag==1)
-            return "redirect:/user/center.html";
-            return "redirect:/new/adminIndex.html";
+            return "redirect:/user/center";
+            return "redirect:/new/adminIndex";
     }
 
     @RequestMapping(value = "/edit")
@@ -220,9 +216,9 @@ public class NewController {
             NewsResult<New> result = new NewsResult<New>(false, InsertNewEnums.UNOPERATION.getStateinfo());
             model.addAttribute("editResult", result);
             if (useradmin.getUserType() == 2)
-                return "redirect:/new/adminIndex.html";
+                return "redirect:/new/adminIndex";
             else
-                return "redirect:/user/index.html";
+                return "redirect:/user/index";
         }
     }
 
@@ -241,8 +237,8 @@ public class NewController {
                 NewsResult<New> newNewsResult = new NewsResult<New>(true, news);
                 model.addAttribute("updateResult", newNewsResult);
                 if(user.getUserType()!=2)
-                    return "redirect:/user/center.html";
-                return "redirect:/new/adminIndex.html";
+                    return "redirect:/user/center";
+                return "redirect:/new/adminIndex";
             }
         } else {
             NewsResult<New> newNewsResult = new NewsResult<New>(false, InsertNewEnums.UNLOGIN.getStateinfo());
@@ -263,14 +259,14 @@ public class NewController {
             return "AdminIndex";
         }
         else{
-            return "redirect:/new/adminIndex.html";
+            return "redirect:/new/adminIndex";
         }
     }
 
     /*
     * 模糊查询评论
     * */
-    @RequestMapping(value = "/seleceCommentByLike")
+    @RequestMapping(value = "/selectCommentByLike")
     public String selectCommentByLike(String selectkey,Model model){
         logger.info("############yangxin专用日志###########  模糊查询功能模块的前台返回的字段数据："+selectkey);
         if(!selectkey.equals("")){
@@ -279,30 +275,30 @@ public class NewController {
             return "AdminIndexComment";
         }
         else{
-            return "redirect:/new/commentlist.html";
+            return "redirect:/new/commentlist";
         }
     }
 
     /*
      * 模糊查询用户
      * */
-    @RequestMapping(value = "/seleceUserByLike")
+    @RequestMapping(value = "/selectUserByLike")
     public String selectUserByLike(String selectkey,Model model){
-        logger.info("############yangxin专用日志###########  模糊查询功能模块的前台返回的字段数据："+selectkey);
+        logger.info("############pengliuyi专用日志###########  模糊查询功能模块的前台返回的字段数据："+selectkey);
         if(!selectkey.equals("")){
             List<User> list = userService.selectUserByLike(selectkey);
             model.addAttribute("userList",list);
             return "AdminIndexUser";
         }
         else{
-            return "redirect:/new/userlist.html";
+            return "redirect:/new/userList";
         }
     }
 
     /*
      * 关键字查询新闻
      * */
-    @RequestMapping(value = "/seleceByKey")
+    @RequestMapping(value = "/selectByKey")
     public String selectByKey(String selectkey,Model model){
         logger.info("############yangxin专用日志###########  模糊查询功能模块的前台返回的字段数据："+selectkey);
         if(!selectkey.equals("")){
@@ -311,7 +307,7 @@ public class NewController {
             return "AdminIndex";
         }
         else{
-            return "redirect:/new/adminIndex.html";
+            return "redirect:/new/adminIndex";
         }
     }
 
@@ -320,10 +316,10 @@ public class NewController {
      * */
     @RequestMapping(value = "/ForceLogout")
     public String ForceLogout(String userName, Model model) {
-        //userService.ForceLogout(userName);
+        userService.ForceLogout(userName);
         NewsResult<User> result = new NewsResult<User>(true, "注销成功");
         model.addAttribute("resultLogout", result);
-        return "redirect:/new/userlist.html";
+        return "redirect:/new/userList";
     }
 
 }

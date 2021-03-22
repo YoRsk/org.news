@@ -9,10 +9,7 @@ import entity.User;
 
 import java.util.List;
 
-/**
- * @author yangxin
- * @time 2018/12/25  10:57
- */
+
 public interface NewService {
 
     /*

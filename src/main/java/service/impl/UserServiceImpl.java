@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author yangxin
+ * @author pengliuyi
  * @time 2018/12/25  9:20
  */
 @Service
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
             if (redisUser == null) {
 
                 String res = redisDao.setUser(redisKey, user);
-                logger.info("############yangxin专用日志########### 注册功能模块的插入Redis数据返回值：" + res);
+                logger.info("############pengliuyi专用日志########### 注册功能模块的插入Redis数据返回值：" + res);
                 int insertCount = userDao.insertUser(user);
                 if (insertCount <= 0) {
                     throw new UserInsertException(UserRegisterEnums.FAIL.getStateInfo());
@@ -87,11 +87,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(String userName, String Password) {
         String password = getSalt(Password);
-        User dbUser = userDao.queryById(userName, password);
-        if (dbUser != null) {
-            return dbUser;
-        }
-        return null;
+        return userDao.queryById(userName, password);
     }
 
     @Override
@@ -139,12 +135,12 @@ public class UserServiceImpl implements UserService {
             ServletContext application = session.getServletContext();
             @SuppressWarnings("unchecked")
             Map<Integer, Object> loginMap = (Map<Integer, Object>) application.getAttribute("loginMap");
-            logger.info("############yangxin专用日志###########  强制注销功能模块的数据：" + u.getUserId());
+            logger.info("############pengliuyi专用日志###########  强制注销功能模块的数据：" + u.getUserId());
             loginMap.remove((int) u.getUserId());
             application.setAttribute("loginMap", loginMap);
         } catch (Exception e) {
             e.printStackTrace();
-            logger.info("############yangxin专用日志###########  强制注销功能模块的出现异常");
+            logger.info("############pengliuyi专用日志###########  强制注销功能模块的出现异常");
         }
     }
 
@@ -161,7 +157,7 @@ public class UserServiceImpl implements UserService {
             application.setAttribute("loginMap", loginMap);
         } catch (Exception e) {
             e.printStackTrace();
-            logger.info("############yangxin专用日志###########  强制注销功能模块的出现异常");
+            logger.info("############pengliuyi专用日志###########  强制注销功能模块的出现异常");
         }
     }
 

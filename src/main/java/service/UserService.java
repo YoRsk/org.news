@@ -5,12 +5,6 @@ import entity.User;
 
 import java.util.List;
 
-/**
- * 关于用户的操作，普通用户登录注册、管理员的登录
- *
- * @author yangxin
- * @time 2018/12/25  9:18
- */
 public interface UserService {
 
     /*

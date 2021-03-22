@@ -62,7 +62,7 @@ public class UserController {
     /*
      * 跳转主页页面，目前弃用
      * */
-    @RequestMapping(value = "/index.html")
+    @RequestMapping(value = "/index")
     public String index(Model model) {
         NewList newList = newService.selectIndexNew();
         List<NewsData> newsData = newService.selectAllNews();
@@ -184,21 +184,21 @@ public class UserController {
         if (loginMap == null) {
             loginMap = new HashMap<Integer, Object>();
         }
-        for (int key : loginMap.keySet()) {
+/*        for (int key : loginMap.keySet()) {
             if (adminuserCheck.getUserId() == key) {
                 if (session.getId().equals(loginMap.get(key))) {
-//                    NewsResult<User> result = new NewsResult<User>(false,
-//                            adminuserCheck.getUserName() + "在同一地点重复登录");
-//                    model.addAttribute("adminresult", result);
+                    NewsResult<User> result = new NewsResult<User>(false,
+                            adminuserCheck.getUserName() + "在同一地点重复登录");
+                    model.addAttribute("adminresult", result);
                     return "adminIndex";//已登录，返回用户首页
-//                } else {
-//                    NewsResult<User> result = new NewsResult<User>(false,
-//                            adminuserCheck.getUserName() + "异地已登录，请先退出登录");
-//                    model.addAttribute("adminresult", result);
-//                    return "AdminLogin";
+                } else {
+                    NewsResult<User> result = new NewsResult<User>(false,
+                            adminuserCheck.getUserName() + "异地已登录，请先退出登录");
+                    model.addAttribute("adminresult", result);
+                    return "AdminLogin";
                 }
             }
-        }
+        }*/
         User user = userService.login(username, password);
         if (user != null && user.getUserType() == 1) {
             NewsResult<User> result = new NewsResult<User>(true, user);
@@ -236,21 +236,21 @@ public class UserController {
         if (loginMap == null) {
             loginMap = new HashMap<Integer, Object>();
         }
-        for (int key : loginMap.keySet()) {
-            if (userCheck.getUserId() == key) {
-                if (session.getId().equals(loginMap.get(key))) {
+//        for (int key : loginMap.keySet()) {
+//            if (userCheck.getUserId() == key) {
+//                if (session.getId().equals(loginMap.get(key))) {
 //                    NewsResult<User> result = new NewsResult<User>(false,
 //                            userCheck.getUserName() + "在同一地点重复登录");
 //                    model.addAttribute("result", result);
-                    return "login";
+//                    return "login";
 //                } else {
 //                    NewsResult<User> result = new NewsResult<User>(false,
 //                            userCheck.getUserName() + "异地已登录，请先退出登录");
 //                    model.addAttribute("result", result);
 //                    return "login";
-                }
-            }
-        }
+//                }
+//            }
+//        }
         //表示没有登录冲突
         User user = userService.login(username, password);
         if (user != null) {
