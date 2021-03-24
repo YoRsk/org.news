@@ -139,7 +139,6 @@ public class NewController {
             return "redirect:/user/adminLogin";
         }
     }
-
     @RequestMapping("/detail")
     public String detail(long newId, Model model) {
         NewDetail newsData = newService.selectNew(newId);
@@ -184,7 +183,6 @@ public class NewController {
             return "editor";
         }
     }
-
     @RequestMapping(value = "/delete")
     public String delete(long newId, String userName,int tag, Model model) {
         logger.info("****************" + newId + "," + userName);
@@ -248,7 +246,35 @@ public class NewController {
             return "editNews";
         }
     }
-
+    @RequestMapping("/updateState")
+    public String updateState(long newId,int states,Model model){
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            NewDetail detail = newService.selectNew(newId);
+            New news = detail.getaNew();
+            if(user.getUserType() != 1){
+                //如果不是管理员那么不允许修改状态。
+                NewsResult<New> result = new NewsResult<New>(false, InsertNewEnums.UNOPERATION.getStateinfo());
+                model.addAttribute("updateStateResult", result);
+                return "redirect:/user/index";
+            }
+            //是管理员 开始修改新闻状态
+            news.setStates(states);
+            InsertNewState state = newService.updateState(news);
+            if (state.getState() != 1) {//更新失败
+                NewsResult<New> newNewsResult = new NewsResult<New>(false, state.getStateInfo());
+                model.addAttribute("updateStateResult", newNewsResult);
+            } else {
+                NewsResult<New> newNewsResult = new NewsResult<New>(true, news);
+                model.addAttribute("updateStateResult", newNewsResult);
+            }
+            return "redirect:/new/adminIndex";
+        } else {
+            NewsResult<New> newNewsResult = new NewsResult<New>(false, InsertNewEnums.UNLOGIN.getStateinfo());
+            model.addAttribute("updateResult", newNewsResult);
+            return "redirect:/user/adminLogin";
+        }
+    }
     /*
     * 模糊查询新闻
     * */

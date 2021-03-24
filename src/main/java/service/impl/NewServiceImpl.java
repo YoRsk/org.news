@@ -153,6 +153,30 @@ public class NewServiceImpl implements NewService {
     }
 
     @Override
+    public InsertNewState updateState(New n)
+            throws NewException, UpdateNewException{
+        New aNew = newDao.queryByNewId(n.getNewId());
+        try{
+            if (aNew == null){
+                return new InsertNewState(n.getNewId(),InsertNewEnums.NOTEXIST);
+            } else {
+                int countUpdate = newDao.updateState(n);
+                if (countUpdate <= 0) {
+                    throw new UpdateNewException(InsertNewEnums.FAIL.getStateinfo());
+                } else {
+                    return new InsertNewState(n.getNewId(), InsertNewEnums.SUCCESS, n);
+                }
+            }
+        }catch (UpdateNewException e1) {
+            logger.error(e1.getMessage(), e1);
+            return new InsertNewState(n.getNewId(), InsertNewEnums.FAIL);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return new InsertNewState(n.getNewId(), InsertNewEnums.INNER_ERROR);
+        }
+    }
+
+    @Override
     public List<NewsData> selectNewsByLike(String key) {
         return newDao.selectByLike(key);
     }

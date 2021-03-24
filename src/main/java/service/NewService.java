@@ -48,7 +48,10 @@ public interface NewService {
     * 更新新闻内容
     * */
     InsertNewState updateNews(New n);
-
+    /*
+     * 更新新闻状态
+     * */
+    InsertNewState updateState(New n);
     /*
     * 模糊查询
     * */

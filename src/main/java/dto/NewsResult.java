@@ -1,9 +1,6 @@
 package dto;
 
-/**
- * @author yangxin
- * @time 2018/12/26  11:34
- */
+
 public class NewsResult<T> {
     private boolean success;
 

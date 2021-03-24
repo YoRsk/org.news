@@ -4,8 +4,9 @@
 <html>
 <head>
     <title>后台主页-新闻列表</title>
-    <%@include file="common/header.jsp" %>
+    <%@include file="common/adminheader.jsp" %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/to-do.css">
+
 </head>
 <body>
 
@@ -158,7 +159,7 @@
                             <th><i class="fa fa-user"></i> 作者账户</th>
                             <th><i class="fa fa-tasks"></i> 标题</th>
                             <th class="hidden-phone"><i class="fa fa-question-circle"></i> 描述</th>
-                            <th class="hidden-phone"><i class="fa fa-bars"></i> 发表时间</th>
+                            <th class="hidden-phone"><i class="fa fa-bars"></i> 创建时间</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -175,6 +176,23 @@
                                 <td><fmt:formatDate value="${news.aNew.createTime}"
                                                     pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
                                 <td>
+                                    <div class="btn-group  dropleft">
+                                        <button class="btn btn-info " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-star ">状态</i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="/new/updateState?newId=${news.aNew.newId}&states=0">待审核</a>
+                                            <a class="dropdown-item" href="/new/updateState?newId=${news.aNew.newId}&states=1">待编辑</a>
+                                            <a class="dropdown-item" href="/new/updateState?newId=${news.aNew.newId}&states=2">已发表</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">当前状态：
+                                                <c:if test="${news.aNew.states==0}">待审核</c:if>
+                                                <c:if test="${news.aNew.states==1}">待编辑</c:if>
+                                                <c:if test="${news.aNew.states==2}">已发表</c:if>
+                                            </a>
+                                        </div>
+                                    </div>
+
                                     <a href="/new/detail?newId=${news.aNew.newId}">
                                         <button class="btn btn-success">
                                             <i class="fa fa-check">
@@ -184,11 +202,13 @@
                                         <button class="btn btn-primary"><i class="fa fa-pencil">修改
                                         </i></button>
                                     </a>
+
                                     <a href="/new/delete?newId=${news.aNew.newId}&userName=${news.userName}&tag=2">
                                         <button class="btn btn-danger">
                                             <i class="fa fa-trash-o ">
                                                 删除</i></button>
                                     </a>
+
 
                                 </td>
                             </tr>
@@ -226,7 +246,6 @@
 </section>
 
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
 
 <script class="include" type="text/javascript"
@@ -236,6 +255,10 @@
 <script src="${pageContext.request.contextPath}/resource/lib/common-scripts.js"></script>
 
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<%--下拉框所需组件--%>
+<script src="https://cdn.bootcss.com/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<script src="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <%--
 <script type="text/javascript" src="${pageContext.request.contextPath}/resource/css/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resource/css/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>

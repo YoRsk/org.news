@@ -47,7 +47,10 @@ public interface NewDao {
     * 更新新闻数据
     * */
     int updateNew(New news);
-
+    /*
+     * 更新新闻状态
+     * */
+    int updateState(New news);
     /*
     * 模糊查询
     * */
