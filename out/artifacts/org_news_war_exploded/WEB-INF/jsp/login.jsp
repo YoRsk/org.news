@@ -32,7 +32,7 @@
                     %>
                 </div>
                 <span class="pull-right">
-                        <a href="${pageContext.request.contextPath}/user/adminLogin">管理员登录</a>
+                        <a href="${pageContext.request.contextPath}/admin/login">管理员登录</a>
                 </span>
                 <div class="registration">
                     还没有账户?

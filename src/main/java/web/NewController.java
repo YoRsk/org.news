@@ -98,7 +98,7 @@ public class NewController {
         if (login.getUserType() == 2)
             return "redirect:/new/commentList";
         else
-            return "redirect:/user/index";
+            return "redirect:/index";
     }
 
     @RequestMapping("/submitcomment")
@@ -174,7 +174,7 @@ public class NewController {
                     model.addAttribute("insertNewResult", result);
                     if(user.getUserType()==2)
                     return "redirect:/new/adminIndex";
-                    return "redirect:/user/index";
+                    return "redirect:/index";
                 }
             }
         } else {
@@ -218,7 +218,7 @@ public class NewController {
             if (useradmin.getUserType() == 1)
                 return "redirect:/new/adminIndex";
             else
-                return "redirect:/user/index";
+                return "redirect:/index";
         }
     }
 
@@ -256,7 +256,7 @@ public class NewController {
                 //如果不是管理员那么不允许修改状态。
                 NewsResult<New> result = new NewsResult<New>(false, InsertNewEnums.UNOPERATION.getStateinfo());
                 model.addAttribute("updateStateResult", result);
-                return "redirect:/user/index";
+                return "redirect:/index";
             }
             //是管理员 开始修改新闻状态
             news.setStates(states);

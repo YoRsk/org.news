@@ -20,7 +20,7 @@ var user={
                             var users=result['data'];
                             //时间判断 计时交互
                             $.cookie('user', users, {expries: 7, path: '/'});
-                            window.location.href("http://localhost:8080/user/index");
+                            window.location.href("http://localhost:8080/index");
                             alert('result='+result);
                             alert("funck2");
                             console.log('result='+result);

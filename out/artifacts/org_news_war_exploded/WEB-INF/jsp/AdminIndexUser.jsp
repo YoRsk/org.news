@@ -17,7 +17,7 @@
             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
         </div>
         <!--logo start-->
-        <a href="${pageContext.request.contextPath}/user/index.html" class="logo"><b><span>新闻页</span></b></a>
+        <a href="${pageContext.request.contextPath}/index.html" class="logo"><b><span>新闻页</span></b></a>
         <!--logo end-->
         <div class="top-menu">
             <ul class="pull-right top-menu">

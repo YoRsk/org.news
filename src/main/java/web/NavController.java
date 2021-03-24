@@ -22,17 +22,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * UserController包含有登录、注册、用户信息修改三个模块。
- * 采用RESTful设计URL接口：
- * 登录接口 ：POST/login
- * 注册：POST/user/resgister
- * 更新：POST/user/update
+ * NavController导航界面跳转
+ * 用户中心/user/center
+ * 主页/index
  * @author pengliuyi
  * @time 2021/3/14  13:11
  */
 @Controller
-@RequestMapping(value = "/user")
-public class UserController {
+@RequestMapping
+public class NavController {
     //日志打印。
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -46,15 +44,11 @@ public class UserController {
     private CommentService commentService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private HttpServletRequest request;
 
 
-
     /*
-     * 跳转主页页面，目前弃用
+     * 跳转主页页面
      * */
     @RequestMapping(value = "/index")
     public String index(Model model) {
@@ -66,25 +60,9 @@ public class UserController {
     }
 
     /*
-     * 跳转到找回密码
+     * 跳转到用户中心,未登录则跳转到登录
      * */
-    @GetMapping(value = "/forgetPassword")
-    public String forgetpassword() {
-        return "ForgetPassword";
-    }
-
-    /*
-     * 跳转到注册页面
-     * */
-    @GetMapping(value = "/register")
-    public String register() {
-        return "register";
-    }
-
-    /*
-     * 跳转到用户中心,未登录则条状到登录
-     * */
-    @GetMapping(value = "/center")
+    @GetMapping(value = "/user/center")
     public String center(Model model) {
         User user = (User) session.getAttribute("user");
         if (user != null) {//表示已经登录
@@ -100,31 +78,7 @@ public class UserController {
         }
     }
 
-    /*
-     * 忘记密码找回密码逻辑
-     * */
-    @PostMapping(value = "/toForgetPassword")
-    public String toForgetPassword(String username, String email, String password, Model model) {
-        User user = userService.selectByEmail(email, username);
-        user.setUserPassword(password);
-        logger.info(username + "," + email + "," + password);
-        if (user != null) {
-            ResgisterState state = userService.updateUser(user);
-            if (state.getState() != 1) {
-                NewsResult<User> forget = new NewsResult<User>(false, state.getStateInfo());
-                model.addAttribute("result", forget);
-                return "ForgetPassword";
-            } else {
-                NewsResult<User> forget = new NewsResult<User>(true, user);
-                model.addAttribute("result", forget);
-                return "login";
-            }
-        } else {
-            NewsResult<User> forget = new NewsResult<User>(false, UserRegisterEnums.NOTEXIST.getStateInfo());
-            model.addAttribute("result", forget);
-            return "ForgetPassword";
-        }
-    }
+
 
 
 
