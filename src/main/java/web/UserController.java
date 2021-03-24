@@ -51,13 +51,7 @@ public class UserController {
     @Autowired
     private HttpServletRequest request;
 
-    /*
-     * 跳转登录页面
-     * */
-    @GetMapping(value = "/login")
-    public String login() {
-        return "login";
-    }
+
 
     /*
      * 跳转主页页面，目前弃用
@@ -72,14 +66,6 @@ public class UserController {
     }
 
     /*
-     * 跳转到注册页面
-     * */
-    @GetMapping(value = "/register")
-    public String register() {
-        return "register";
-    }
-
-    /*
      * 跳转到找回密码
      * */
     @GetMapping(value = "/forgetPassword")
@@ -88,11 +74,11 @@ public class UserController {
     }
 
     /*
-     * 跳转到管理员登录
+     * 跳转到注册页面
      * */
-    @GetMapping(value = "/adminLogin")
-    public String adminLogin() {
-        return "AdminLogin";
+    @GetMapping(value = "/register")
+    public String register() {
+        return "register";
     }
 
     /*
@@ -111,38 +97,6 @@ public class UserController {
             NewsResult<String> result = new NewsResult<>(false, "未登录");
             model.addAttribute("result", result);
             return "redirect:/user/login";
-        }
-    }
-
-    /*
-     * 实现注册逻辑.
-     * 1：优化，在极端时间中，同时注册相同Username(原数据库中没有)，会导致同时插入非法数据。
-     *    解决思路：使用Redis做二级缓存，注册时先要去缓存中去查找，如果有，那么已经被注册，表示不能注册。
-     *               如果没有，注册成功的时候也往redis中插入。
-     *
-     *               已经处理事务
-     * */
-    @PostMapping(value = "/toRegister")
-    public String toRegister(User user, Model model) {
-        logger.info("############pengliuyi专用日志###########  注册功能模块的前台传来的注册数据：" + user);
-        User existUser = userService.selectByName(user.getUserName());
-        if (existUser != null) {//说明昵称已经存在
-            NewsResult<User> register = new NewsResult<User>(false, UserRegisterEnums.DBAEXIST.getStateInfo());
-            model.addAttribute("result", register);
-            return "register";
-        } else {
-            user.setCreateTime(new Date());
-            ResgisterState res = userService.register(user);
-            if (res.getState() != 1) {//表示不成功
-                NewsResult<User> register = new NewsResult<User>(false, res.getStateInfo());
-                model.addAttribute("result", register);
-                return "register";
-            } else {
-                NewsResult<User> register = new NewsResult<User>(true, user);
-                model.addAttribute("result", register);
-                session.setAttribute("user", user);
-                return "login";
-            }
         }
     }
 
@@ -172,121 +126,7 @@ public class UserController {
         }
     }
 
-    /*
-     * 实现管理员登录逻辑
-     * */
-    @PostMapping(value = "/toAdminLogin")
-    public String toAdminLogin(String username, String password, Model model) {
-        User adminuserCheck = userService.selectByName(username);
-        ServletContext application = session.getServletContext();
-        @SuppressWarnings("unchecked")
-        Map<Integer, Object> loginMap = (Map<Integer, Object>) application.getAttribute("loginMap");
-        if (loginMap == null) {
-            loginMap = new HashMap<Integer, Object>();
-        }
-/*        for (int key : loginMap.keySet()) {
-            if (adminuserCheck.getUserId() == key) {
-                if (session.getId().equals(loginMap.get(key))) {
-                    NewsResult<User> result = new NewsResult<User>(false,
-                            adminuserCheck.getUserName() + "在同一地点重复登录");
-                    model.addAttribute("adminresult", result);
-                    return "adminIndex";//已登录，返回用户首页
-                } else {
-                    NewsResult<User> result = new NewsResult<User>(false,
-                            adminuserCheck.getUserName() + "异地已登录，请先退出登录");
-                    model.addAttribute("adminresult", result);
-                    return "AdminLogin";
-                }
-            }
-        }*/
-        User user = userService.login(username, password);
-        if (user != null && user.getUserType() == 1) {
-            NewsResult<User> result = new NewsResult<User>(true, user);
-            model.addAttribute("adminresult", result);
-            model.addAttribute("customer", user);
-            //将登录信息存入application
-            loginMap.put((int) adminuserCheck.getUserId(), session.getId());
-            application.setAttribute("loginMap", loginMap);
-            // 将用户保存在session当中
-            session.setAttribute("user", adminuserCheck);
-            // session 销毁时间
-            session.setMaxInactiveInterval(10 * 60);
-            return "redirect:/new/adminIndex";
-        } else {
-            NewsResult<User> result = new NewsResult<User>(false, "用户名或者密码错误或者你不是管理员");
-            model.addAttribute("adminresult", result);
-            return "AdminLogin";
-        }
-    }
 
-    /*
-     * 实现登录逻辑
-     *
-     * 优化：1.限制用户在多个客户端登录的限制,使用application存储登录信息
-     *
-     * */
-    @PostMapping(value = "/login")
-    public String toLogin(String username,
-                          String password, Model model) {
-        User userCheck = userService.selectByName(username);
-        //检查是否已经登录
-        ServletContext application = session.getServletContext();
-        @SuppressWarnings("unchecked")//取消类型强制转换的警告
-        Map<Integer, Object> loginMap = (Map<Integer, Object>) application.getAttribute("loginMap");
-        if (loginMap == null) {
-            loginMap = new HashMap<Integer, Object>();
-        }
-//        for (int key : loginMap.keySet()) {
-//            if (userCheck.getUserId() == key) {
-//                if (session.getId().equals(loginMap.get(key))) {
-//                    NewsResult<User> result = new NewsResult<User>(false,
-//                            userCheck.getUserName() + "在同一地点重复登录");
-//                    model.addAttribute("result", result);
-//                    return "login";
-//                } else {
-//                    NewsResult<User> result = new NewsResult<User>(false,
-//                            userCheck.getUserName() + "异地已登录，请先退出登录");
-//                    model.addAttribute("result", result);
-//                    return "login";
-//                }
-//            }
-//        }
-        //表示没有登录冲突
-        User user = userService.login(username, password);
-        if (user != null) {
-            //说明有用户，表示用户或者密码正确
-            NewsResult<User> result = new NewsResult<User>(true, user);
-            model.addAttribute("result", result);
-            //将登录信息存入application
-            loginMap.put((int) userCheck.getUserId(), session.getId());
-            application.setAttribute("loginMap", loginMap);
-            // 将用户保存在session当中
-            session.setAttribute("user", userCheck);
-            logger.info("############pengliuyi专用日志###########  登录功能模块的插入数据："+userCheck);
-            // session 销毁时间
-            session.setMaxInactiveInterval(10 * 60);
-            return "redirect:/user/index";
-        } else {
-            NewsResult<User> result = new NewsResult<User>(false, "用户名或者密码错误");
-            model.addAttribute("result", result);
-            return "login";
-        }
-    }
-
-    /*
-     * 实现注销登录
-     * */
-    @RequestMapping(value = "/Logout")
-    public String Logout(String userName, Model model) {
-        User usercheckLog = userService.selectByName(userName);
-        userService.Logout(userName);
-        NewsResult<User> result = new NewsResult<User>(true, "注销成功");
-        model.addAttribute("resultLogout", result);
-        logger.info("############yangxin专用日志###########  注销功能模块的正常");
-        if (usercheckLog.getUserType() == 1)
-            return "redirect:/user/adminLogin";
-        return "redirect:/user/login";
-    }
 
 
 
