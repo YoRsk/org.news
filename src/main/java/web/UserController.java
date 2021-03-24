@@ -283,7 +283,7 @@ public class UserController {
         NewsResult<User> result = new NewsResult<User>(true, "注销成功");
         model.addAttribute("resultLogout", result);
         logger.info("############yangxin专用日志###########  注销功能模块的正常");
-        if (usercheckLog.getUserType() == 2)
+        if (usercheckLog.getUserType() == 1)
             return "redirect:/user/adminLogin";
         return "redirect:/user/login";
     }

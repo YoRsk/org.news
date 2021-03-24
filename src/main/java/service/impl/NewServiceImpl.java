@@ -22,10 +22,7 @@ import service.NewService;
 
 import java.util.List;
 
-/**
- * @author yangxin
- * @time 2018/12/25  13:04
- */
+
 @Service
 public class NewServiceImpl implements NewService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -117,7 +114,7 @@ public class NewServiceImpl implements NewService {
     @Override
     public InsertNewState deleteNew(long newId, User user) {
         New n = newDao.queryByNewId(newId);
-        if (n.getUserId() == user.getUserId() || user.getUserType() == 2) {
+        if (n.getUserId() == user.getUserId() || user.getUserType() == 1) {
             int countdelete = newDao.deleteNew(newId);
             if (countdelete <= 0) {
                 return new InsertNewState(newId, InsertNewEnums.FAIL);

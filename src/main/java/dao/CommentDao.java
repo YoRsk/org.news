@@ -7,10 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import javax.xml.crypto.Data;
 import java.util.List;
 
-/**
- * @author yangxin
- * @time 2018/12/24  15:00
- */
+
 public interface CommentDao {
     /*
     * 添加评论

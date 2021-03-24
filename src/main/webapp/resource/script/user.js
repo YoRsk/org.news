@@ -20,7 +20,7 @@ var user={
                             var users=result['data'];
                             //时间判断 计时交互
                             $.cookie('user', users, {expries: 7, path: '/'});
-                            window.location.href("http://localhost:8080/user/index.html");
+                            window.location.href("http://localhost:8080/user/index");
                             alert('result='+result);
                             alert("funck2");
                             console.log('result='+result);
@@ -28,7 +28,7 @@ var user={
                             console.log('result='+result);
                             alert(result['errMes']);
                             alert("fuck");
-                            window.location.href("http://localhost:8080/user/login1.html");
+                            window.location.href("http://localhost:8080/user/login");
                     }
                     });
                     //window.location.reload();

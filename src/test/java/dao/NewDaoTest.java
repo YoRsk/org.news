@@ -25,7 +25,7 @@ public class NewDaoTest {
 
     @Test
     public void insertNewTest(){
-        New n=new New(2,1009,"习近平的治国策略","fasdifjasodpaf","习近平");
+        New n=new New(2,1009,"习近平的治国策略","fasdifjasodpaf","习近平",0,0);
         System.out.println(":"+newDao.insertNew(n));
     }
 
@@ -59,7 +59,7 @@ public class NewDaoTest {
 
     @Test
     public void updateNewTest(){
-        New n=new New(2,1009,"习近平","545","习近平22");
+        New n=new New(2,1009,"习近平","545","习近平22",0,0);
         n.setNewId(2);
         System.out.println(":"+newDao.updateNew(n));
 

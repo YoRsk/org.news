@@ -25,7 +25,7 @@ public class NewServiceImplTest {
 
     @Test
     public void insertNew() {
-        New news=new New(3,1010,"奥特曼","2834ujdasndlfh","科技");
+        New news=new New(3,1010,"奥特曼","2834ujdasndlfh","科技",0,0);
         System.out.println(":"+newService.insertNew(news));
     }
 
@@ -60,7 +60,7 @@ public class NewServiceImplTest {
 
     @Test
     public void updateNews() {
-        New news=new New(3,1010,"奥特曼","2834ujdasndlfh","科技");
+        New news=new New(3,1010,"奥特曼","2834ujdasndlfh","科技",0,0);
         news.setNewId(2);
         System.out.println(":"+newService.updateNews(news));
     }

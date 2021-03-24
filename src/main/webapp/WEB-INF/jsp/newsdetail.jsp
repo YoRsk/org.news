@@ -119,13 +119,12 @@
             display: block;
             position: absolute;
             left: 0;
-            top: 0;
             z-index: 1;
             width: 50px;
             height: 50px;
             font-size: 0;
             border-radius: 50%;
-            background: url(//mat1.gtimg.com/v/comment/images/avatar_default.9d95c455.jpg) 0 0 no-repeat;
+            background: url(//mat1.gtimg.com/v/comment/images/avatar_default.9d95c455.jpg);
             overflow: hidden;
 
         }
@@ -334,32 +333,8 @@
 
         }
 
-        .center-click .my-avatar, .user-click .comment-short .common-avatar, .user-click .comment-username, .user-click .reply-user-nick {
 
-            cursor: pointer;
 
-        }
-
-        .common-avatar {
-
-            display: block;
-            position: absolute;
-            left: 0;
-            top: 0;
-            z-index: 1;
-            width: 50px;
-            height: 50px;
-            font-size: 0;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-
-        .common-avatar img {
-
-            width: 100%;
-            height: 100%;
-
-        }
 
         .comment-user {
 
@@ -429,6 +404,7 @@
                         <p class="header-protocol">文明上网理性发言，请遵守新闻评论服务协议</p>
                         </div>
                     <div class="box" id="J_Post">
+
                         <div class="common-avatar my-avatar J_userCenter"><img
                                 src="${pageContext.request.contextPath}/resource/img/friends/avatar.png"
                                 width="100%" height="100%"></div>
@@ -440,7 +416,8 @@
                                 <div class="box-textarea-block">
                                 <textarea class="box-textarea J_Textarea" name="commentContent" id="J_Textarea"
                                           placeholder="说两句吧..."></textarea></div>
-                                <button class="btn btn-danger btn-xs" type="submit">提交评论</button>
+                                <button class="btn btn-danger btn-xs" type="submit" onclick="return checkInput()">提交评论</button>
+                                <span class="help-block" id="tip_inputText"></span>
                             </form>
                             </li>
                             </ul>
@@ -457,15 +434,16 @@
                         <div id="J_ShortComment">
                             <div class="comment" id="J_Comment6484404667763062250">
                                 <c:forEach var="comment" items="${commentlist}">
-
-                                    <div class="common-avatar J_User" data-userid="692770537"><img
-                                            src="${pageContext.request.contextPath}/resource/img/friends/avatar.png"
-                                            width="100%" height="100%"></div>
-                                    <div class="comment-block" id="J_CommentBlock6484404667763062250"><p
+                                    <div class="comment-block" id="J_CommentBlock6484404667763062250">
+                                        <div class="common-avatar J_User" data-userid="692770537">
+                                            <img src="${pageContext.request.contextPath}/resource/img/friends/avatar.png"
+                                                 width="100%" height="100%">
+                                        </div>
+                                        <p
                                             class="comment-user"><span class="comment-username J_User"
                                                                        data-userid="692770537"> ${comment.username}</span>
-                                        <span
-                                                class="comment-time">${comment.comment.createTime}</span></p>
+                                        <span class="comment-time"><fmt:formatDate value="${comment.comment.createTime}" type="both"/>
+                                        </span></p>
                                         <div class="comment-content J_CommentContent">
                                                 ${comment.comment.content}
                                         </div>
@@ -485,13 +463,27 @@
 <script src="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
 <script>
-    function reply(obj) {
-        /*var commentId = $(obj).data('commentid');
-        var commentNickname = $(obj).data('commentnickname');
-        $("[name='content']").attr("placeholder", "@"+commentNickname).focus();
-        $("[name='parentComment.id']").val(commentId);*/
-        $(window).scrollTo($('#J_Short'),500);//没用
+    function checkInput() {
+        //原生js的获取节点的方式
+        var text = document.getElementById("J_Textarea").value;
+        var tip = document.getElementById("tip_inputText");
+        //不能为空
+        if (text.length==0) {
+            tip.innerHTML = "输入内容不能为空";
+            return false;
+        } else {
+            tip.innerHTML = " ";
+            return true;
+        }
     }
+    // function reply(obj) {
+    //     /*var commentId = $(obj).data('commentid');
+    //     var commentNickname = $(obj).data('commentnickname');
+    //     $("[name='content']").attr("placeholder", "@"+commentNickname).focus();
+    //     $("[name='parentComment.id']").val(commentId);*/
+    //     $(window).scrollTo($('#J_Short'),500);//没用
+    // }
+    // $('.')
 </script>
 </body>
 </html>

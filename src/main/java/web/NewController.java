@@ -80,7 +80,7 @@ public class NewController {
         User user = userService.selectByName(userName);
         User login= (User) session.getAttribute("user");
         Comment comment = commentService.selectCommentById(commentId);
-        if (login.getUserType() == 2 || user.getUserId() == login.getUserId()) {
+        if (login.getUserType() == 1 || user.getUserId() == login.getUserId()) {
             int i = commentService.deleteComment(commentId, user.getUserId());
             if (i <= 0) {
                 NewsResult<Comment> result = new NewsResult<Comment>(false, CommentEnums.FAIL.getStateInfo());
@@ -156,6 +156,8 @@ public class NewController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             news.setUserId(user.getUserId());
+            news.setViews(0);
+            news.setStates(0);//0默认待编辑
             //先确定有没有这个片文章再插入。
             New aNew = newService.selectNewsBytitle(news.getTitle());
             if(aNew!=null){//表示已经存在
@@ -206,8 +208,8 @@ public class NewController {
         User useradmin = (User) session.getAttribute("user");
         NewDetail detail = newService.selectNew(newId);
         New news = detail.getaNew();
-        logger.info("############yangxin专用日志###########  修改新闻功能模块的XX数据："+user);
-        if (useradmin.getUserType() == 2 || user.getUserId() == useradmin.getUserId()) {
+        logger.info("############pengliuyi专用日志###########  修改新闻功能模块的XX数据："+user);
+        if (useradmin.getUserType() == 1 || user.getUserId() == useradmin.getUserId()) {
             NewsResult<NewDetail> result = new NewsResult<NewDetail>(true, detail);
             model.addAttribute("editResult", result);
             return "editNews";
@@ -215,7 +217,7 @@ public class NewController {
             //如果不是作者本人或者是管理员那么不允许修改文章。
             NewsResult<New> result = new NewsResult<New>(false, InsertNewEnums.UNOPERATION.getStateinfo());
             model.addAttribute("editResult", result);
-            if (useradmin.getUserType() == 2)
+            if (useradmin.getUserType() == 1)
                 return "redirect:/new/adminIndex";
             else
                 return "redirect:/user/index";
@@ -236,7 +238,7 @@ public class NewController {
             } else {
                 NewsResult<New> newNewsResult = new NewsResult<New>(true, news);
                 model.addAttribute("updateResult", newNewsResult);
-                if(user.getUserType()!=2)
+                if(user.getUserType()!=1)
                     return "redirect:/user/center";
                 return "redirect:/new/adminIndex";
             }
@@ -256,7 +258,7 @@ public class NewController {
         if(!selectkey.equals("")){
             List<NewsData> newsData = newService.selectNewsByLike(selectkey);
             model.addAttribute("Newslist",newsData);
-            return "AdminIndex";
+            return "adminIndex";
         }
         else{
             return "redirect:/new/adminIndex";
@@ -300,11 +302,11 @@ public class NewController {
      * */
     @RequestMapping(value = "/selectByKey")
     public String selectByKey(String selectkey,Model model){
-        logger.info("############yangxin专用日志###########  模糊查询功能模块的前台返回的字段数据："+selectkey);
+        logger.info("############pengliuyi###########  模糊查询功能模块的前台返回的字段数据："+selectkey);
         if(!selectkey.equals("")){
             List<NewsData> newsData = newService.selectNewsByKey(selectkey);
             model.addAttribute("Newslist",newsData);
-            return "AdminIndex";
+            return "adminIndex";
         }
         else{
             return "redirect:/new/adminIndex";

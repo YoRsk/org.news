@@ -1,6 +1,4 @@
-/**
- * author by yangxin
- */
+
 function checkname() {
     //原生js的获取节点的方式
     username = document.getElementById("username");

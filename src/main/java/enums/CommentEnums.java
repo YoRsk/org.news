@@ -1,9 +1,6 @@
 package enums;
 
-/**
- * @author yangxin
- * @time 2019/1/4  12:40
- */
+
 public enum CommentEnums {
     SUCCESS(1, "操作成功"),
     FAIL(-2, "操作失败"),

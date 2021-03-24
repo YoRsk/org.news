@@ -122,7 +122,7 @@
                     <hr>
                     <div class="form-panel">
                         <form class="form-inline"  role="form"
-                              action="/new/seleceUserByLike"
+                              action="/new/selectUserByLike"
                               style="display: contents">
                             <div class="form-group" style="display: contents">
                                 <label class="sr-only" for="exampleInput1">模糊查询</label>

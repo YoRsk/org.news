@@ -2,14 +2,11 @@ package entity;
 
 import java.util.Date;
 
-/**
- * @author yangxin
- * @time 2018/12/24  14:20
- */
+
 public class User {
     private long userId;
 
-    private long userType;
+    private long userType;//0： 1
 
     private String userName;
 

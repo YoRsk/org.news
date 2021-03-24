@@ -148,7 +148,7 @@ public class UserServiceImpl implements UserService {
         User u = (User) session.getAttribute("user");
         User logoutUser = userDao.queryByName(UserName);
         try {
-            if (u.getUserType() == 2)
+            if (u.getUserType() == 1)
                 session.removeAttribute("user");
             ServletContext application = session.getServletContext();
             @SuppressWarnings("unchecked")

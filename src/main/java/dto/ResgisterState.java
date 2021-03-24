@@ -3,10 +3,7 @@ package dto;
 import entity.User;
 import enums.UserRegisterEnums;
 
-/**
- * @author yangxin
- * @time 2018/12/25  9:59
- */
+
 public class ResgisterState {
     private long userId;
 

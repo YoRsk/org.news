@@ -21,12 +21,19 @@ public class New {
 
     private String keyWords;
 
-    public New(long categoryId, long userId, String title, String content, String keyWords) {
+    private int views;//观看次数
+
+    private int states;//新闻状态 0 待编辑 1 待审核 2 已发表
+
+
+    public New(long categoryId, long userId, String title, String content, String keyWords,int views,int states) {
         this.categoryId = categoryId;
         this.userId = userId;
         this.title = title;
         this.content = content;
         this.keyWords = keyWords;
+        this.views = views;
+        this.states = states;
     }
 
     public New() {
@@ -43,6 +50,14 @@ public class New {
                 ", createTime=" + createTime +
                 ", keyWords='" + keyWords + '\'' +
                 '}';
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
     }
 
     public long getNewId() {
@@ -99,5 +114,13 @@ public class New {
 
     public void setKeyWords(String key_words) {
         this.keyWords = key_words;
+    }
+
+    public int getStates() {
+        return states;
+    }
+
+    public void setStates(int states) {
+        this.states = states;
     }
 }

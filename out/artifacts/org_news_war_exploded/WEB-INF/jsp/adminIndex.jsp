@@ -124,7 +124,7 @@
                     <hr>
                     <div class="form-panel">
                         <form class="form-inline" role="form"
-                              action="/new/seleceByLike" method="post"
+                              action="/new/selectByLike" method="post"
                               style="display: contents">
                             <div class="form-group" style="display: contents">
                                 <label class="sr-only" for="exampleInput1">模糊查询</label>
@@ -135,7 +135,7 @@
                             <button type="submit" class="btn btn-theme">查找</button>
                         </form>
                         <form class="form-inline"
-                              action="/new/seleceByKey"
+                              action="/new/selectByKey"
                               style="display: contents">
                             <div class="form-group" style="display: contents">
                                 <label class="sr-only" for="exampleInput2">关键字查询</label>
