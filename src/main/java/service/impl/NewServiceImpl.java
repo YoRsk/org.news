@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import service.NewService;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 @Service
@@ -61,7 +62,9 @@ public class NewServiceImpl implements NewService {
             return new InsertNewState(n.getNewId(), InsertNewEnums.INNER_ERROR);
         }
     }
-
+    /*
+     * index新闻list（未添加state==2判断)
+     * */
     @Override
     public NewList selectIndexNew() {
         List<New> hotnew = newDao.queryByCategoryId(1);
@@ -79,7 +82,6 @@ public class NewServiceImpl implements NewService {
         newList.setWORLD_NEWS(world);
         return newList;
     }
-
     @Override
     public NewDetail selectNew(long newId) {
         New news = newDao.queryByNewId(newId);
@@ -189,5 +191,20 @@ public class NewServiceImpl implements NewService {
     @Override
     public New selectNewsBytitle(String title) {
         return newDao.queryByNewName(title);
+    }
+
+    @Override
+    public NewDetail updateViews(NewDetail nd){
+        //synchronized和AtomicInteger解决并发问题
+        AtomicInteger count = new AtomicInteger(0);
+        New n = nd.getaNew();
+        if(n != null){
+            synchronized (n){
+                count.getAndIncrement();
+                n.setViews(n.getViews() + count.get());
+                newDao.updateNew(n);
+            }
+        }else logger.info("点击后查找不到该文章");
+        return nd;
     }
 }

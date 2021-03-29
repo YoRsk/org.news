@@ -31,6 +31,7 @@
 
             <div class="bar02 font_red1" style="margin-top:15px"><a href="">娱乐新闻</a></div>
             <c:forEach var="enter" items="${list.ENTERTAINMENT_NEWS}">
+                <%--<c:if test="${list.ENTERTAINMENT_NEWS.states==2} "></c:if>--%>
                 <ul style="font-size:14px">
                     <li style="background:url(http://www.stnn.cc/images/160401/16gb_bg06.gif) top left no-repeat; padding-left:14px; line-height:26px">
                         <a target="_blank" href="/new/detail?newId=${enter.newId}"

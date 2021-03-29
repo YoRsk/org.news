@@ -48,7 +48,7 @@
             <a href="index.html"><img src="${pageContext.request.contextPath}/resource/img/friends/fr-09.jpg"
                                       class="img-responsive" alt="" style="width: 100px; height: 100px"/></a>
 
-            <label style="margin-left: 200px;font-size: 40px;margin: 0;color: #ffffff;">看神马新闻</label>
+            <label style="margin-left: 200px;font-size: 40px;margin: 0;color: #ffffff;">新闻发布平台</label>
         </div>
 
 
@@ -84,7 +84,9 @@
                     <li><a href="https://www.cnblogs.com/yangdagaoge/">项目日记</a></li>
                     <li><a href="https://github.com/fireshoot/YxNews">项目地址</a></li>
                     <li><a href="${pageContext.request.contextPath}/user/center">个人中心</a></li>
-                </ul>
+                    <%if(user != null && user.getUserType() == 1){%>
+                    <li><a href="${pageContext.request.contextPath}/new/adminIndex">管理界面</a></li>
+                    <%}%>
             </div>
             <!-- script for menu -->
             <script>
@@ -109,13 +111,13 @@
             <div class="col-md-8 left_column" style="float: left">
                 <h2 class="with-line">新闻列表</h2>
                 <c:forEach var="data" items="${newData}">
+                    <c:if test="${data.aNew.states==2}">
                     <article class="clearfix">
                         <header class="grid_8 alpha">
                             <div class="sub">
                                 <a href="/new/detail?newId=${data.aNew.newId}"
                                    class="readblog">${data.aNew.title}</a>
-                                <p class="sub_head">Posted by <a href="#">${data.userName}</a> with <a href="#">3
-                                    comment(s)</a>
+                                <p class="sub_head">作者: <a href="#">${data.userName}</a> 浏览量: ${data.aNew.views}
                                 </p>
                             </div>
                             <div class="clearfix"></div>
@@ -143,6 +145,7 @@
                         </div>
                         <div class="clearfix"></div>
                     </article>
+                    </c:if>
                 </c:forEach>
 
             </div>

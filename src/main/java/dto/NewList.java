@@ -6,8 +6,6 @@ import java.util.List;
 
 /**
  * 封装前端新闻显示的所有类型的新闻数据。
- * @author yangxin
- * @time 2018/12/25  10:58
  */
 public class NewList {
 
@@ -36,6 +34,10 @@ public class NewList {
      * */
     private List<New> SPORT_NEWS;
 
+    /*
+     * 国际新闻
+     * */
+    private List<New> WORLD_NEWS;
 
 
     @Override
@@ -74,11 +76,6 @@ public class NewList {
     public List<New> getWORLD_NEWS() {
         return WORLD_NEWS;
     }
-
-    /*
-     * 国际新闻
-     * */
-    private List<New> WORLD_NEWS;
 
     public void setHOT_NEWS(List<New> HOT_NEWS) {
         this.HOT_NEWS = HOT_NEWS;

@@ -114,7 +114,7 @@ public class AccountController {
     }
 
     /*
-     * 实现注销登录(包括正常用户和管理员
+     * 实现注销登录(主页退出 包括正常用户和管理员
      * */
     @RequestMapping(value = "/Logout")
     public String Logout(String userName, Model model) {

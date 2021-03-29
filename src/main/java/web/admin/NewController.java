@@ -1,4 +1,4 @@
-package web;
+package web.admin;
 
 import dto.*;
 import entity.Comment;
@@ -21,6 +21,15 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * NewController包含管理员操作界面功能模块。
+ * 主页:/new/adminIndex
+ * 注册：POST/user/toRegister
+ * 更新：POST/user/update
+ * 找回密码：POST/user/toForgetPassword
+ * 注销接口：POST/user/Logout
+ * @author pengliuyi
+ */
 @Controller
 @RequestMapping("/new")
 public class NewController {
@@ -46,7 +55,7 @@ public class NewController {
             model.addAttribute("Newslist", list);
             return "adminIndex";
         }else{
-            return "redirect:/user/adminLogin";
+            return "redirect:/admin/login";
         }
     }
 
@@ -58,7 +67,7 @@ public class NewController {
             model.addAttribute("commentList", commentData);
             return "AdminIndexComment";
         }else{
-            return "redirect:/user/adminLogin";
+            return "redirect:/admin/login";
         }
     }
 
@@ -70,7 +79,7 @@ public class NewController {
             model.addAttribute("userList", list);
             return "AdminIndexUser";
         }else{
-            return "redirect:/user/adminLogin";
+            return "redirect:/admin/login";
         }
     }
 
@@ -136,18 +145,8 @@ public class NewController {
         }else{
             if(index==1)
             return "redirect:/user/login";
-            return "redirect:/user/adminLogin";
+            return "redirect:/admin/login";
         }
-    }
-    @RequestMapping("/detail")
-    public String detail(long newId, Model model) {
-        NewDetail newsData = newService.selectNew(newId);
-        List<CommentData> list = commentService.selectCommentByNew(newId);
-        logger.info("************新闻详细信息的新闻数据***************" + newsData.getUser());
-        logger.info("************新闻详细信息的评论数据***************" + list);
-        model.addAttribute("detaildata", newsData);
-        model.addAttribute("commentlist", list);
-        return "newsdetail";
     }
 
     @RequestMapping(value = "/submitContent")
@@ -272,7 +271,7 @@ public class NewController {
         } else {
             NewsResult<New> newNewsResult = new NewsResult<New>(false, InsertNewEnums.UNLOGIN.getStateinfo());
             model.addAttribute("updateResult", newNewsResult);
-            return "redirect:/user/adminLogin";
+            return "redirect:/admin/login";
         }
     }
     /*

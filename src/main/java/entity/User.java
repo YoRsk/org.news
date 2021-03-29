@@ -6,7 +6,7 @@ import java.util.Date;
 public class User {
     private long userId;
 
-    private long userType;//0： 1
+    private long userType;//0：普通 1:管理员
 
     private String userName;
 

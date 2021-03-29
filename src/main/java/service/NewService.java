@@ -18,7 +18,7 @@ public interface NewService {
     InsertNewState insertNew(New n);
 
     /*
-    * 获取主页的所有类型的新闻。
+    * 获取主页的所有类型的新闻。(未判断是否发表State==2)
     * */
     NewList selectIndexNew();
 
@@ -66,5 +66,10 @@ public interface NewService {
      * 根据标题查询
      * */
     New selectNewsBytitle(String title);
+
+    /*
+     * 点击时增加点击量
+     * */
+    NewDetail updateViews(NewDetail n);
 
 }

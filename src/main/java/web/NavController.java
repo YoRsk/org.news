@@ -1,6 +1,7 @@
 package web;
 
 import dto.*;
+import entity.New;
 import entity.User;
 import enums.UserRegisterEnums;
 import org.slf4j.Logger;
@@ -77,7 +78,20 @@ public class NavController {
             return "redirect:/user/login";
         }
     }
-
+    /*
+     * 跳转到具体新闻,通过ip记录浏览量
+     * */
+    @RequestMapping("/new/detail")
+    public String detail(long newId, Model model) {
+        NewDetail newsData = newService.selectNew(newId);
+        newsData = newService.updateViews(newsData);//点击量+1
+        List<CommentData> list = commentService.selectCommentByNew(newId);
+        logger.info("************新闻详细信息的新闻数据***************" + newsData.getUser());
+        logger.info("************新闻详细信息的评论数据***************" + list);
+        model.addAttribute("detaildata", newsData);
+        model.addAttribute("commentlist", list);
+        return "newsdetail";
+    }
 
 
 
