@@ -1,9 +1,11 @@
 package service.impl;
 
 import dao.CommentDao;
+import dao.UserDao;
 import dto.CommentData;
 import dto.CommentState;
 import entity.Comment;
+import entity.User;
 import enums.CommentEnums;
 import exception.CommentException;
 import exception.CommentInsertException;
@@ -16,16 +18,15 @@ import service.CommentService;
 
 import java.util.List;
 
-/**
- * @author yangxin
- * @time 2018/12/25  14:23
- */
+
 @Service
 public class CommentServiceImpl implements CommentService {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private CommentDao commentDao;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     @Transactional
@@ -76,10 +77,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public int deleteComment(long commentId, long userId) {
         Comment comment = commentDao.queryCommentById(commentId);
+        User user = userDao.queryByOnlyId(userId);
         if (comment != null) {
-            if (comment.getUserId() == userId) {
+            if (comment.getUserId() == userId ||user.getUserType() == 1) {
                 int count = commentDao.deleteComment(commentId, userId);
                 if (count <= 0)
                     return 0;

@@ -17,7 +17,7 @@
         com.create_time "comment.create_time",
         u.user_name "userName",
         news.title  "newtitle"
-        from new_comment com , user u,new news
+        from new_comment com, user u,new news
         where com.user_id=u.user_id
         and  com.new_id=news.new_id
     </select>
@@ -77,5 +77,10 @@
         delete from new_comment
         where comment_id=#{commentId}
         and user_id=#{userId}
+    </delete>
+    <!--删除某新闻下的所有评论-->
+    <delete id="deleteCommentByNewId">
+        delete from new_comment
+        where new_id=#{newId}
     </delete>
 </mapper>

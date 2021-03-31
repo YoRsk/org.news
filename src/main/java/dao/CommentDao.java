@@ -35,9 +35,14 @@ public interface CommentDao {
     Comment queryCommentById(@Param("commentId") long commentId);
 
     /*
-    * 用户自己删除评论
+    * 用户自己或管理员删除评论
     * */
     int deleteComment(@Param("commentId") long commentId,@Param("userId") long userId);
+
+    /*
+     * 删除某新闻下的所有评论
+     * */
+    int deleteCommentByNewId(@Param("newId")long newId);
 
     /*
      * 模糊查询

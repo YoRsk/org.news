@@ -147,18 +147,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="comment" items="${commentlist}">
+                        <c:forEach var="commentList" items="${commentList}">
                             <tr>
                                 <td>
-                                        ${comment.comment.commentId}
+                                        ${commentList.comment.commentId}
                                 </td>
-                                <td class="hidden-phone">${comment.comment.content}</td>
-                                <td>${comment.username}</td>
-                                <td>${comment.newtitle}</td>
-                                <td><fmt:formatDate value="${comment.comment.createTime}"
+                                <td class="hidden-phone">${commentList.comment.content}</td>
+                                <td>${commentList.username}</td>
+                                <td>${commentList.newtitle}</td>
+                                <td><fmt:formatDate value="${commentList.comment.createTime}"
                                                     pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
                                 <td>
-                                    <a href="/new/deletecomment?commentId=${comment.comment.commentId}&userName=${comment.username}">
+                                    <a href="/new/deletecomment?commentId=${commentList.comment.commentId}&userName=${commentList.username}">
                                         <button class="btn btn-danger">
                                             <i class="fa fa-trash-o ">
                                                 删除</i></button>

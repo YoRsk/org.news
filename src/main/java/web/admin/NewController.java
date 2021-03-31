@@ -85,8 +85,7 @@ public class NewController {
 
     @RequestMapping(value = "deletecomment")
     public String deleteComment(long commentId, String userName, Model model) {
-        //  logger.info("############yangxin专用日志###########  XX功能模块的XX数据："+);
-        User user = userService.selectByName(userName);
+        User user = userService.selectByName(userName);//userName为该评论的user
         User login= (User) session.getAttribute("user");
         Comment comment = commentService.selectCommentById(commentId);
         if (login.getUserType() == 1 || user.getUserId() == login.getUserId()) {
@@ -104,7 +103,7 @@ public class NewController {
             NewsResult<Comment> result = new NewsResult<Comment>(false, CommentEnums.UNOPERATION.getStateInfo());
             model.addAttribute("editResult", result);
         }
-        if (login.getUserType() == 2)
+        if (login.getUserType() == 1)
             return "redirect:/new/commentList";
         else
             return "redirect:/index";
@@ -298,11 +297,11 @@ public class NewController {
         logger.info("############yangxin专用日志###########  模糊查询功能模块的前台返回的字段数据："+selectkey);
         if(!selectkey.equals("")){
             List<CommentData> commentData = commentService.selectCommentByLike(selectkey);
-            model.addAttribute("commentlist",commentData);
+            model.addAttribute("commentList",commentData);
             return "AdminIndexComment";
         }
         else{
-            return "redirect:/new/commentlist";
+            return "redirect:/new/commentList";
         }
     }
 

@@ -1,5 +1,6 @@
 package service.impl;
 
+import dao.CommentDao;
 import dao.NewDao;
 import dao.UserDao;
 import dto.InsertNewState;
@@ -26,13 +27,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class NewServiceImpl implements NewService {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private NewDao newDao;
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private CommentDao commentDao;
 
     @Override
     @Transactional
@@ -112,13 +116,15 @@ public class NewServiceImpl implements NewService {
      * 删除指定新闻
      * 1.是用户本身删除自己的新闻：需要验证用户信息
      * 2.管理员删除不合格的新闻，验证用户是不是为管理员。
+     * 3.将附带的评论一起删除
      * */
     @Override
     public InsertNewState deleteNew(long newId, User user) {
         New n = newDao.queryByNewId(newId);
         if (n.getUserId() == user.getUserId() || user.getUserType() == 1) {
-            int countdelete = newDao.deleteNew(newId);
-            if (countdelete <= 0) {
+            int countDelete = newDao.deleteNew(newId);
+            int commentDelete = commentDao.deleteCommentByNewId(newId);
+            if (countDelete <= 0 ||commentDelete <= 0) {
                 return new InsertNewState(newId, InsertNewEnums.FAIL);
             } else {
                 return new InsertNewState(newId, InsertNewEnums.SUCCESS, n);
@@ -155,6 +161,7 @@ public class NewServiceImpl implements NewService {
     }
 
     @Override
+    @Transactional
     public InsertNewState updateState(New n)
             throws NewException, UpdateNewException{
         New aNew = newDao.queryByNewId(n.getNewId());
@@ -194,6 +201,7 @@ public class NewServiceImpl implements NewService {
     }
 
     @Override
+    @Transactional
     public NewDetail updateViews(NewDetail nd){
         //synchronized和AtomicInteger解决并发问题
         AtomicInteger count = new AtomicInteger(0);

@@ -39,7 +39,7 @@ public interface CommentService {
    Comment selectCommentById(long commentId);
 
     /*
-    * 用户自己删除自己的评论
+    * 用户自己或者管理员删除评论
     * */
     int deleteComment(long commentId,long userId);
 }

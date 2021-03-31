@@ -118,6 +118,7 @@
             title=#{title},
             content=#{content},
             key_words=#{keyWords},
+            views=#{views}
         where new_id=#{newId}
 
     </update>
