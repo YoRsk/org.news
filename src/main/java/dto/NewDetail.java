@@ -3,10 +3,7 @@ package dto;
 import entity.New;
 import entity.User;
 
-/**
- * @author yangxin
- * @time 2018/12/25  13:01
- */
+
 public class NewDetail {
 
     private boolean success;

@@ -1,7 +1,7 @@
 package web;
 
 import dto.NewsResult;
-import dto.ResgisterState;
+import dto.RegisterState;
 import entity.User;
 import enums.UserRegisterEnums;
 import org.slf4j.Logger;
@@ -73,7 +73,7 @@ public class AccountController {
             return "register";
         } else {
             user.setCreateTime(new Date());
-            ResgisterState res = userService.register(user);
+            RegisterState res = userService.register(user);
             if (res.getState() != 1) {//表示不成功
                 NewsResult<User> register = new NewsResult<User>(false, res.getStateInfo());
                 model.addAttribute("result", register);
@@ -96,7 +96,7 @@ public class AccountController {
         if (user != null) {
             user.setUserPassword(password);
             logger.info(username + "," + email + "," + password);
-            ResgisterState state = userService.updateUser(user);
+            RegisterState state = userService.updateUser(user);
             if (state.getState() != 1) {
                 NewsResult<User> forget = new NewsResult<User>(false, state.getStateInfo());
                 model.addAttribute("result", forget);

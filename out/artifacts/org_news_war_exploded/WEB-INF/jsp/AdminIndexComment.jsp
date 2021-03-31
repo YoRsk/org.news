@@ -98,6 +98,12 @@
                         <span class="dcjq-icon"></span></a>
                 </li>
                 <li class="sub-menu dcjq-parent-li">
+                    <a href="${pageContext.request.contextPath}/new/categoryList" class="dcjq-parent">
+                        <i class="fa fa-desktop"></i>
+                        <span>目录列表</span>
+                        <span class="dcjq-icon"></span></a>
+                </li>
+                <li class="sub-menu dcjq-parent-li">
                     <a href="${pageContext.request.contextPath}/new/editor.html?index=2" class="dcjq-parent">
                         <i class="fa fa-desktop"></i>
                         <span>添加文章</span>

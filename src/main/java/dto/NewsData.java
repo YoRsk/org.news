@@ -2,10 +2,7 @@ package dto;
 
 import entity.New;
 
-/**
- * @author yangxin
- * @time 2018/12/27  15:30
- */
+
 public class NewsData {
 
     private New aNew;

@@ -3,10 +3,7 @@ package dto;
 import entity.Comment;
 import enums.CommentEnums;
 
-/**
- * @author yangxin
- * @time 2019/1/4  12:33
- */
+
 public class CommentState {
 
     private long commentId;

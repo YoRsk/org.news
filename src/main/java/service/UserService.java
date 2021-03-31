@@ -1,6 +1,6 @@
 package service;
 
-import dto.ResgisterState;
+import dto.RegisterState;
 import entity.User;
 
 import java.util.List;
@@ -10,7 +10,7 @@ public interface UserService {
     /*
     * 注册用户，默认是普通用户，不能是管理员
     * */
-    ResgisterState register(User user);
+    RegisterState register(User user);
 
     /*
     * 根据用户名验证用户是否存在
@@ -25,7 +25,7 @@ public interface UserService {
     /*
     * 用户更新密码
     * */
-    ResgisterState updateUser(User user);
+    RegisterState updateUser(User user);
 
     /*
     * 通过邮箱验证用户

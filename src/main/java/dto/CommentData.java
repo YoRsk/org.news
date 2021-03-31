@@ -4,16 +4,13 @@ import entity.Comment;
 import entity.New;
 import entity.User;
 
-/**
- * @author yangxin
- * @time 2018/12/29  15:24
- */
+
 public class CommentData {
     private boolean success;
 
     private Comment comment;
 
-    private String username;
+    private String userName;
 
     private String newtitle;
 
@@ -30,17 +27,17 @@ public class CommentData {
         return "CommentData{" +
                 "success=" + success +
                 ", comment=" + comment +
-                ", username='" + username + '\'' +
+                ", userName='" + userName + '\'' +
                 ", newtitle='" + newtitle + '\'' +
                 '}';
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public boolean isSuccess() {

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.CategoryDao">
+
+    <!--插入目录-->
+    <insert id="insertCategory" parameterType="entity.Category">
+        insert ignore into category(catgory_id,category_name,views_num)
+        values (#{categoryId},#{categoryName},#{viewsNum})
+
+    </insert>
+    <!--删除目录-->
+    <delete id="deleteCategory">
+        delete
+        from category
+        where category_id=#{categoryId}
+    </delete>
+    <!-- 更新新闻-->
+    <update id="updateCategory" parameterType="entity.Category">
+        update category
+        set
+            category_id=#{categoryId},
+            category_name=#{categoryName},
+            views_num=#{viewsNum}
+        where category_id=#{categoryId}
+    </update>
+    <!--更新点击量-->
+    <update id="updateViewsNum" parameterType="entity.Category">
+        update category
+        set
+            views_num=#{viewsNum}
+        where category_id=#{categoryId}
+
+    </update>
+    <!--根据id查找目录-->
+    <select id="queryByCategoryId" resultType="entity.Category">
+        select category_id,category_name,views_num
+        from category
+        where
+        category_id=#{categoryId}
+    </select>
+    <!--根据名字查找目录-->
+    <select id="queryByCategoryName" resultType="entity.Category">
+        select category_id,category_name,views_num
+        from category
+        where
+        category_name=#{categoryName}
+    </select>
+    <!-- 获取所有目录-->
+    <select id="queryAllCategory" resultType="entity.Category">
+        select category_id,category_name,views_num
+        from category
+    </select>
+    <!--刷新自增id-->
+    <update id="updateAllId">
+    alter table categroy add category_id  int(20) not null primary key auto_increment first
+    </update>
+
+</mapper>

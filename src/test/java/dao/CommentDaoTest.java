@@ -12,10 +12,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-/**
- * @author yangxin
- * @time 2018/12/24  21:52
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/springDao-config.xml"})
 public class CommentDaoTest {

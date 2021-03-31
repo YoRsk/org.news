@@ -5,8 +5,8 @@ public class Category {
     private long categoryId;
 
     private String categoryName;
-    /** 该类别下的数量 */
-    private Integer num;
+    /** 该类别下的浏览数量 */
+    private long viewsNum;
 
     public Category(long categoryId, String categoryName) {
         this.categoryId = categoryId;
@@ -30,5 +30,13 @@ public class Category {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public long getViewsNum() {
+        return viewsNum;
+    }
+
+    public void setViewsNum(long viewsNum) {
+        this.viewsNum = viewsNum;
     }
 }

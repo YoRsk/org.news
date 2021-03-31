@@ -3,7 +3,7 @@ package service.impl;
 
 import dao.RedisDao;
 import dao.UserDao;
-import dto.ResgisterState;
+import dto.RegisterState;
 import entity.User;
 import enums.UserRegisterEnums;
 import exception.*;
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
      * */
     @Override
     @Transactional
-    public ResgisterState register(User user)
+    public RegisterState register(User user)
             throws UserException, UserExistException, UserMisssException, UserInsertException {
         String password = user.getUserPassword();
         user.setUserPassword(getSalt(password));
@@ -62,21 +62,21 @@ public class UserServiceImpl implements UserService {
                 if (insertCount <= 0) {
                     throw new UserInsertException(UserRegisterEnums.FAIL.getStateInfo());
                 } else {
-                    return new ResgisterState(user.getUserId(), UserRegisterEnums.SUCCESS, user);
+                    return new RegisterState(user.getUserId(), UserRegisterEnums.SUCCESS, user);
                 }
             } else {//如果redis中已经存在，表示该用户名不能被注册
                 throw new UserExistException(UserRegisterEnums.RedisEXIST.getStateInfo());
             }
         } catch (UserExistException existException) {
-            return new ResgisterState(user.getUserId(), UserRegisterEnums.RedisEXIST);
+            return new RegisterState(user.getUserId(), UserRegisterEnums.RedisEXIST);
         } catch (UserMisssException e) {
             throw e;
         } catch (UserInsertException e) {
             logger.error(e.getMessage(), e);
-            return new ResgisterState(user.getUserId(), UserRegisterEnums.FAIL);
+            return new RegisterState(user.getUserId(), UserRegisterEnums.FAIL);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            return new ResgisterState(user.getUserId(), UserRegisterEnums.INNER_ERROR);
+            return new RegisterState(user.getUserId(), UserRegisterEnums.INNER_ERROR);
         }
     }
 
@@ -92,12 +92,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public ResgisterState updateUser(User user)
+    public RegisterState updateUser(User user)
             throws UserException, UserUpdateException {
         try {
             User u = userDao.queryByOnlyId(user.getUserId());
             if (u == null) {
-                return new ResgisterState(user.getUserId(), UserRegisterEnums.NOTEXIST);
+                return new RegisterState(user.getUserId(), UserRegisterEnums.NOTEXIST);
             } else {
                 String pas = getSalt(user.getUserPassword());
                 user.setUserPassword(pas);
@@ -105,15 +105,15 @@ public class UserServiceImpl implements UserService {
                 if (updateCount <= 0) {
                     throw new UserUpdateException(UserRegisterEnums.UPDATEFAIL.getStateInfo());
                 } else {
-                    return new ResgisterState(user.getUserId(), UserRegisterEnums.SUCCESS, user);
+                    return new RegisterState(user.getUserId(), UserRegisterEnums.SUCCESS, user);
                 }
             }
         } catch (UserUpdateException e1) {
             logger.error(e1.getMessage(), e1);
-            return new ResgisterState(user.getUserId(), UserRegisterEnums.UPDATEFAIL);
+            return new RegisterState(user.getUserId(), UserRegisterEnums.UPDATEFAIL);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            return new ResgisterState(user.getUserId(), UserRegisterEnums.INNER_ERROR);
+            return new RegisterState(user.getUserId(), UserRegisterEnums.INNER_ERROR);
         }
     }
 

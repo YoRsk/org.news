@@ -4,7 +4,7 @@ import entity.User;
 import enums.UserRegisterEnums;
 
 
-public class ResgisterState {
+public class RegisterState {
     private long userId;
 
     private int state;
@@ -14,14 +14,14 @@ public class ResgisterState {
     private User user;
 
 
-    public ResgisterState(long userId, UserRegisterEnums resgisterState) {
+    public RegisterState(long userId, UserRegisterEnums resgisterState) {
         this.userId = userId;
         this.state = resgisterState.getState();
         this.stateInfo = resgisterState.getStateInfo();
     }
 
 
-    public ResgisterState(long userId, UserRegisterEnums resgisterState, User user) {
+    public RegisterState(long userId, UserRegisterEnums resgisterState, User user) {
         this.userId = userId;
         this.state = resgisterState.getState();
         this.stateInfo = resgisterState.getStateInfo();

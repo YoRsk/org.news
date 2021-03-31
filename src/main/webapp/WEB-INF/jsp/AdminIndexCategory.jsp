@@ -3,7 +3,7 @@
 <%@include file="common/tag.jsp" %>
 <html>
 <head>
-    <title>后台主页-用户列表</title>
+    <title>后台主页-目录列表</title>
     <%@include file="common/header.jsp" %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/to-do.css">
 </head>
@@ -124,7 +124,7 @@
             <div class="col-md-12">
                 <div style="color: rebeccapurple">${result}</div>
                 <div class="content-panel">
-                    <h4><i class="fa fa-angle-right"></i> 用户列表</h4>
+                    <h4><i class="fa fa-angle-right"></i> 目录列表</h4>
                     <hr>
                     <div class="form-panel">
                         <form class="form-inline"  role="form"
@@ -147,32 +147,18 @@
                         <thead>
                         <tr>
                             <th><i class="fa fa-bullhorn"></i> 编号</th>
-                            <th><i class="fa fa-tags"></i> 用户昵称</th>
-                            <th><i class="fa fa-user"></i> 用户类型</th>
-                            <th><i class="fa fa-tasks"></i> 用户邮箱</th>
-                            <th><i class="fa fa-tasks"></i> 用户年龄</th>
-                            <th class="hidden-phone"><i class="fa fa-bars"></i> 创建时间</th>
+                            <th><i class="fa fa-tags"></i> 目录名称</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="user" items="${userList}">
+                        <c:forEach var="category" items="${categoryList}">
                             <tr>
                                 <td>
-                                        ${user.userId}
+                                        ${category.categoryId}
                                 </td>
-                                <td class="hidden-phone">${user.userName}</td>
-                                <td>${user.userType}</td>
-                                <td>${user.userEmail}</td>
-                                <td>${user.userAge}</td>
-                                <td><fmt:formatDate value="${user.createTime}"
-                                                    pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
+                                <td class="hidden-phone">${category.categoryName}</td>
                                 <td>
-                                    <a href="${pageContext.request.contextPath}/new/ForceLogout?userName=${user.userName}">
-                                        <button class="btn btn-success">
-                                            <i class="fa fa-check">
-                                               下线</i></button>
-                                    </a>
                                     <a href="">
                                         <button class="btn btn-primary"><i class="fa fa-pencil">修改
                                         </i></button>

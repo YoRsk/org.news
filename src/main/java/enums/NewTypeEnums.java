@@ -1,9 +1,6 @@
 package enums;
 
-/**
- * @author yangxin
- * @time 2018/12/25  11:29
- */
+
 public enum NewTypeEnums {
     HOT_NEWS(1,"热点新闻"),
     ENTERTAINMENT_NEWS(2,"娱乐新闻"),

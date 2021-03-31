@@ -1,6 +1,7 @@
 package web.admin;
 
 import dto.*;
+import entity.Category;
 import entity.Comment;
 import entity.New;
 import entity.User;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import service.CategoryService;
 import service.CommentService;
 import service.NewService;
 import service.UserService;
@@ -47,6 +49,9 @@ public class NewController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @GetMapping(value = "/adminIndex")
     public String adminIndex(Model model) {
         User user = (User) session.getAttribute("user");
@@ -78,6 +83,17 @@ public class NewController {
             List<User> list = userService.selectAllUser();
             model.addAttribute("userList", list);
             return "AdminIndexUser";
+        }else{
+            return "redirect:/admin/login";
+        }
+    }
+    @GetMapping(value = "/categoryList")
+    public String categoryList(Model model){
+        User user = (User) session.getAttribute("user");
+        if(user != null) {
+            List<Category> list = categoryService.queryAllCategory();
+            model.addAttribute("categoryList",list);
+            return "AdminIndexCategory";
         }else{
             return "redirect:/admin/login";
         }

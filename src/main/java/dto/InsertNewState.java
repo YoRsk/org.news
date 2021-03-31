@@ -3,10 +3,7 @@ package dto;
 import entity.New;
 import enums.InsertNewEnums;
 
-/**
- * @author yangxin
- * @time 2018/12/25  11:11
- */
+
 public class InsertNewState {
     private long newId;
 
