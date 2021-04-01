@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
         user.setUserPassword(getSalt(password));
         String redisKey = "user:";
         try {
-            User redisUser = redisDao.getUser(redisKey, user.getUserName());
+            User redisUser = redisDao.getUser(redisKey, user.getUsername());
             if (redisUser == null) {
 
                 String res = redisDao.setUser(redisKey, user);
@@ -81,13 +81,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User selectByName(String userName) {
-        return userDao.queryByName(userName);
+    public User selectByName(String username) {
+        return userDao.queryByName(username);
     }
     @Override
-    public User login(String userName, String Password) {
+    public User login(String username, String Password) {
         String password = getSalt(Password);
-        return userDao.queryById(userName, password);
+        return userDao.queryById(username, password);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserService {
         return DigestUtils.md5DigestAsHex(md5.getBytes());
     }
 
-    public void Logout(String UserName) {
+    public void Logout(String Username) {
         User u = (User) session.getAttribute("user");
         try {
             session.removeAttribute("user");
@@ -144,9 +144,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public void ForceLogout(String UserName) {
+    public void ForceLogout(String Username) {
         User u = (User) session.getAttribute("user");
-        User logoutUser = userDao.queryByName(UserName);
+        User logoutUser = userDao.queryByName(Username);
         try {
             if (u.getUserType() == 1)
                 session.removeAttribute("user");

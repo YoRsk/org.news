@@ -15,7 +15,7 @@
         com.user_id "comment.user_id",
         com.content "comment.content",
         com.create_time "comment.create_time",
-        u.user_name "userName",
+        u.user_name "username",
         news.title  "newtitle"
         from new_comment com, user u,new news
         where com.user_id=u.user_id
@@ -29,7 +29,7 @@
         com.user_id "comment.user_id",
         com.content "comment.content",
         com.create_time "comment.create_time",
-        u.user_name "userName",
+        u.user_name "username",
         news.title  "newtitle"
         from new_comment com inner join user u on com.user_id=u.user_id
                              inner join new news on com.new_id=news.new_id
@@ -45,7 +45,7 @@
         com.user_id "comment.user_id",
         com.content "comment.content",
         com.create_time "comment.create_time",
-        u.user_name "userName",
+        u.user_name "username",
         news.title  "newtitle"
         from new_comment com , user u,new news
         where com.user_id=u.user_id
@@ -59,7 +59,7 @@
         com.user_id "comment.user_id",
         com.content "comment.content",
         com.create_time "comment.create_time",
-        u.user_name "userName",
+        u.user_name "username",
         news.title  "newtitle"
         from new_comment com , user u,new news
         where com.user_id=u.user_id

@@ -58,9 +58,9 @@
                 User user = (User) session.getAttribute("user");
                 if (user != null) {
             %>
-            <h4>欢迎用户<%=user.getUserName()%>
+            <h4>欢迎用户<%=user.getUsername()%>
                 <ul class="pull-right top-menu">
-                    <li><a class="logout" href="${pageContext.request.contextPath}/user/Logout?userName=<%=user.getUserName()%>">Logout</a>
+                    <li><a class="logout" href="${pageContext.request.contextPath}/user/Logout?username=<%=user.getUsername()%>">Logout</a>
                     </li>
                 </ul>
             </h4>
@@ -117,7 +117,7 @@
                             <div class="sub">
                                 <a href="/new/detail?newId=${data.aNew.newId}"
                                    class="readblog">${data.aNew.title}</a>
-                                <p class="sub_head">作者: <a href="#">${data.userName}</a> 浏览量: ${data.aNew.views}
+                                <p class="sub_head">作者: <a href="#">${data.username}</a> 浏览量: ${data.aNew.views}
                                 </p>
                             </div>
                             <div class="clearfix"></div>

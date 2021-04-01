@@ -8,7 +8,7 @@ public class User {
 
     private long userType;//0：普通 1:管理员
 
-    private String userName;
+    private String username;
 
     private String userPassword;
 
@@ -18,9 +18,9 @@ public class User {
 
     private Date createTime;
 
-    public User(long userType, String userName, String userPassword, String userEmail, int userAge) {
+    public User(long userType, String username, String userPassword, String userEmail, int userAge) {
         this.userType = userType;
-        this.userName = userName;
+        this.username = username;
         this.userPassword = userPassword;
         this.userEmail = userEmail;
         this.userAge = userAge;
@@ -42,7 +42,7 @@ public class User {
         return "User{" +
                 "userId=" + userId +
                 ", userType=" + userType +
-                ", userName='" + userName + '\'' +
+                ", username='" + username + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userEmail='" + userEmail + '\'' +
                 ", userAge=" + userAge +
@@ -66,12 +66,12 @@ public class User {
         this.userType = userType;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getUserEmail() {

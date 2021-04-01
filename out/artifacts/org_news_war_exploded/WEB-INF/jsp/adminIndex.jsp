@@ -4,9 +4,8 @@
 <html>
 <head>
     <title>后台主页-新闻列表</title>
-    <%@include file="common/adminheader.jsp" %>
+    <%@include file="common/header.jsp" %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/to-do.css">
-
 </head>
 <body>
 
@@ -18,21 +17,21 @@
             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
         </div>
         <!--logo start-->
-        <a href="${pageContext.request.contextPath}/index" class="logo"><b><span>新闻页</span></b></a>
+        <a href="${pageContext.request.contextPath}/user/index.html" class="logo"><b><span>新闻页</span></b></a>
         <!--logo end-->
         <div class="top-menu">
             <ul class="pull-right top-menu">
                 <br>
                 <%
-                    User user=(User)session.getAttribute("user");
-                    if(user!=null){
+                    User user = (User) session.getAttribute("user");
+                    if (user != null) {
                 %>
-                <li><a class="logout" href="${pageContext.request.contextPath}/user/Logout?userName=<%=user.getUserName()%>"
+                <li><a class="logout" href="${pageContext.request.contextPath}/user/Logout?username=<%=user.getUsername()%>"
                 >Logout</a></li>
                 <%
-                }else{
+                } else {
                 %>
-                <li><a class="logout" href="${pageContext.request.contextPath}/user/adminLogin">ToLogin</a></li>
+                <li><a class="logout" href="${pageContext.request.contextPath}/user/adminLogin.html">ToLogin</a></li>
                 <%
                     }
                 %>
@@ -49,11 +48,11 @@
             <ul class="sidebar-menu" id="nav-accordion">
                 <p class="centered"><a href="">
                     <%
-                        if(user!=null) {/*说明已登录*/
+                        if (user != null) {/*说明已登录*/
                     %>
                     <img src="${pageContext.request.contextPath}/resource/img/ui-sam.jpg" class="img-circle" width="80">
                     <%
-                    }else{
+                    } else {
                     %>
                     <img src="" class="img-circle" width="80">
                     <%
@@ -64,44 +63,39 @@
                 </p>
                 <%
 
-                    if(user!=null){/*说明已登录*/
+                    if (user != null) {/*说明已登录*/
                 %>
-                <h5 class="centered">管理员:<%=user.getUserName()%></h5>
+                <h5 class="centered">管理员:<%=user.getUsername()%>
+                </h5>
                 <%
-                }else{
+                } else {
                 %>
                 <h5 class="centered">请登录！！</h5>
                 <%
                     }
                 %>
                 <li class="mt">
-                    <a href="${pageContext.request.contextPath}/new/adminIndex">
+                    <a href="/new/adminIndex.html">
                         <i class="fa fa-dashboard"></i>
                         <span>首 页</span>
                     </a>
                 </li>
                 <li class="sub-menu dcjq-parent-li">
-                    <a href="${pageContext.request.contextPath}/new/adminIndex" class="dcjq-parent">
+                    <a href="#" class="dcjq-parent">
                         <i class="fa fa-desktop"></i>
                         <span>文章列表</span>
                         <span class="dcjq-icon"></span></a>
                 </li>
                 <li class="sub-menu dcjq-parent-li">
-                    <a href="${pageContext.request.contextPath}/new/commentList" class="dcjq-parent">
+                    <a href="${pageContext.request.contextPath}/new/commentlist.html" class="dcjq-parent">
                         <i class="fa fa-desktop"></i>
                         <span>评论列表</span>
                         <span class="dcjq-icon"></span></a>
                 </li>
                 <li class="sub-menu dcjq-parent-li">
-                    <a href="${pageContext.request.contextPath}/new/userList" class="dcjq-parent">
+                    <a href="${pageContext.request.contextPath}/new/userlist.html" class="dcjq-parent">
                         <i class="fa fa-desktop"></i>
                         <span>用户列表</span>
-                        <span class="dcjq-icon"></span></a>
-                </li>
-                <li class="sub-menu dcjq-parent-li">
-                    <a href="${pageContext.request.contextPath}/new/categoryList" class="dcjq-parent">
-                        <i class="fa fa-desktop"></i>
-                        <span>目录列表</span>
                         <span class="dcjq-icon"></span></a>
                 </li>
                 <li class="sub-menu dcjq-parent-li">
@@ -117,8 +111,6 @@
 
 
 
-
-
     <!--sidebar end-->
     <!--main content start-->
     <section id="main-content">
@@ -131,7 +123,7 @@
                     <hr>
                     <div class="form-panel">
                         <form class="form-inline" role="form"
-                              action="/new/selectByLike" method="post"
+                              action="/new/seleceByLike" method="post"
                               style="display: contents">
                             <div class="form-group" style="display: contents">
                                 <label class="sr-only" for="exampleInput1">模糊查询</label>
@@ -142,7 +134,7 @@
                             <button type="submit" class="btn btn-theme">查找</button>
                         </form>
                         <form class="form-inline"
-                              action="/new/selectByKey"
+                              action="/new/seleceByKey"
                               style="display: contents">
                             <div class="form-group" style="display: contents">
                                 <label class="sr-only" for="exampleInput2">关键字查询</label>
@@ -165,7 +157,7 @@
                             <th><i class="fa fa-user"></i> 作者账户</th>
                             <th><i class="fa fa-tasks"></i> 标题</th>
                             <th class="hidden-phone"><i class="fa fa-question-circle"></i> 描述</th>
-                            <th class="hidden-phone"><i class="fa fa-bars"></i> 创建时间</th>
+                            <th class="hidden-phone"><i class="fa fa-bars"></i> 发表时间</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -176,45 +168,26 @@
                                         ${news.aNew.newId}
                                 </td>
                                 <td class="hidden-phone">${news.typeName}</td>
-                                <td>${news.userName}</td>
+                                <td>${news.username}</td>
                                 <td>${news.aNew.title}</td>
                                 <td id="desc">${news.aNew.keyWords}"</td>
                                 <td><fmt:formatDate value="${news.aNew.createTime}"
                                                     pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
                                 <td>
-                                    <div class="btn-group  dropleft">
-                                        <button class="btn btn-info " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-star ">状态</i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="/new/updateState?newId=${news.aNew.newId}&states=0">待审核</a>
-                                            <a class="dropdown-item" href="/new/updateState?newId=${news.aNew.newId}&states=1">待编辑</a>
-                                            <a class="dropdown-item" href="/new/updateState?newId=${news.aNew.newId}&states=2">已发表</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">当前状态：
-                                                <c:if test="${news.aNew.states==0}">待审核</c:if>
-                                                <c:if test="${news.aNew.states==1}">待编辑</c:if>
-                                                <c:if test="${news.aNew.states==2}">已发表</c:if>
-                                            </a>
-                                        </div>
-                                    </div>
-
                                     <a href="/new/detail?newId=${news.aNew.newId}">
                                         <button class="btn btn-success">
                                             <i class="fa fa-check">
                                                 详情</i></button>
                                     </a>
-                                    <a href="/new/edit?newId=${news.aNew.newId}&userName=${news.userName}">
+                                    <a href="/new/edit?newId=${news.aNew.newId}&username=${news.username}">
                                         <button class="btn btn-primary"><i class="fa fa-pencil">修改
                                         </i></button>
                                     </a>
-
-                                    <a href="/new/delete?newId=${news.aNew.newId}&userName=${news.userName}&tag=2">
+                                    <a href="/new/delete?newId=${news.aNew.newId}&username=${news.username}&tag=2">
                                         <button class="btn btn-danger">
                                             <i class="fa fa-trash-o ">
                                                 删除</i></button>
                                     </a>
-
 
                                 </td>
                             </tr>
@@ -238,10 +211,10 @@
     <footer class="site-footer">
         <div class="text-center">
             <p>
-                © Copyrights <strong>彭刘羿</strong>. All Rights Reserved
+                © Copyrights <strong>杨鑫</strong>. All Rights Reserved
             </p>
             <div class="credits">
-                Created by <a href="https://github.com/YoRsk">MyGithub</a>
+                Created with template by <a href="https://github.com/fireshoot/YxNews">Github</a>
             </div>
             <a href="adminIndex.html#" class="go-top">
                 <i class="fa fa-angle-up"></i>
@@ -252,6 +225,7 @@
 </section>
 
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
 
 <script class="include" type="text/javascript"
@@ -261,10 +235,6 @@
 <script src="${pageContext.request.contextPath}/resource/lib/common-scripts.js"></script>
 
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<%--下拉框所需组件--%>
-<script src="https://cdn.bootcss.com/popper.js/1.14.7/umd/popper.min.js"></script>
-
-<script src="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <%--
 <script type="text/javascript" src="${pageContext.request.contextPath}/resource/css/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resource/css/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>

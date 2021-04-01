@@ -50,12 +50,12 @@ public class AdminLoginController {
             if (adminuserCheck.getUserId() == key) {
                 if (session.getId().equals(loginMap.get(key))) {
                     NewsResult<User> result = new NewsResult<User>(false,
-                            adminuserCheck.getUserName() + "在同一地点重复登录");
+                            adminuserCheck.getUsername() + "在同一地点重复登录");
                     model.addAttribute("adminresult", result);
                     return "adminIndex";//已登录，返回用户首页
                 } else {
                     NewsResult<User> result = new NewsResult<User>(false,
-                            adminuserCheck.getUserName() + "异地已登录，请先退出登录");
+                            adminuserCheck.getUsername() + "异地已登录，请先退出登录");
                     model.addAttribute("adminresult", result);
                     return "AdminLogin";
                 }

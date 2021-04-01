@@ -9,16 +9,16 @@ public class NewsData {
 
     private String typeName;
 
-    private String userName;
+    private String username;
 
 
     public NewsData() {
     }
 
-    public NewsData(New aNew, String typeName, String userName) {
+    public NewsData(New aNew, String typeName, String username) {
         this.aNew = aNew;
         this.typeName = typeName;
-        this.userName = userName;
+        this.username = username;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class NewsData {
         return "NewsData{" +
                 "aNew=" + aNew +
                 ", typeName='" + typeName + '\'' +
-                ", userName='" + userName + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 
@@ -46,11 +46,11 @@ public class NewsData {
         this.typeName = typeName;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

@@ -391,7 +391,7 @@
         <section class="wrapper site-min-height">
             <div class="LEFT">
                 <h1>${detaildata.aNew.title}</h1>
-                <h3><i class="fa fa-angle-right"></i>${detaildata.user.userName}</h3>
+                <h3><i class="fa fa-angle-right"></i>${detaildata.user.username}</h3>
                 <div class="row mt">
                     <div class="col-lg-12">
                         <p>${detaildata.aNew.content}</p>

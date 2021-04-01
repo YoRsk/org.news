@@ -26,7 +26,7 @@
                     User user=(User)session.getAttribute("user");
                     if(user!=null){
                 %>
-                <li><a class="logout" href="${pageContext.request.contextPath}/user/Logout?userName=<%=user.getUserName()%>"
+                <li><a class="logout" href="${pageContext.request.contextPath}/user/Logout?username=<%=user.getUsername()%>"
                 >Logout</a></li>
                 <%
                 }else{
@@ -65,7 +65,7 @@
 
                     if(user!=null){/*说明已登录*/
                 %>
-                <h5 class="centered">管理员:<%=user.getUserName()%></h5>
+                <h5 class="centered">管理员:<%=user.getUsername()%></h5>
                 <%
                 }else{
                 %>
@@ -161,14 +161,14 @@
                                 <td>
                                         ${user.userId}
                                 </td>
-                                <td class="hidden-phone">${user.userName}</td>
+                                <td class="hidden-phone">${user.username}</td>
                                 <td>${user.userType}</td>
                                 <td>${user.userEmail}</td>
                                 <td>${user.userAge}</td>
                                 <td><fmt:formatDate value="${user.createTime}"
                                                     pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
                                 <td>
-                                    <a href="${pageContext.request.contextPath}/new/ForceLogout?userName=${user.userName}">
+                                    <a href="${pageContext.request.contextPath}/new/ForceLogout?username=${user.username}">
                                         <button class="btn btn-success">
                                             <i class="fa fa-check">
                                                下线</i></button>

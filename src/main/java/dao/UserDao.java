@@ -18,12 +18,12 @@ public interface UserDao {
     /*
     * 根据昵称和密码查询用户验证登录
     * */
-    User queryById(@Param("userName") String userName, @Param("userPassword") String userPassword);
+    User queryById(@Param("username") String username, @Param("userPassword") String userPassword);
 
     /*
     * 根据名称查找用户
     * */
-    User queryByName(@Param("userName") String userName);
+    User queryByName(@Param("username") String username);
 
     /*
      * 根据id查找用户
@@ -38,7 +38,7 @@ public interface UserDao {
     /*
     * 通过邮箱验证
     * */
-    User queryByOnlyEmail(@Param("email") String email,@Param("userName") String userName);
+    User queryByOnlyEmail(@Param("email") String email,@Param("username") String username);
 
     /*
     * 查询所有用户信息

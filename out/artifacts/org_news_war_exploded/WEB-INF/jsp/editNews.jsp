@@ -65,7 +65,7 @@
         </div>
         <div class="form-group">
             <label for="dov" class="">作者:</label>
-            <input type="text" name="author " tabindex="1" id="dov" class="form-control" value="${editResult.data.user.userName}">
+            <input type="text" name="author " tabindex="1" id="dov" class="form-control" value="${editResult.data.user.username}">
         </div>
         <div class="form-group">
             <label for="do" class="">关键字:</label>

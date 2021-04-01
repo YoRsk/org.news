@@ -10,7 +10,7 @@ public class CommentData {
 
     private Comment comment;
 
-    private String userName;
+    private String username;
 
     private String newtitle;
 
@@ -27,17 +27,17 @@ public class CommentData {
         return "CommentData{" +
                 "success=" + success +
                 ", comment=" + comment +
-                ", userName='" + userName + '\'' +
+                ", username='" + username + '\'' +
                 ", newtitle='" + newtitle + '\'' +
                 '}';
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public boolean isSuccess() {

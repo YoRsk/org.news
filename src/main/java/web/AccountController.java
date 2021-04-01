@@ -66,7 +66,7 @@ public class AccountController {
     @PostMapping(value = "/toRegister")
     public String toRegister(User user, Model model) {
         logger.info("############pengliuyi专用日志###########  注册功能模块的前台传来的注册数据：" + user);
-        User existUser = userService.selectByName(user.getUserName());
+        User existUser = userService.selectByName(user.getUsername());
         if (existUser != null) {//说明昵称已经存在
             NewsResult<User> register = new NewsResult<User>(false, UserRegisterEnums.DBAEXIST.getStateInfo());
             model.addAttribute("result", register);
@@ -117,9 +117,9 @@ public class AccountController {
      * 实现注销登录(主页退出 包括正常用户和管理员
      * */
     @RequestMapping(value = "/Logout")
-    public String Logout(String userName, Model model) {
-        User usercheckLog = userService.selectByName(userName);
-        userService.Logout(userName);
+    public String Logout(String username, Model model) {
+        User usercheckLog = userService.selectByName(username);
+        userService.Logout(username);
         NewsResult<User> result = new NewsResult<User>(true, "注销成功");
         model.addAttribute("resultLogout", result);
         if (usercheckLog.getUserType() == 1)

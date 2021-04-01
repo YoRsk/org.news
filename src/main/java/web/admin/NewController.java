@@ -100,8 +100,8 @@ public class NewController {
     }
 
     @RequestMapping(value = "deletecomment")
-    public String deleteComment(long commentId, String userName, Model model) {
-        User user = userService.selectByName(userName);//userName为该评论的user
+    public String deleteComment(long commentId, String username, Model model) {
+        User user = userService.selectByName(username);//username为该评论的user
         User login= (User) session.getAttribute("user");
         Comment comment = commentService.selectCommentById(commentId);
         if (login.getUserType() == 1 || user.getUserId() == login.getUserId()) {
@@ -198,9 +198,9 @@ public class NewController {
         }
     }
     @RequestMapping(value = "/delete")
-    public String delete(long newId, String userName,int tag, Model model) {
-        logger.info("****************" + newId + "," + userName);
-        User user = userService.selectByName(userName);
+    public String delete(long newId, String username,int tag, Model model) {
+        logger.info("****************" + newId + "," + username);
+        User user = userService.selectByName(username);
         InsertNewState state = newService.deleteNew(newId, user);
         if (state.getState() != 1) {//不成功
             NewsResult<New> result = new NewsResult<New>(false, state.getStateInfo());
@@ -215,8 +215,8 @@ public class NewController {
     }
 
     @RequestMapping(value = "/edit")
-    public String editNew(long newId, String userName, Model model) {
-        User user = userService.selectByName(userName);
+    public String editNew(long newId, String username, Model model) {
+        User user = userService.selectByName(username);
         User useradmin = (User) session.getAttribute("user");
         NewDetail detail = newService.selectNew(newId);
         New news = detail.getaNew();
@@ -357,8 +357,8 @@ public class NewController {
      * 实现强制下线
      * */
     @RequestMapping(value = "/ForceLogout")
-    public String ForceLogout(String userName, Model model) {
-        userService.ForceLogout(userName);
+    public String ForceLogout(String username, Model model) {
+        userService.ForceLogout(username);
         NewsResult<User> result = new NewsResult<User>(true, "注销成功");
         model.addAttribute("resultLogout", result);
         return "redirect:/new/userList";

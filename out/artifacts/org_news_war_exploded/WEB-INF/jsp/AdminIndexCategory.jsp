@@ -26,7 +26,7 @@
                     User user=(User)session.getAttribute("user");
                     if(user!=null){
                 %>
-                <li><a class="logout" href="${pageContext.request.contextPath}/user/Logout?userName=<%=user.getUserName()%>"
+                <li><a class="logout" href="${pageContext.request.contextPath}/user/Logout?username=<%=user.getUsername()%>"
                 >Logout</a></li>
                 <%
                 }else{
@@ -65,7 +65,7 @@
 
                     if(user!=null){/*说明已登录*/
                 %>
-                <h5 class="centered">管理员:<%=user.getUserName()%></h5>
+                <h5 class="centered">管理员:<%=user.getUsername()%></h5>
                 <%
                 }else{
                 %>

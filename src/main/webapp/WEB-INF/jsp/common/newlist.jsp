@@ -27,7 +27,7 @@
                                     ${news.aNew.newId}
                             </td>
                             <td class="hidden-phone">${news.typeName}</td>
-                            <td>${news.userName}</td>
+                            <td>${news.username}</td>
                             <td>${news.aNew.title}</td>
                             <td id="desc">${news.aNew.keyWords}"</td>
                             <td><fmt:formatDate value="${news.aNew.createTime}"
@@ -38,11 +38,11 @@
                                         <i class="fa fa-check">
                                             详情</i></button>
                                 </a>
-                                <a href="/new/edit?newId=${news.aNew.newId}&userName=${news.userName}">
+                                <a href="/new/edit?newId=${news.aNew.newId}&username=${news.username}">
                                     <button class="btn btn-primary"><i class="fa fa-pencil">修改
                                     </i></button>
                                 </a>
-                                <a href="/new/delete?newId=${news.aNew.newId}&userName=${news.userName}">
+                                <a href="/new/delete?newId=${news.aNew.newId}&username=${news.username}">
                                     <button class="btn btn-danger">
                                         <i class="fa fa-trash-o ">
                                             删除</i></button>

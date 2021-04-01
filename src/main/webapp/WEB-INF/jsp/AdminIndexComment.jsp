@@ -26,7 +26,7 @@
                     User user=(User)session.getAttribute("user");
                     if(user!=null){
                 %>
-                <li><a class="logout" href="${pageContext.request.contextPath}/user/Logout?userName=<%=user.getUserName()%>"
+                <li><a class="logout" href="${pageContext.request.contextPath}/user/Logout?username=<%=user.getUsername()%>"
                 >Logout</a></li>
                 <%
                 }else{
@@ -65,7 +65,7 @@
 
                     if(user!=null){/*说明已登录*/
                 %>
-                <h5 class="centered">管理员:<%=user.getUserName()%></h5>
+                <h5 class="centered">管理员:<%=user.getUsername()%></h5>
                 <%
                 }else{
                 %>
@@ -164,7 +164,7 @@
                                 <td><fmt:formatDate value="${commentList.comment.createTime}"
                                                     pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
                                 <td>
-                                    <a href="/new/deletecomment?commentId=${commentList.comment.commentId}&userName=${commentList.username}">
+                                    <a href="/new/deletecomment?commentId=${commentList.comment.commentId}&username=${commentList.username}">
                                         <button class="btn btn-danger">
                                             <i class="fa fa-trash-o ">
                                                 删除</i></button>

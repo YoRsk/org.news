@@ -15,12 +15,12 @@ public interface UserService {
     /*
     * 根据用户名验证用户是否存在
     * */
-    User selectByName(String userName);
+    User selectByName(String username);
 
     /*
     * 登录验证，用户名，密码
     * */
-    User login(String userName,String Password);
+    User login(String username,String Password);
 
     /*
     * 用户更新密码
@@ -35,12 +35,12 @@ public interface UserService {
     /*
     * 强制下线
     * */
-    void ForceLogout(String UserName);
+    void ForceLogout(String Username);
 
     /*
      * 主动下线
      * */
-    void Logout(String UserName);
+    void Logout(String Username);
 
     /*
     * 查询所有用户信息

@@ -110,7 +110,7 @@
                                     ${news.aNew.newId}
                             </td>
                             <td class="hidden-phone">${news.typeName}</td>
-                            <td>${news.userName}</td>
+                            <td>${news.username}</td>
                             <td>${news.aNew.title}</td>
                             <td id="desc">${news.aNew.keyWords}"</td>
                             <td><fmt:formatDate value="${news.aNew.createTime}"
@@ -121,11 +121,11 @@
                                         <i class="fa fa-check">
                                             详情</i></button>
                                 </a>
-                                <a href="/new/edit?newId=${news.aNew.newId}&userName=${news.userName}">
+                                <a href="/new/edit?newId=${news.aNew.newId}&username=${news.username}">
                                     <button class="btn btn-primary"><i class="fa fa-pencil">修改
                                     </i></button>
                                 </a>
-                                <a href="/new/delete?newId=${news.aNew.newId}&userName=${news.userName}&tag=1">
+                                <a href="/new/delete?newId=${news.aNew.newId}&username=${news.username}&tag=1">
                                     <button class="btn btn-danger">
                                         <i class="fa fa-trash-o ">
                                             删除</i></button>
@@ -182,7 +182,7 @@
                             <td><fmt:formatDate value="${comment.comment.createTime}"
                                                 pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
                             <td>
-                                <a href="/new/deletecomment?commentId=${comment.comment.commentId}&userName=${comment.username}">
+                                <a href="/new/deletecomment?commentId=${comment.comment.commentId}&username=${comment.username}">
                                     <button class="btn btn-danger">
                                         <i class="fa fa-trash-o ">
                                             删除</i></button>

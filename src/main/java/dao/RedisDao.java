@@ -25,14 +25,14 @@ public class RedisDao {
     //使用第三方的protostuff序列化，需要先指定需要序列化的类接口，如下，但是这个类必须是pojo型。
     private RuntimeSchema<User> schema=RuntimeSchema.createFrom(User.class);
 
-    public User getUser(String redisKey,String userName) {
+    public User getUser(String redisKey,String username) {
         //缓存Redis操作。
         try{
             //根据jedisPool获得他们的资源 .getResource();
             Jedis jedis=jedisPool.getResource();
             try{
                 //因为Redis是key-value存储的，那么我们首先要构建一个key。
-                String key=redisKey+userName;
+                String key=redisKey+username;
                 /*
                     Redis并没有实现内部序列化操作。
                     我们需要在获取redis资源的时候要进行反序列化操作
@@ -68,7 +68,7 @@ public class RedisDao {
             Jedis jedis=jedisPool.getResource();
             try{
                 //封装Key
-                String key=redisKey+user.getUserName();
+                String key=redisKey+user.getUsername();
                 //系列化
                 byte[] bytes=ProtostuffIOUtil.toByteArray(user,schema,
                         LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));
