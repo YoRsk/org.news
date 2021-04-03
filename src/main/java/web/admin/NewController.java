@@ -151,11 +151,13 @@ public class NewController {
         }
         return "redirect:/new/detail?newId=" + newId;
     }
-
+    /*插入新闻*/
     @RequestMapping(value = "/editor")
-    public String editor(int index) {
+    public String editor(int index, Model model) {
         User user = (User) session.getAttribute("user");
         if (user != null) {//表示已经登录
+            List<Category> categoryList = categoryService.queryAllCategory();
+            model.addAttribute("categoryList",categoryList);
             return "editor";
         }else{
             if(index==1)
@@ -214,6 +216,7 @@ public class NewController {
             return "redirect:/new/adminIndex";
     }
 
+    /*修改新闻*/
     @RequestMapping(value = "/edit")
     public String editNew(long newId, String username, Model model) {
         User user = userService.selectByName(username);
@@ -223,6 +226,8 @@ public class NewController {
         logger.info("############pengliuyi专用日志###########  修改新闻功能模块的XX数据："+user);
         if (useradmin.getUserType() == 1 || user.getUserId() == useradmin.getUserId()) {
             NewsResult<NewDetail> result = new NewsResult<NewDetail>(true, detail);
+            List<Category> categoryList = categoryService.queryAllCategory();
+            model.addAttribute("categoryList",categoryList);
             model.addAttribute("editResult", result);
             return "editNews";
         } else {

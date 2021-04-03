@@ -186,7 +186,6 @@
 <div class="footer text-center">
     <div class="copyright">
         <p> © Copyrights <strong>彭刘羿</strong>. All Rights Reserved
-            <a target="_blank" href="https://github.com/YoRsk">MyGithub</a></p>
     </div>
 </div>
 

@@ -15,7 +15,7 @@ public interface CategoryService {
     CategoryState insertCategory(Category category);
 
     /*
-     * 删除目录
+     * 删除目录(则会将该目录下所有文章都删除
      * */
     CategoryState deleteCategory(long categoryId);
 

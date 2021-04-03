@@ -5,6 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resource/script/editor.js"></script>
     <title>文章编辑器</title>
     <style>
         .form-group {
@@ -15,11 +16,12 @@
         }
         .form-group label {
             line-height: 34px;
-            width: 5%;
+            width: 10%;
             float: left;
             padding-left: 5px;
             margin-bottom: 0;
         }
+
         .form-group input, .form-group input:focus {
             border: none;
             padding: 0;
@@ -49,20 +51,34 @@
 
     <span>${insertNewResult.errMes}</span>
 
-    <form action="${pageContext.request.contextPath}/new/submitContent" method="post">
+    <form action="${pageContext.request.contextPath}/new/submitContent" method="post" onsubmit="return checkEditorAll()">
 
         <div class="form-group">
-            <label for="to" class="">标 题:</label>
-            <input type="text" name="title" tabindex="1" id="to" class="form-control">
+            <label for="title" class="">标 题:</label>
+            <input type="text" name="title" tabindex="1" id="title" class="form-control" onblur="checkEditorTitle()">
+            <span class="help-block" id="tip_title" style="color: #c7161c"></span>
         </div>
-        <div class="form-group">
+        <%--<div class="form-group">
             <label for="category" class="">类 型:</label>
             <input type="text"  name="categoryId" tabindex="1" id="category" class="form-control">
             <span id="tip_category" style="color: rebeccapurple"></span>
+        </div>--%>
+        <div class="form-group">
+            <label for="keywords" class="">关键字:</label>
+            <input type="text" name="keyWords" tabindex="1" id="keywords" class="form-control" onblur="checkEditorKeywords()">
+            <span class="help-block" id="tip_keywords" style="color: #c7161c"></span>
         </div>
         <div class="form-group">
-            <label for="do" class="">关键字:</label>
-            <input type="text" name="keyWords" tabindex="1" id="do" class="form-control">
+            <label class="">类 型:</label>
+            <label>
+                <select id="categoryId" name="categoryId" class="form-select form-select-sm">
+                    <option selected>请选择文章类型：</option>
+                    <c:forEach var="cList" items="${categoryList}">
+                        <option value="${cList.categoryId}">${cList.categoryName}</option>
+                    </c:forEach>
+                </select>
+            </label>
+            <span class="help-block" id="tip_category" style="color: #c7161c"></span>
         </div>
         <!-- 加载编辑器的容器 -->
         <script id="container" name="content" type="text/plain">

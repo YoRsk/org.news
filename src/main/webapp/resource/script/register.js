@@ -6,7 +6,7 @@ function checkname() {
     //正则表达式，表示用户名可以是大小写字母数据，长度6-20位
     reg = /^[a-zA-Z0-9]{6,20}$/;
     if (!reg.test(username.value)) {
-        tip.innerHTML = "用户为6-20的字符";
+        tip.innerHTML = "用户为6-20的字母或者数字组成";
         return false;
     } else {
         tip.innerHTML = " ";

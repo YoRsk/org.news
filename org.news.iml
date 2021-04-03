@@ -71,5 +71,8 @@
     <orderEntry type="library" name="jquery.scrollTo" level="application" />
     <orderEntry type="library" name="jquery-ui" level="application" />
     <orderEntry type="library" name="jquery.nicescroll" level="application" />
+    <orderEntry type="library" name="bootstrap-switch" level="application" />
+    <orderEntry type="library" name="jquery.tagsinput" level="application" />
+    <orderEntry type="library" name="bootstrap-datepicker" level="application" />
   </component>
 </module>

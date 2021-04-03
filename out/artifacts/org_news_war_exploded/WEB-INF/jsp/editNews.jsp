@@ -5,6 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resource/script/editor.js"></script>
+
     <title>文章编辑器</title>
     <style>
         .form-group {
@@ -15,7 +17,7 @@
         }
         .form-group label {
             line-height: 34px;
-            width: 5%;
+            width: 10%;
             float: left;
             padding-left: 5px;
             margin-bottom: 0;
@@ -49,27 +51,41 @@
 
     <span>${updateResult.errMes}</span>
 
-    <form action="${pageContext.request.contextPath}/new/update" method="post">
+    <form action="${pageContext.request.contextPath}/new/update" method="post" onsubmit="return checkEditorAll()">
 
         <input style="display: none" name="newId" value="${editResult.data.aNew.newId}">
 
         <div class="form-group">
-            <label for="to" class="">标 题:</label>
-            <input type="text" name="title" tabindex="1" id="to" class="form-control" value="${editResult.data.aNew.title}">
+            <label for="title" class="">标 题:</label>
+            <input type="text" name="title" tabindex="1" id="title" onblur="checkEditorTitle()" class="form-control" value="${editResult.data.aNew.title}">
+            <span class="help-block" id="tip_title" style="color: #c7161c"></span>
         </div>
-        <div class="form-group">
+        <%--<div class="form-group">
             <label for="category" class="">类 型:</label>
             <input type="text"  name="categoryId" tabindex="1" id="category" class="form-control"
                    value="${editResult.data.aNew.categoryId}">
             <span id="tip_category" style="color: rebeccapurple"></span>
-        </div>
+        </div>--%>
         <div class="form-group">
             <label for="dov" class="">作者:</label>
-            <input type="text" name="author " tabindex="1" id="dov" class="form-control" value="${editResult.data.user.username}">
+            <input type="text" disabled="disabled" name="author " tabindex="1" id="dov" class="form-control" value="${editResult.data.user.username}">
         </div>
         <div class="form-group">
-            <label for="do" class="">关键字:</label>
-            <input type="text" name="keyWords" tabindex="1" id="do" class="form-control" value="${editResult.data.aNew.keyWords}">
+            <label for="keywords" class="">关键字:</label>
+            <input type="text" name="keyWords" tabindex="1" id="keywords" onblur="checkEditorKeywords()" class="form-control" value="${editResult.data.aNew.keyWords}">
+            <span class="help-block" id="tip_keywords" style="color: #c7161c"></span>
+        </div>
+        <div class="form-group">
+            <label class="">类 型:</label>
+            <label>
+                <select id="categoryId" name="categoryId" class="form-select form-select-sm">
+                    <option selected>请选择文章类型：</option>
+                    <c:forEach var="cList" items="${categoryList}">
+                        <option value="${cList.categoryId}">${cList.categoryName}</option>
+                    </c:forEach>
+                </select>
+            </label>
+            <span class="help-block" id="tip_category" style="color: #c7161c"></span>
         </div>
         <div id="NewContent" style="display: none">${editResult.data.aNew.content}</div>
         <!-- 加载编辑器的容器 -->
@@ -91,8 +107,16 @@
     setTimeout(function () {
         ue.setContent(tsg.toString());
     },500)
-
-
+</script>
+<%-- 下拉框默认选中类型--%>
+<script type="text/javascript">
+    //控制轮播类型的初始选中值
+    //str = document.getElementById("typev").value;
+    obj = document.getElementById("categoryId");
+    for(let i=0; i<obj.length; i++){
+        if(obj[i].value==${editResult.data.aNew.categoryId})
+            obj[i].selected = true;
+    }
 </script>
 
 

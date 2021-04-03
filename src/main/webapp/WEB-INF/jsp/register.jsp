@@ -24,9 +24,8 @@
                             <div class="col-sm-10">
                                 <input class="form-control" id="username" name="username"
                                        onblur="checkname()"  type="text">
-                                <span id="tip_name" style="color: rebeccapurple"></span>
+                                <span id="tip_name" class="help-block"></span>
                             </div>
-
                         </div>
 
                         <div class="form-group">
@@ -34,7 +33,7 @@
                             <div class="col-sm-10">
                                 <input type="password" id="password" name="userPassword" onblur="checkpsd1()"
                                        class="form-control" placeholder="">
-                                <span class="help-block" id="tip_password">密码长度6-25位</span>
+                                <span class="help-block" id="tip_password">请输入密码 6—20位</span>
                             </div>
                         </div>
                         <div class="form-group">
