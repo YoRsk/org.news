@@ -19,8 +19,8 @@ public interface NewService {
 
     /*
     * 获取主页的所有类型的新闻。(未判断是否发表State==2)
-    * */
-    NewList selectIndexNew();
+    * *//*
+    NewList selectIndexNew();*/
 
     /*
     * 获取新闻的详情信息。新闻内容、作者信息
@@ -33,9 +33,19 @@ public interface NewService {
     List<NewsData> selectNewsByUserId(long userId);
 
     /*
+     * 作者查询自己发表的新闻列表
+     * */
+    List<NewsData> selectNewsByCategoryId(long categoryId);
+
+    /*
     * 管理员查看所有发表新闻
     * */
     List<NewsData> selectAllNews();
+
+    /*
+     * 根据热点排序新闻
+     * */
+    List<NewsData> selectHotNewsByViews();
 
     /*
     * 删除指定新闻

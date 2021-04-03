@@ -69,7 +69,7 @@ public class NewServiceImpl implements NewService {
     /*
      * index新闻list（未添加state==2判断)
      * */
-    @Override
+    /*@Override
     public NewList selectIndexNew() {
         List<New> hotnew = newDao.queryByCategoryId(1);
         List<New> entertail = newDao.queryByCategoryId(2);
@@ -85,7 +85,7 @@ public class NewServiceImpl implements NewService {
         newList.setMILITARY(military);
         newList.setWORLD_NEWS(world);
         return newList;
-    }
+    }*/
     @Override
     public NewDetail selectNew(long newId) {
         New news = newDao.queryByNewId(newId);
@@ -106,11 +106,25 @@ public class NewServiceImpl implements NewService {
         return newDao.queryByUserId(userId);
     }
 
+    /*
+     * 作者查询自己发表的新闻列表
+     * */
+    @Override
+    public List<NewsData> selectNewsByCategoryId(long categoryId){return newDao.queryByCategoryId(categoryId);}
+
+    /*
+     * 根据浏览量选择热点
+     * */
     @Override
     public List<NewsData> selectAllNews() {
         return newDao.queryAllNews();
     }
 
+    /*
+     * 根据热点排序新闻
+     * */
+    @Override
+    public List<NewsData> selectHotNewsByViews(){ return newDao.queryHotNewsByViews();}
 
     /*
      * 删除指定新闻

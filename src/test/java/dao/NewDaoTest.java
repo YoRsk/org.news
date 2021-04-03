@@ -39,8 +39,13 @@ public class NewDaoTest {
     @Test
     public void queryByCategoryIdTest(){
         int id=2;
-        List<New> list=newDao.queryByCategoryId(id);
-        System.out.println("List<New>:"+list);
+        List<NewsData> list=newDao.queryByCategoryId(id);
+        System.out.println("List<NewsData>:"+list);
+    }
+    @Test
+    public void queryHotNewsByViews(){
+        List<NewsData> list = newDao.queryHotNewsByViews();
+        System.out.println("List<NewsData>:"+list);
     }
 
     @Test

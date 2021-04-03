@@ -29,10 +29,10 @@ public class NewServiceImplTest {
         System.out.println(":"+newService.insertNew(news));
     }
 
-    @Test
+    /*@Test
     public void selectIndexNew() {
         System.out.println("List:"+newService.selectIndexNew());
-    }
+    }*/
 
     @Test
     public void selectNew() {

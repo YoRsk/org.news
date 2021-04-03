@@ -1,6 +1,7 @@
 package web;
 
 import dto.*;
+import entity.Category;
 import entity.New;
 import entity.User;
 import enums.UserRegisterEnums;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import service.CategoryService;
 import service.CommentService;
 import service.NewService;
 import service.UserService;
@@ -45,6 +47,9 @@ public class NavController {
     private CommentService commentService;
 
     @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
     private HttpServletRequest request;
 
 
@@ -53,10 +58,12 @@ public class NavController {
      * */
     @RequestMapping(value = "/index")
     public String index(Model model) {
-        NewList newList = newService.selectIndexNew();
+        /*NewList newList = newService.selectIndexNew();*/ //好像没用
         List<NewsData> newsData = newService.selectAllNews();
-        model.addAttribute("list", newList);
+        List<Category> categoryList = categoryService.queryAllCategory();
+        /*model.addAttribute("list", newList);*/
         model.addAttribute("newData", newsData);
+        model.addAttribute("categoryList",categoryList);
         return "NewIndex";
     }
 
@@ -79,7 +86,7 @@ public class NavController {
         }
     }
     /*
-     * 跳转到具体新闻,通过ip记录浏览量
+     * 跳转到具体新闻 记录浏览量
      * */
     @RequestMapping("/new/detail")
     public String detail(long newId, Model model) {
@@ -91,6 +98,35 @@ public class NavController {
         model.addAttribute("detaildata", newsData);
         model.addAttribute("commentlist", list);
         return "newsdetail";
+    }
+    /*
+     * 跳转到具体目录
+     * */
+    @RequestMapping("/category")
+    public String cDetail(long categoryId,Model model){
+        /*NewList newList = newService.selectIndexNew();*/
+        List<NewsData> newsData = newService.selectNewsByCategoryId(categoryId);
+        List<Category> categoryList = categoryService.queryAllCategory();
+        String title = newsData.get(0).getTypeName();//把categories name 作为title
+        /*model.addAttribute("list", newList);*/
+        model.addAttribute("newData", newsData);
+        model.addAttribute("categoryList",categoryList);
+        model.addAttribute("title",title);
+        return "NewIndex";
+    }
+
+    /*
+     * 根据浏览次数排列热点新闻
+     * */
+   @RequestMapping("/hot")
+    public String hot(Model model){
+        List<NewsData> newsData = newService.selectHotNewsByViews();
+        List<Category> categoryList = categoryService.queryAllCategory();
+        model.addAttribute("newData", newsData);
+        model.addAttribute("categoryList",categoryList);
+        model.addAttribute("title","热点");
+        return "NewIndex";
+
     }
 
 

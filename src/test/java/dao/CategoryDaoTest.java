@@ -19,6 +19,10 @@ public class CategoryDaoTest {
     public void query(){
         List<Category> list = categoryDao.queryAllCategory();
         System.out.println(list);
+        for (Category category : list) {
+            System.out.println(category.getCategoryName());
+        }
+
     }
 
 }

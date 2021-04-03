@@ -6,13 +6,13 @@
     <!-- 插入用户-->
     <insert id="insertUser" parameterType="entity.User">
           insert ignore into user(user_type,user_password,user_name,user_email,user_age)
-          values (0,#{userPassword},#{userName},#{userEmail},#{userAge})
+          values (0,#{userPassword},#{username},#{userEmail},#{userAge})
     </insert>
     <!-- 登录验证-->
     <select id="queryById" resultType="entity.User">
           select user_id,user_type,user_password,user_name,user_email,user_age,create_time
           from user
-          where user_name=#{userName}
+          where user_name=#{username}
           and  user_password=#{userPassword}
     </select>
     <!-- 获取用户列表-->
@@ -34,7 +34,7 @@
     <select id="queryByName" resultType="entity.User">
           select user_id,user_type,user_password,user_name,user_email,user_age,create_time
           from user
-          where user_name=#{userName}
+          where user_name=#{username}
     </select>
     <!-- 通过user_id查询数据-->
     <select id="queryByOnlyId" resultType="entity.User">
@@ -47,7 +47,7 @@
           select user_id,user_type,user_password,user_name,user_email,user_age,create_time
           from user
           where user_email=#{email}
-          and user_name=#{userName}
+          and user_name=#{username}
     </select>
     <!-- 更新信息-->
     <update id="updateUser" parameterType="entity.User">
@@ -56,7 +56,7 @@
             set
                  user_type=#{userType},
                  user_password=#{userPassword},
-                 user_name=#{userName},
+                 user_name=#{username},
                  user_email=#{userEmail},
                  user_age=#{userAge}
             where user_id=#{userId}

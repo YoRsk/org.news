@@ -40,18 +40,13 @@
 <body>
 <!-- header-section-starts -->
 <div class="header">
-
-
-
     <div class="container">
         <div class="logo">
-            <a href="index.html"><img src="${pageContext.request.contextPath}/resource/img/friends/fr-09.jpg"
+            <a href="${pageContext.request.contextPath}/index"><img src="${pageContext.request.contextPath}/resource/img/friends/fr-09.jpg"
                                       class="img-responsive" alt="" style="width: 100px; height: 100px"/></a>
 
             <label style="margin-left: 200px;font-size: 40px;margin: 0;color: #ffffff;">新闻发布平台</label>
         </div>
-
-
 
         <div class="header-right">
             <%
@@ -109,7 +104,14 @@
     <div class="blog-section">
         <div class="container">
             <div class="col-md-8 left_column" style="float: left">
-                <h2 class="with-line">新闻列表</h2>
+                <c:choose>
+                    <c:when test="${empty title}">
+                        <h2 class="with-line">新闻列表</h2>
+                    </c:when>
+                    <c:otherwise>
+                        <h2 class="with-line">${title}</h2>
+                    </c:otherwise>
+                </c:choose>
                 <c:forEach var="data" items="${newData}">
                     <c:if test="${data.aNew.states==2}">
                     <article class="clearfix">
@@ -169,12 +171,10 @@
                         <h2 class="with-line">新闻分类</h2>
                     </header>
                     <ul>
-                        <li><a href="#">热点</a></li>
-                        <li><a href="#">娱乐</a></li>
-                        <li><a href="#">科技</a></li>
-                        <li><a href="#">军事</a></li>
-                        <li><a href="#">体育</a></li>
-                        <li><a href="#">国际</a></li>
+                        <li><a href="/hot">热点</a></li>
+                        <c:forEach var="cList" items="${categoryList}">
+                            <li><a href="/category?categoryId=${cList.categoryId}">${cList.categoryName}</a></li>
+                        </c:forEach>
                     </ul>
                 </div>
 

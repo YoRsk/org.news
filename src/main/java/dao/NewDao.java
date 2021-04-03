@@ -26,11 +26,12 @@ public interface NewDao {
     /*
     * 根据类别id获取新闻列表
     * */
-    List<New> queryByCategoryId(@Param("categoryId") long categoryId);
+    List<NewsData> queryByCategoryId(@Param("categoryId") long categoryId);
     /*
      * 根据类别id和状态states==2获取新闻列表
      * *//*
     List<New> queryByCategoryIdAndStates(@Param("categoryId") long categoryId,@Param("states")long states);*/
+
     /*
     * 根据作者Id获取作者所写的新闻列表
     * */
@@ -41,6 +42,10 @@ public interface NewDao {
      * */
     List<NewsData> queryAllNews();
 
+    /*
+     * 根据浏览量排列热点新闻
+     * */
+    List<NewsData> queryHotNewsByViews();
     /*
     * 删除指定Id的新闻条目
     * */

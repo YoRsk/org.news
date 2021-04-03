@@ -23,11 +23,23 @@
         title=#{title}
     </select>
     <!-- 通过类型Id获取新闻数据-->
-    <select id="queryByCategoryId" resultType="entity.New">
-        select new_id,category_id,user_id,title,content,create_time,key_words,views,states
-        from new
-        where category_id=#{categoryId}
-        order by create_time desc
+    <select id="queryByCategoryId" resultType="dto.NewsData">
+        select n.new_id "aNew.new_id",
+        n.category_id "aNew.category_id",
+        n.user_id "aNew.user_id",
+        n.title "aNew.title",
+        n.content "aNew.content",
+        n.create_time "aNew.create_time",
+        n.key_words "aNew.key_words",
+        n.views "aNew.views",
+        n.states "aNew.states",
+        category_name "typeName",
+        u.user_name
+        from new n,user u,category cate
+        where n.user_id=u.user_id
+        and n.category_id=cate.category_id
+        and n.category_id=#{categoryId}
+        order by n.create_time desc
     </select>
     <!-- 通过作者ID获得新闻列表-->
     <select id="queryByUserId" resultType="dto.NewsData">
@@ -64,6 +76,26 @@
         where n.user_id=u.user_id
         and n.category_id=cate.category_id
         order by n.create_time desc
+    </select>
+
+    <!--根据热点排列新闻-->
+    <select id="queryHotNewsByViews" resultType="dto.NewsData">
+        select n.new_id "aNew.new_id",
+        n.category_id "aNew.category_id",
+        n.user_id "aNew.user_id",
+        n.title "aNew.title",
+        n.content "aNew.content",
+        n.create_time "aNew.create_time",
+        n.key_words "aNew.key_words",
+        n.views "aNew.views",
+        n.states "aNew.states",
+        category_name "typeName",
+        u.user_name
+        from new n,user u,category cate
+        where n.user_id=u.user_id
+        and n.category_id=cate.category_id
+        order by n.views desc
+        LIMIT 5
     </select>
     <!-- 模糊查找-->
     <select id="selectByLike" resultType="dto.NewsData">
