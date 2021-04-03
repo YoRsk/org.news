@@ -206,8 +206,7 @@
 
 <div class="footer text-center">
     <div class="copyright">
-        <p> © Copyrights <strong>杨鑫</strong>. All Rights Reserved
-            <a target="_blank" href="https://github.com/fireshoot/YxNews">项目地址</a></p>
+        <p> © Copyrights <strong>彭刘羿</strong>. All Rights Reserved
     </div>
 </div>
 

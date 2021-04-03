@@ -76,8 +76,6 @@
             <div class="top-menu">
                 <ul>
                     <li><a class="active" href="#">新闻主页</a></li>
-                    <li><a href="https://www.cnblogs.com/yangdagaoge/">项目日记</a></li>
-                    <li><a href="https://github.com/fireshoot/YxNews">项目地址</a></li>
                     <li><a href="${pageContext.request.contextPath}/user/center">个人中心</a></li>
                     <%if(user != null && user.getUserType() == 1){%>
                     <li><a href="${pageContext.request.contextPath}/new/adminIndex">管理界面</a></li>
@@ -161,8 +159,8 @@
                     <ul>
                         <li><a href="${pageContext.request.contextPath}/new/editor?index=1">添加文章</a></li>
                         <li><a href="${pageContext.request.contextPath}/user/center">我发表的文章</a></li>
-                        <li><a href="${pageContext.request.contextPath}/user/center">我的评论</a></li>
-                        <li><a href="${pageContext.request.contextPath}/user/center">我的消息</a></li>
+                        <%--<li><a href="${pageContext.request.contextPath}/user/center">我的评论</a></li>
+                        <li><a href="${pageContext.request.contextPath}/user/center">我的消息</a></li>--%>
                     </ul>
                 </div>
 

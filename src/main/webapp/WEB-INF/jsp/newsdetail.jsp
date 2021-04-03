@@ -417,8 +417,12 @@
                                 <textarea class="box-textarea J_Textarea" name="commentContent" id="J_Textarea"
                                           placeholder="说两句吧..."></textarea></div>
                                 <button class="btn btn-danger btn-xs" type="submit" onclick="return checkInput()">提交评论</button>
+                                <c:if test="${empty sessionScope.user}">
+                                    提交评论前请先<a href="/user/login">登录</a>
+                                </c:if>
                                 <span class="help-block" id="tip_inputText"></span>
                             </form>
+
                             </li>
                             </ul>
                         </div>
