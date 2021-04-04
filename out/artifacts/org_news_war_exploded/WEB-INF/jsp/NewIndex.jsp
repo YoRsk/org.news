@@ -115,7 +115,7 @@
                     <article class="clearfix">
                         <header class="grid_8 alpha">
                             <div class="sub">
-                                <a href="/new/detail?newId=${data.aNew.newId}"
+                                <a target="_blank" href="/new/detail?newId=${data.aNew.newId}"
                                    class="readblog">${data.aNew.title}</a>
                                 <p class="sub_head">作者: <a href="#">${data.username}</a> 浏览量: ${data.aNew.views}
                                 </p>
@@ -188,6 +188,5 @@
         <p> © Copyrights <strong>彭刘羿</strong>. All Rights Reserved
     </div>
 </div>
-
 </body>
 </html>

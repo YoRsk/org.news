@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/to-do.css">
 </head>
 <body>
-
-
 <section id="container">
     <!--header start-->
     <header class="header black-bg">
@@ -122,7 +120,7 @@
     <section id="main-content">
         <div class="mt" style="margin-right: 5px;margin-left: 5px;margin-top: 5px;margin-bottom: 5px">
             <div class="col-md-12">
-                <div style="color: rebeccapurple">${result}</div>
+
                 <div class="content-panel">
                     <h4><i class="fa fa-angle-right"></i> 用户列表</h4>
                     <hr>
@@ -168,8 +166,9 @@
                                 <td><fmt:formatDate value="${user.createTime}"
                                                     pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
                                 <td>
-                                    <a href="${pageContext.request.contextPath}/new/ForceLogout?username=${user.username}">
-                                        <button class="btn btn-success">
+
+                                    <a href="${pageContext.request.contextPath}/admin/ForceLogout?userId=${user.userId}">
+                                        <button class="toast-btn btn btn-success" id="goToPageB">
                                             <i class="fa fa-check">
                                                下线</i></button>
                                     </a>
@@ -189,11 +188,12 @@
 
                         </tbody>
                     </table>
+
+                    </div>
                 </div>
                 <!-- /content-panel -->
             </div>
             <!-- /col-md-12 -->
-        </div>
     </section>
     <!-- /MAIN CONTENT -->
     <!--main content end-->
@@ -212,7 +212,7 @@
             <div class="credits">
                 Created by <a href="https://github.com/YoRsk">MyGithub</a>
             </div>
-            <a href="adminIndex.html#" class="go-top">
+            <a href="adminIndex#" class="go-top">
                 <i class="fa fa-angle-up"></i>
             </a>
         </div>
@@ -221,6 +221,8 @@
 </section>
 
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<%--toasts框所需组件--%>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
 
@@ -229,14 +231,12 @@
 <script src="https://cdn.bootcss.com/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery.nicescroll/3.7.6/jquery.nicescroll.js"></script>
 <script src="${pageContext.request.contextPath}/resource/lib/common-scripts.js"></script>
-
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="../../resource/lib/toast.min.js"></script>
 <%--
 <script type="text/javascript" src="${pageContext.request.contextPath}/resource/css/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resource/css/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
 --%>
-
-
 <script src="${pageContext.request.contextPath}/resource/script/tasks.js" type="text/javascript"></script>
 <script>
     jQuery(document).ready(function () {
@@ -270,22 +270,53 @@
         location.href = "/new/delete?newId=" + id;
     }
 
-    var desc = document.getElementById('desc').innerHTML;
+ /*   var desc = document.getElementById('desc').innerHTML;
     var text = desc.toString().substring(0, 20) + "......";
     var desc1 = document.getElementById('desc');
 
-    desc1.innerHTML = text;
+    desc1.innerHTML = text;*/
+    $('.toast-btn').on('click',function() {
+        sessionStorage.setItem("from","pageA");
+    })
+
+    const TYPES = ['info', 'warning', 'success', 'error'],
+        TITLES = {
+            'info': 'Notice!',
+            'success': 'Awesome!',
+            'warning': 'Watch Out!',
+            'error': 'Doh!'
+        },
+        CONTENT = {
+            'info': 'Hello, world! This is a toast message.',
+            'success': 'The action has been completed.',
+            'warning': 'It\'s all about to go wrong',
+            'error': 'It all went wrong.'
+        },
+        POSITION = ['top-right', 'top-left', 'top-center', 'bottom-right', 'bottom-left', 'bottom-center'];
+
+    $.toastDefaults.position = 'bottom-center';
+    $.toastDefaults.dismissible = true;
+    $.toastDefaults.stackable = true;
+    $.toastDefaults.pauseDelayOnHover = true;
+    window.onload = function() {
+        var from = sessionStorage.getItem("from");
+        if( from == 'pageA') {
+            var type = 'info',
+                title = '下线提醒',
+                content = '${result.errMes}+1';
+                $.toast({
+                    type: type,
+                    title: title,
+                    subtitle: 'now',
+                    content: content,
+                    delay: 5000
+                });
+            }
+            //balabala  要触发的点击事件  $('#xxx').click()
+            sessionStorage.setItem("from",""); //销毁 from 防止在b页面刷新 依然触发$('#xxx').click()
+    }
 
 
-    /*
-    * <p>你的事件应该绑定在按钮上，而不是ready上。<br/>var bready=false;<br/>B.addListener(&quot;ready&quot;,function(){bready=true;});//防止在按钮按下的时候，编辑器还没初始化<br/><br/>bt.addListener(&quot;click&quot;,function(){<br/>if (bready) B.setContent(&quot;内容&quot;);<br/>else B.addListener(&quot;ready&quot;,function(){B.setContent(&quot;内容&quot;);});//如果点下按钮时还没初始化，那么就等初始化完成的时候自动把内容放进去<br/>})<img src="/ueditor/jsp/upload/image/20181228/1545998530000092022.jpg" title="1545998530000092022.jpg" alt="机械师壁纸 (13).jpg"/></p>
-    * */
-
-    //wysihtml5 start
-
-    /*    $('.wysihtml5').wysihtml5();*/
-
-    //wysihtml5 end
     $(function () {
         $("#sortable").sortable();
         $("#sortable").disableSelection();

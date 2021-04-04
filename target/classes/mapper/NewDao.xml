@@ -8,6 +8,12 @@
         insert ignore into new(category_id,user_id,title,content,key_words,views,states)
         values(#{categoryId},#{userId},#{title},#{content},#{keyWords},#{views},#{states})
     </insert>
+    <!-- 刪除新闻-->
+    <delete id="deleteNew">
+        delete
+        from  new
+        where new_id=#{newId}
+    </delete>
     <!-- 通过新闻Id 获取新闻数据-->
     <select id="queryByNewId" resultType="entity.New">
         select new_id,category_id,user_id,title,content,create_time,key_words,views,states
@@ -77,7 +83,6 @@
         and n.category_id=cate.category_id
         order by n.create_time desc
     </select>
-
     <!--根据热点排列新闻-->
     <select id="queryHotNewsByViews" resultType="dto.NewsData">
         select n.new_id "aNew.new_id",
@@ -135,12 +140,6 @@
         where
         n.key_words like #{keys}
     </select>
-    <!-- 刪除新闻-->
-    <delete id="deleteNew">
-        delete
-        from  new
-        where new_id=#{newId}
-    </delete>
     <!-- 更新新闻-->
     <update id="updateNew" parameterType="entity.New">
         update new
@@ -154,7 +153,7 @@
         where new_id=#{newId}
 
     </update>
-    <!--   更新状态-->
+    <!-- 更新状态-->
     <update id="updateState" parameterType="entity.New">
         update new
         set

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{bootstrap, bootstrap-datepicker, bootstrap-switch, jquery-ui, jquery.backstretch, jquery.nicescroll, jquery.scrollTo, jquery.tagsinput}" />
+    <file url="file://$PROJECT_DIR$" libraries="{bootstrap, bootstrap-3.3.4, bootstrap-4.2.1, bootstrap-datepicker, bootstrap-switch, daterangepicker, font-awesome, jquery-ui, jquery.backstretch, jquery.nicescroll, jquery.scrollTo, jquery.tagsinput, popper, popper.js}" />
   </component>
 </project>

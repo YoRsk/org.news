@@ -3,7 +3,7 @@ package dto;
 import entity.User;
 import enums.UserRegisterEnums;
 
-
+//user表更新状态（不仅限于register一个功能...
 public class RegisterState {
     private long userId;
 

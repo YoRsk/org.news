@@ -24,12 +24,13 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * NewController包含管理员操作界面功能模块。
- * 主页:/new/adminIndex
- * 注册：POST/user/toRegister
- * 更新：POST/user/update
- * 找回密码：POST/user/toForgetPassword
- * 注销接口：POST/user/Logout
+ * NewController包含管理员界面功能模块。
+ *
+ * 删除评论：POST:/new/deletecomment
+ * 提交评论：POST:/new/commitcomment
+ * 插入新闻：POST:/new/editor
+ * 提交新闻：POST:/new/submitContent
+ * 删除新闻：POST:/new/delete
  * @author pengliuyi
  */
 @Controller
@@ -52,53 +53,9 @@ public class NewController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping(value = "/adminIndex")
-    public String adminIndex(Model model) {
-        User user = (User) session.getAttribute("user");
-        if (user != null) {//表示已经登录
-            List<NewsData> list = newService.selectAllNews();
-            model.addAttribute("Newslist", list);
-            return "adminIndex";
-        }else{
-            return "redirect:/admin/login";
-        }
-    }
-
-    @GetMapping(value = "/commentList")
-    public String commentList(Model model){
-        User user = (User) session.getAttribute("user");
-        if (user != null) {//表示已经登录
-            List<CommentData> commentData = commentService.selectAllComment();
-            model.addAttribute("commentList", commentData);
-            return "AdminIndexComment";
-        }else{
-            return "redirect:/admin/login";
-        }
-    }
-
-    @GetMapping(value = "/userList")
-    public String userlist(Model model){
-        User user = (User) session.getAttribute("user");
-        if (user != null) {//表示已经登录
-            List<User> list = userService.selectAllUser();
-            model.addAttribute("userList", list);
-            return "AdminIndexUser";
-        }else{
-            return "redirect:/admin/login";
-        }
-    }
-    @GetMapping(value = "/categoryList")
-    public String categoryList(Model model){
-        User user = (User) session.getAttribute("user");
-        if(user != null) {
-            List<Category> list = categoryService.queryAllCategory();
-            model.addAttribute("categoryList",list);
-            return "AdminIndexCategory";
-        }else{
-            return "redirect:/admin/login";
-        }
-    }
-
+    /*
+     * 删除评论
+     * */
     @RequestMapping(value = "deletecomment")
     public String deleteComment(long commentId, String username, Model model) {
         User user = userService.selectByName(username);//username为该评论的user
@@ -125,6 +82,9 @@ public class NewController {
             return "redirect:/index";
     }
 
+    /*
+    * 提交评论
+    * */
     @RequestMapping("/submitcomment")
     public String submitComment(String commentContent, long newId, Model model) {
         logger.info("*************提交评论获取内容：" + commentContent + newId);
@@ -199,6 +159,9 @@ public class NewController {
             return "editor";
         }
     }
+    /*
+    * 删除新闻
+    * */
     @RequestMapping(value = "/delete")
     public String delete(long newId, String username,int tag, Model model) {
         logger.info("****************" + newId + "," + username);
@@ -216,7 +179,9 @@ public class NewController {
             return "redirect:/new/adminIndex";
     }
 
-    /*修改新闻*/
+    /*
+    *修改新闻
+    * */
     @RequestMapping(value = "/edit")
     public String editNew(long newId, String username, Model model) {
         User user = userService.selectByName(username);
@@ -358,15 +323,6 @@ public class NewController {
         }
     }
 
-    /*
-     * 实现强制下线
-     * */
-    @RequestMapping(value = "/ForceLogout")
-    public String ForceLogout(String username, Model model) {
-        userService.ForceLogout(username);
-        NewsResult<User> result = new NewsResult<User>(true, "注销成功");
-        model.addAttribute("resultLogout", result);
-        return "redirect:/new/userList";
-    }
+
 
 }

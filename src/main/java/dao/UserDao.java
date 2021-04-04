@@ -16,6 +16,11 @@ public interface UserDao {
      int insertUser(User user);
 
     /*
+     * 删除指定Id的新闻条目
+     * */
+    int deleteUser(@Param("userId")long userId);
+
+    /*
     * 根据昵称和密码查询用户验证登录
     * */
     User queryById(@Param("username") String username, @Param("userPassword") String userPassword);
@@ -49,4 +54,6 @@ public interface UserDao {
     * 模糊查询用户列表
     * */
     List<User> selectUserByLike(@Param("key")String key);
+
+
 }

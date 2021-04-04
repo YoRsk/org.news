@@ -1,6 +1,6 @@
 package dto;
 
-
+//管理员栏返回结果 data可为New User等
 public class NewsResult<T> {
     private boolean success;
 

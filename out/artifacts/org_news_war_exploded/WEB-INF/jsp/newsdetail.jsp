@@ -26,7 +26,10 @@
             color: #333;
             margin-top: 8px;
         }
-
+        .RIGHT {
+            float: right;
+            margin-bottom: 250px;
+        }
         p {
             font-size: 40px;
             line-height: 1.5;
@@ -398,6 +401,9 @@
                     </div>
                 </div>
             </div>
+            <div class="RIGHT">
+                <h2><a href="${pageContext.request.contextPath}/index">->返回首页</a></h2>
+            </div>
             <div class="comment_box">
                 <div class="new_comment">
                     <div class="header1" id="J_Header"><h1 class="header-title">网友评论</h1>
@@ -429,8 +435,6 @@
                     </div>
                     <div class="comment-short" id="J_Short">
                         <div class="comment-title"><p class="comment-all">全部评论</p>
-                            <div class="comment-center" id="J_CommentCenter"><span class="comment-center-slash">/</span><span
-                                    class="comment-my J_userCenter">我的评论</span></div>
                             <p class="comment-sort"><span data-targetid="3604043448" data-sort="1"
                                                           class="J_CommentSort ">最新</span> &nbsp;/&nbsp; <span
                                     data-targetid="3604043448" data-sort="0"

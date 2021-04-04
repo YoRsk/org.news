@@ -13,6 +13,11 @@ public interface UserService {
     RegisterState register(User user);
 
     /*
+    * 删除用户，userId为被删除用户，admin判断是否是管理员
+    * */
+    RegisterState deleteUser(long userId);
+
+    /*
     * 根据用户名验证用户是否存在
     * */
     User selectByName(String username);
@@ -35,7 +40,7 @@ public interface UserService {
     /*
     * 强制下线
     * */
-    void ForceLogout(String Username);
+    void ForceLogout(long userId);
 
     /*
      * 主动下线

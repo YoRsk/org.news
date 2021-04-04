@@ -81,6 +81,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public RegisterState deleteUser(long userId) {
+        int countDelete = userDao.deleteUser(userId);
+        if(countDelete <= 0){
+            return new RegisterState(userId, UserRegisterEnums.DELETEFAIL);
+        }else return new RegisterState(userId, UserRegisterEnums.SUCCESS);
+    }
+
+
+    @Override
     public User selectByName(String username) {
         return userDao.queryByName(username);
     }
@@ -135,26 +144,30 @@ public class UserServiceImpl implements UserService {
             ServletContext application = session.getServletContext();
             @SuppressWarnings("unchecked")
             Map<Integer, Object> loginMap = (Map<Integer, Object>) application.getAttribute("loginMap");
-            logger.info("############pengliuyi专用日志###########  强制注销功能模块的数据：" + u.getUserId());
+            logger.info("############pengliuyi专用日志###########  注销功能模块的数据：" + u.getUserId());
             loginMap.remove((int) u.getUserId());
             application.setAttribute("loginMap", loginMap);
         } catch (Exception e) {
             e.printStackTrace();
-            logger.info("############pengliuyi专用日志###########  强制注销功能模块的出现异常");
+            logger.info("############pengliuyi专用日志###########  注销功能模块的出现异常");
         }
     }
 
-    public void ForceLogout(String Username) {
+    public void ForceLogout(long userId) {
         User u = (User) session.getAttribute("user");
-        User logoutUser = userDao.queryByName(Username);
+        User logoutUser = userDao.queryByOnlyId(userId);
         try {
-            if (u.getUserType() == 1)
-                session.removeAttribute("user");
+            /*if (u.getUserType() == 1)
+                session.removeAttribute("user");*/
             ServletContext application = session.getServletContext();
             @SuppressWarnings("unchecked")
             Map<Integer, Object> loginMap = (Map<Integer, Object>) application.getAttribute("loginMap");
-            loginMap.remove((int) logoutUser.getUserId());
+            logger.info("############pengliuyi专用日志###########  强制注销功能模块的数据：" + logoutUser.getUserId());
+            session.removeAttribute("logoutUser");
+            loginMap.remove((int) logoutUser.getUserId());//在Loginmap中删除该用户的消息
             application.setAttribute("loginMap", loginMap);
+
+            logger.info("############pengliuyi专用日志###########  loginMap：" + loginMap);
         } catch (Exception e) {
             e.printStackTrace();
             logger.info("############pengliuyi专用日志###########  强制注销功能模块的出现异常");

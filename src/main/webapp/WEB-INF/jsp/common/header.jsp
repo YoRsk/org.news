@@ -19,7 +19,7 @@ ${pageContext.request.contextPath}
 
 <link href="https://cdn.bootcss.com/bootstrap-daterangepicker/3.0.3/daterangepicker.css" rel="stylesheet">
 <!-- Custom styles for this template -->
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/toast.min.css">
 <link href="${pageContext.request.contextPath}/resource/css/style.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resource/css/style-responsive.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resource/css/index.css" rel="stylesheet">
@@ -39,11 +39,11 @@ ${pageContext.request.contextPath}
     .m{ width: 800px; margin-left: auto; margin-right: auto; }
 </style>
 <script>
-    $(function(){
+/*    $(function(){
         $('.summernote').summernote({
             height: 200,
             tabsize: 2,
             lang: 'zh-CN'
         });
-    });
+    });*/
 </script>

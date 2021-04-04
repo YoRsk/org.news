@@ -74,5 +74,11 @@
     <orderEntry type="library" name="bootstrap-switch" level="application" />
     <orderEntry type="library" name="jquery.tagsinput" level="application" />
     <orderEntry type="library" name="bootstrap-datepicker" level="application" />
+    <orderEntry type="library" name="popper" level="application" />
+    <orderEntry type="library" name="font-awesome" level="application" />
+    <orderEntry type="library" name="daterangepicker" level="application" />
+    <orderEntry type="library" name="bootstrap-3.3.4" level="application" />
+    <orderEntry type="library" name="popper.js" level="application" />
+    <orderEntry type="library" name="bootstrap-4.2.1" level="application" />
   </component>
 </module>

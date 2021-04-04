@@ -13,6 +13,7 @@ public enum UserRegisterEnums {
     NOTEXIST(-3,"用户不存在"),
     UPDATEFAIL(-4,"更新失败"),
     UNLOGIN(-10,"未登录"),
+    DELETEFAIL(-6,"删除用户失败")
     ;
 
     private int state;

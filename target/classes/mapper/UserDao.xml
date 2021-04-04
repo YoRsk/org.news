@@ -8,6 +8,12 @@
           insert ignore into user(user_type,user_password,user_name,user_email,user_age)
           values (0,#{userPassword},#{username},#{userEmail},#{userAge})
     </insert>
+    <!-- 删除用户-->
+    <delete id="deleteUser">
+        delete
+        from user
+        where user_id=#{userId}
+    </delete>
     <!-- 登录验证-->
     <select id="queryById" resultType="entity.User">
           select user_id,user_type,user_password,user_name,user_email,user_age,create_time

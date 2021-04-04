@@ -38,12 +38,12 @@ ${pageContext.request.contextPath}
     .m{ width: 800px; margin-left: auto; margin-right: auto; }
 </style>
 <script>
-    $(function(){
+ /*   $(function(){
         $('.summernote').summernote({
             height: 200,
             tabsize: 2,
             lang: 'zh-CN'
         });
-    });
+    });*/
 </script>
 
