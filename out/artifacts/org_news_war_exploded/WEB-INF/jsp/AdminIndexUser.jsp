@@ -270,29 +270,9 @@
         location.href = "/new/delete?newId=" + id;
     }
 
- /*   var desc = document.getElementById('desc').innerHTML;
-    var text = desc.toString().substring(0, 20) + "......";
-    var desc1 = document.getElementById('desc');
-
-    desc1.innerHTML = text;*/
     $('.toast-btn').on('click',function() {
         sessionStorage.setItem("from","pageA");
     })
-
-    const TYPES = ['info', 'warning', 'success', 'error'],
-        TITLES = {
-            'info': 'Notice!',
-            'success': 'Awesome!',
-            'warning': 'Watch Out!',
-            'error': 'Doh!'
-        },
-        CONTENT = {
-            'info': 'Hello, world! This is a toast message.',
-            'success': 'The action has been completed.',
-            'warning': 'It\'s all about to go wrong',
-            'error': 'It all went wrong.'
-        },
-        POSITION = ['top-right', 'top-left', 'top-center', 'bottom-right', 'bottom-left', 'bottom-center'];
 
     $.toastDefaults.position = 'bottom-center';
     $.toastDefaults.dismissible = true;
@@ -303,7 +283,7 @@
         if( from == 'pageA') {
             var type = 'info',
                 title = '下线提醒',
-                content = '${result.errMes}+1';
+                content = '${result.errMes}';
                 $.toast({
                     type: type,
                     title: title,
@@ -316,7 +296,26 @@
             sessionStorage.setItem("from",""); //销毁 from 防止在b页面刷新 依然触发$('#xxx').click()
     }
 
+    /*    const TYPES = ['info', 'warning', 'success', 'error'],
+            TITLES = {
+                'info': 'Notice!',
+                'success': 'Awesome!',
+                'warning': 'Watch Out!',
+                'error': 'Doh!'
+            },
+            CONTENT = {
+                'info': 'Hello, world! This is a toast message.',
+                'success': 'The action has been completed.',
+                'warning': 'It\'s all about to go wrong',
+                'error': 'It all went wrong.'
+            },
+            POSITION = ['top-right', 'top-left', 'top-center', 'bottom-right', 'bottom-left', 'bottom-center'];*/
 
+    /*   var desc = document.getElementById('desc').innerHTML;
+   var text = desc.toString().substring(0, 20) + "......";
+   var desc1 = document.getElementById('desc');
+
+   desc1.innerHTML = text;*/
     $(function () {
         $("#sortable").sortable();
         $("#sortable").disableSelection();
