@@ -22,7 +22,6 @@ import java.util.Map;
 
 /**
  * @author pengliuyi
- * @time 2018/12/25  9:20
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -53,7 +52,7 @@ public class UserServiceImpl implements UserService {
         user.setUserPassword(getSalt(password));
         String redisKey = "user:";
         try {
-            User redisUser = redisDao.getUser(redisKey, user.getUsername());
+            User redisUser = redisDao.getUser(redisKey, user.getUserId());
             if (redisUser == null) {
 
                 String res = redisDao.setUser(redisKey, user);
@@ -81,18 +80,72 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
+    public RegisterState profile(User user)
+            throws UserException, UserExistException, UserMisssException, UserInsertException {
+        String password = user.getUserPassword();
+        user.setUserPassword(getSalt(password));
+        String redisKey = "user:";
+        try {
+            User redisUser = redisDao.getUser(redisKey, user.getUserId());
+            if (redisUser == null) {
+                String res = redisDao.setUser(redisKey, user);
+                logger.info("############pengliuyi专用日志########### 修改用户功能模块的插入Redis数据返回值：" + res);
+                int updateCount = userDao.updateUser(user);
+                if (updateCount <= 0) {
+                    throw new UserInsertException(UserRegisterEnums.FAIL.getStateInfo());
+                } else {
+                    return new RegisterState(user.getUserId(), UserRegisterEnums.SUCCESS, user);
+                }
+            } else {//如果redis中存在 则出错，表示该用户名不能被修改
+                throw new UserExistException(UserRegisterEnums.RedisEXIST.getStateInfo());
+            }
+        } catch (UserExistException existException) {
+            return new RegisterState(user.getUserId(), UserRegisterEnums.RedisEXIST);
+        } catch (UserMisssException e) {
+            throw e;
+        } catch (UserInsertException e) {
+            logger.error(e.getMessage(), e);
+            return new RegisterState(user.getUserId(), UserRegisterEnums.FAIL);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return new RegisterState(user.getUserId(), UserRegisterEnums.INNER_ERROR);
+        }
+    }
+    @Override
     public RegisterState deleteUser(long userId) {
         int countDelete = userDao.deleteUser(userId);
         if(countDelete <= 0){
             return new RegisterState(userId, UserRegisterEnums.DELETEFAIL);
-        }else return new RegisterState(userId, UserRegisterEnums.SUCCESS);
+        }else
+            try{
+                User deletedUser = userDao.queryByOnlyId(userId);
+                //若用户被删除时在线 删除loginMap中的该用户消息
+                ServletContext application = session.getServletContext();
+                @SuppressWarnings("unchecked")
+                Map<Integer, Object> loginMap = (Map<Integer, Object>) application.getAttribute("loginMap");
+                logger.info("############pengliuyi专用日志###########  删除用户功能模块的数据：" + deletedUser.getUserId());
+                session.removeAttribute("logoutUser");
+                loginMap.remove((int) deletedUser.getUserId());//在Loginmap中删除该用户的消息
+                application.setAttribute("loginMap", loginMap);
+                return new RegisterState(userId, UserRegisterEnums.SUCCESS);
+            }
+            catch (Exception e) {
+            e.printStackTrace();
+            logger.info("############pengliuyi专用日志###########  删除loginMap中用户出现问题");
+            return new RegisterState(userId, UserRegisterEnums.DELETEFAIL);
+            }
     }
-
-
     @Override
     public User selectByName(String username) {
         return userDao.queryByName(username);
     }
+
+    @Override
+    public User selectById(long userId) {
+        return userDao.queryByOnlyId(userId);
+    }
+
     @Override
     public User login(String username, String Password) {
         String password = getSalt(Password);
@@ -136,7 +189,7 @@ public class UserServiceImpl implements UserService {
         String md5 = userPassword + '/' + salt;
         return DigestUtils.md5DigestAsHex(md5.getBytes());
     }
-
+    @Override
     public void Logout(String Username) {
         User u = (User) session.getAttribute("user");
         try {
@@ -156,6 +209,7 @@ public class UserServiceImpl implements UserService {
     /*
      * 查找用户是否在线 返回值：0不在线 1在线
      * */
+    @Override
     public int isOnline(long userId){
         ServletContext application = session.getServletContext();
         @SuppressWarnings("unchecked")
@@ -165,6 +219,7 @@ public class UserServiceImpl implements UserService {
         return -1;//-1 在线
     }
 
+    @Override
     public int ForceLogout(long userId) {
         //判断是否在线
         int isOnline = isOnline(userId);

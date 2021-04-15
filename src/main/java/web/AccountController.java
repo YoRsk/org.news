@@ -1,5 +1,7 @@
 package web;
 
+import dto.CommentData;
+import dto.NewsData;
 import dto.NewsResult;
 import dto.RegisterState;
 import entity.User;
@@ -16,6 +18,7 @@ import service.UserService;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 /**
  * AccountController包含有注册、忘记密码等账号管理模块。
@@ -54,6 +57,23 @@ public class AccountController {
         return "ForgetPassword";
     }
 
+    /*
+    * 跳转到个人资料修改
+    * */
+    @GetMapping(value = "/profile")
+    public String profile(long userId,Model model){
+        User admin = (User)session.getAttribute("user");//当前操作用户 是否为本人或者管理员
+
+        if(admin != null && (admin.getUserType() == 1 || admin.getUserId() == userId)){
+            User user = userService.selectById(userId);
+            model.addAttribute("user",user);
+            return "profile";
+        }else {
+            NewsResult<String> result = new NewsResult<>(false, "未登录");
+            model.addAttribute("result", result);
+            return "login";
+        }
+    }
 
     /*
      * 实现注册逻辑.
@@ -111,6 +131,25 @@ public class AccountController {
             model.addAttribute("result", forget);
             return "ForgetPassword";
         }
+    }
+
+    /*
+    * 修改个人资料（仅该用户和管理员)
+    * */
+    @PostMapping(value = "/toProfile")
+    public String toProfile (User user,Model model){
+        logger.info("############pengliuyi专用日志###########  修改个人资料功能模块的前台传来的注册数据：" + user);
+        User existUser = userService.selectByName(user.getUsername());
+        RegisterState res = userService.profile(user);
+        if (res.getState() != 1) {//表示不成功
+            NewsResult<User> register = new NewsResult<User>(false, res.getStateInfo());
+            model.addAttribute("result", register);
+        } else {
+            NewsResult<User> register = new NewsResult<User>(true, res.getStateInfo());
+            model.addAttribute("result", register);
+            //session.setAttribute("user", user);
+        }
+        return "profile";
     }
 
     /*

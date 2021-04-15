@@ -1,4 +1,4 @@
-package web.admin;
+package web;
 
 import dto.*;
 import entity.Category;
@@ -24,12 +24,14 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * NewController包含管理员界面功能模块。
+ * NewController包含新闻管理功能模块。
  *
  * 删除评论：POST:/new/deletecomment
  * 提交评论：POST:/new/commitcomment
  * 插入新闻：POST:/new/editor
  * 提交新闻：POST:/new/submitContent
+ * 修改新闻：POST:/new/edit
+ * 提交修改：POST:/new/update
  * 删除新闻：POST:/new/delete
  * @author pengliuyi
  */
@@ -180,7 +182,7 @@ public class NewController {
     }
 
     /*
-    *修改新闻
+    *进入修改新闻界面
     * */
     @RequestMapping(value = "/edit")
     public String editNew(long newId, String username, Model model) {
@@ -206,12 +208,15 @@ public class NewController {
         }
     }
 
+    /*
+    * 修改完提交更新
+    * */
     @RequestMapping(value = "/update")
     public String toupdate(New news, Model model) {
         User user = (User) session.getAttribute("user");
      //   User useradmin = (User) session.getAttribute("user");
         if (user != null) {
-            news.setUserId(user.getUserId());
+            /*news.setUserId(user.getUserId());*/
             InsertNewState state = newService.updateNews(news);
             if (state.getState() != 1) {//更新失败
                 NewsResult<New> newNewsResult = new NewsResult<New>(false, state.getStateInfo());

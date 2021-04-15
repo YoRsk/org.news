@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import service.CategoryService;
 import service.CommentService;
 import service.NewService;
@@ -39,6 +40,9 @@ public class NavController {
 
     @Autowired
     private HttpSession session;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private NewService newService;
@@ -71,13 +75,23 @@ public class NavController {
      * 跳转到用户中心,未登录则跳转到登录
      * */
     @GetMapping(value = "/user/center")
-    public String center(Model model) {
-        User user = (User) session.getAttribute("user");
-        List<NewsData> list = newService.selectNewsByUserId(user.getUserId());
-        List<CommentData> list1 = commentService.selectCommentByUser(user.getUserId());
-        model.addAttribute("news", list);
-        model.addAttribute("comment", list1);
-        return "NewsAndComment";
+    public String center(long userId, Model model) {
+        User admin = (User)session.getAttribute("user");//当前操作用户 是否为本人或者管理员
+
+        if(admin != null && (admin.getUserType() == 1|| admin.getUserId() == userId)){
+            User user = userService.selectById(userId);
+            List<NewsData> list = newService.selectNewsByUserId(user.getUserId());
+            List<CommentData> list1 = commentService.selectCommentByUser(user.getUserId());
+            model.addAttribute("user",user);
+            model.addAttribute("news", list);
+            model.addAttribute("comment", list1);
+            return "NewsAndComment";
+        }else {
+            NewsResult<String> result = new NewsResult<>(false, "未登录");
+            model.addAttribute("result", result);
+            return "login";
+        }
+
         /*if (user != null) {//表示已经登录
             List<NewsData> list = newService.selectNewsByUserId(user.getUserId());
             List<CommentData> list1 = commentService.selectCommentByUser(user.getUserId());

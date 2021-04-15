@@ -44,10 +44,10 @@
         <div id="sidebar" class="nav-collapse " tabindex="5000" style="overflow: hidden; outline: none;">
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
-                <p class="centered"><a href="">
-                    <%
-                        if(user!=null) {/*说明已登录*/
-                    %>
+                <%
+                    if(user!=null) {/*说明已登录*/
+                %>
+                <p class="centered"><a href="${pageContext.request.contextPath}/user/center?userId=<%=user.getUserId()%>">
                     <img src="${pageContext.request.contextPath}/resource/img/ui-sam.jpg" class="img-circle" width="80">
                     <%
                     }else{
@@ -60,7 +60,6 @@
                 </a>
                 </p>
                 <%
-
                     if(user!=null){/*说明已登录*/
                 %>
                 <h5 class="centered">管理员:<%=user.getUsername()%></h5>
@@ -183,15 +182,18 @@
                                         </c:otherwise>
                                     </c:choose>
 
-                                    <a href="">
+                                    <a href="${pageContext.request.contextPath}/user/profile?userId=${user.userId}">
                                         <button class="btn btn-primary"><i class="fa fa-pencil">修改
                                         </i></button>
                                     </a>
 
                                     <a href="">
-                                        <button class="btn btn-danger">
-                                            <i class="fa fa-trash-o ">
-                                                删除</i></button>
+                                        <a href="${pageContext.request.contextPath}/admin/DeleteUser?userId=${user.userId}">
+                                            <button class="btn btn-danger">
+                                                <i class="fa fa-trash-o ">
+                                                    删除</i></button>
+                                        </a>
+
                                     </a>
                                 </td>
                             </tr>

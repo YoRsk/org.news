@@ -46,10 +46,10 @@
         <div id="sidebar" class="nav-collapse " tabindex="5000" style="overflow: hidden; outline: none;">
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
-                <p class="centered"><a href="">
-                    <%
-                        if(user!=null) {/*说明已登录*/
-                    %>
+                <%
+                    if(user!=null) {/*说明已登录*/
+                %>
+                <p class="centered"><a href="${pageContext.request.contextPath}/user/center?userId=<%=user.getUserId()%>">
                     <img src="${pageContext.request.contextPath}/resource/img/ui-sam.jpg" class="img-circle" width="80">
                     <%
                     }else{

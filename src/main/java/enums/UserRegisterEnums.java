@@ -9,6 +9,7 @@ public enum UserRegisterEnums {
     FAIL(0,"注册失败"),
     INNER_ERROR(-1,"系统异常"),
     RedisEXIST(-2,"该用户名不能够被注册"),
+    RedisNOEXIST(-7,"该用户还没被注册，无法被修改信息"),
     DBAEXIST(-5,"数据库中已存在该用户"),
     NOTEXIST(-3,"用户不存在"),
     UPDATEFAIL(-4,"更新失败"),

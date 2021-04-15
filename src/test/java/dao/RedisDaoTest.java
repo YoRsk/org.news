@@ -27,7 +27,7 @@ public class RedisDaoTest {
     @Test
     public void getUser() {
         String redisKey="user:";
-        System.out.println(""+redisDao.getUser(redisKey,"yangxin123"));
+        System.out.println(""+redisDao.getUser(redisKey,1005));
     }
 
     @Test

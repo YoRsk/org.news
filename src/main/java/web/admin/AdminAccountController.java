@@ -36,12 +36,19 @@ public class AdminAccountController {
      * */
     @RequestMapping(value = "/DeleteUser")
     public String DeleteUser(long userId, RedirectAttributes attributes){
-        RegisterState state = userService.deleteUser(userId);
-        if (state.getState() != 1) {//不成功
-            NewsResult<User> result = new NewsResult<User>(false, state.getStateInfo());
-            attributes.addFlashAttribute("result", result);
-        } else {
-            NewsResult<User> result = new NewsResult<User>(true, state.getStateInfo());
+        User admin = (User)session.getAttribute("user");
+        if(admin.getUserType()==1) {//检测当前操作用户是否为管理员
+            RegisterState state = userService.deleteUser(userId);//删除用户
+            if (state.getState() != 1) {//不成功
+                NewsResult<User> result = new NewsResult<User>(false, state.getStateInfo());
+                attributes.addFlashAttribute("result", result);
+            } else {
+                NewsResult<User> result = new NewsResult<User>(true, state.getStateInfo());
+                attributes.addFlashAttribute("result", result);
+            }
+        }
+        else {
+            NewsResult<User> result = new NewsResult<>(false,"当前用户无该权限");
             attributes.addFlashAttribute("result", result);
         }
         return "redirect:/new/userList";

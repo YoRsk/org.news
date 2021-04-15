@@ -68,10 +68,11 @@
 <div class="col-md-4 right_column" style="margin-left: 60px">
     <div class="item2">
         <header>
-            <h2 class="with-line">与我相关</h2>
+            <h2 class="with-line">${user.username}的个人空间</h2>
         </header>
         <ul>
             <li style="float: left"><a href="${pageContext.request.contextPath}/index">首页</a></li>
+            <li style="float: left"><a href="${pageContext.request.contextPath}/user/profile?userId=${user.userId}">个人资料</a></li>
             <li style="float: left"><a href="${pageContext.request.contextPath}/new/editor?index=1">添加文章</a></li>
             <li style="float: left"><a href="#">我发表的文章和评论</a></li>
         </ul>

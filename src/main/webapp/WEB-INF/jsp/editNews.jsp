@@ -54,7 +54,7 @@
     <form action="${pageContext.request.contextPath}/new/update" method="post" onsubmit="return checkEditorAll()">
 
         <input style="display: none" name="newId" value="${editResult.data.aNew.newId}">
-
+        <input style="display: none" name="userId" value="${editResult.data.user.userId}">
         <div class="form-group">
             <label for="title" class="">标 题:</label>
             <input type="text" name="title" tabindex="1" id="title" onblur="checkEditorTitle()" class="form-control" value="${editResult.data.aNew.title}">

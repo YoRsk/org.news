@@ -76,10 +76,12 @@
             <div class="top-menu">
                 <ul>
                     <li><a class="active" href="#">新闻主页</a></li>
-                    <li><a href="${pageContext.request.contextPath}/user/center">个人中心</a></li>
-                    <%if(user != null && user.getUserType() == 1){%>
+                        <%if(user != null){%>
+                    <li><a href="${pageContext.request.contextPath}/user/center?userId=<%=user.getUserId()%>">个人中心</a></li>
+                        <%if(user.getUserType() == 1){%>
                     <li><a href="${pageContext.request.contextPath}/new/adminIndex">管理界面</a></li>
-                    <%}%>
+                        <%}%>
+                        <%}%>
             </div>
             <!-- script for menu -->
             <script>

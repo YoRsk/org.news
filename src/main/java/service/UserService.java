@@ -13,6 +13,11 @@ public interface UserService {
     RegisterState register(User user);
 
     /*
+     * 修改用户，仅本用户及管理员可，不能修改姓名
+     * */
+    RegisterState profile(User user);
+
+    /*
     * 删除用户，userId为被删除用户，admin判断是否是管理员
     * */
     RegisterState deleteUser(long userId);
@@ -21,6 +26,11 @@ public interface UserService {
     * 根据用户名验证用户是否存在
     * */
     User selectByName(String username);
+
+    /*
+     * 根据用户id验证用户是否存在
+     * */
+    User selectById(long userId);
 
     /*
     * 登录验证，用户名，密码

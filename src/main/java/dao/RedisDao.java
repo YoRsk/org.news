@@ -14,10 +14,7 @@ import java.util.List;
 
 public class RedisDao {
     private final Logger logger= LoggerFactory.getLogger(this.getClass());
-
-
     private JedisPool jedisPool;
-
     public RedisDao(String ip,int port) {
         jedisPool=new JedisPool(ip,port);
     }
@@ -25,14 +22,14 @@ public class RedisDao {
     //使用第三方的protostuff序列化，需要先指定需要序列化的类接口，如下，但是这个类必须是pojo型。
     private RuntimeSchema<User> schema=RuntimeSchema.createFrom(User.class);
 
-    public User getUser(String redisKey,String username) {
+    public User getUser(String redisKey,long userId) {
         //缓存Redis操作。
         try{
             //根据jedisPool获得他们的资源 .getResource();
             Jedis jedis=jedisPool.getResource();
             try{
                 //因为Redis是key-value存储的，那么我们首先要构建一个key。
-                String key=redisKey+username;
+                String key=redisKey+userId;
                 /*
                     Redis并没有实现内部序列化操作。
                     我们需要在获取redis资源的时候要进行反序列化操作
@@ -65,19 +62,14 @@ public class RedisDao {
         //首先拿到Seckill，然后转换成字节数组，然后给redis
         try{
             //获得资源
-            Jedis jedis=jedisPool.getResource();
-            try{
+            try (Jedis jedis = jedisPool.getResource()) {
                 //封装Key
-                String key=redisKey+user.getUsername();
+                String key = redisKey + user.getUsername();
                 //系列化
-                byte[] bytes=ProtostuffIOUtil.toByteArray(user,schema,
+                byte[] bytes = ProtostuffIOUtil.toByteArray(user, schema,
                         LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));
-
-                int timeout=60*60;
-                String result=jedis.setex(key.getBytes(),timeout,bytes);
-                return result;
-            }finally {
-                jedis.close();
+                int timeout = 60 * 60;
+                return jedis.setex(key.getBytes(), timeout, bytes);
             }
         }catch(Exception e){
             logger.error(e.getMessage(),e);

@@ -76,7 +76,7 @@ function forgetcheckAll() {
         return true;
 
     } else {
-        alert("不能为空");
+        alert("信息未按要求输入！");
         return false;
     }
 }
@@ -85,13 +85,11 @@ function forgetcheckAll() {
 
 function checkAll() {
 
-    if (checkname() && checkpsd1() && checkpsd2() && checkemail()
-        && checkphone() && checkqq()) {
-
+    if (checkname() && checkpsd1() && checkpsd2() && checkemail()&& Age()
+       /* && checkphone() && checkqq()*/) {
       return true;
-
     } else {
-        alert("不能为空");
+        alert("信息未按要求输入！");
         return false;
     }
 }
