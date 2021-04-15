@@ -153,7 +153,24 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public void ForceLogout(long userId) {
+    /*
+     * 查找用户是否在线 返回值：0不在线 1在线
+     * */
+    public int isOnline(long userId){
+        ServletContext application = session.getServletContext();
+        @SuppressWarnings("unchecked")
+        Map<Integer, Object> loginMap = (Map<Integer, Object>) application.getAttribute("loginMap");
+        String sessionId = (String)loginMap.get((int)userId);//查看该用户是否正在在线
+        if(sessionId == null) return 0;//0不在线
+        return -1;//-1 在线
+    }
+
+    public int ForceLogout(long userId) {
+        //判断是否在线
+        int isOnline = isOnline(userId);
+        if(isOnline == 0) return 0;//0表示不在线 直接结束
+
+
         User u = (User) session.getAttribute("user");
         User logoutUser = userDao.queryByOnlyId(userId);
         try {
@@ -166,11 +183,12 @@ public class UserServiceImpl implements UserService {
             session.removeAttribute("logoutUser");
             loginMap.remove((int) logoutUser.getUserId());//在Loginmap中删除该用户的消息
             application.setAttribute("loginMap", loginMap);
-
             logger.info("############pengliuyi专用日志###########  loginMap：" + loginMap);
+            return 1;
         } catch (Exception e) {
             e.printStackTrace();
             logger.info("############pengliuyi专用日志###########  强制注销功能模块的出现异常");
+            return -1;
         }
     }
 

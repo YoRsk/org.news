@@ -21,13 +21,13 @@ var user={
                             //时间判断 计时交互
                             $.cookie('user', users, {expries: 7, path: '/'});
                             window.location.href("http://localhost:8080/index");
-                            alert('result='+result);
-                            alert("funck2");
+                           /* alert('result='+result);
+                            alert("funck2");*/
                             console.log('result='+result);
                         }else {
                             console.log('result='+result);
-                            alert(result['errMes']);
-                            alert("fuck");
+                          /*  alert(result['errMes']);
+                            alert("fuck");*/
                             window.location.href("http://localhost:8080/user/login");
                     }
                     });

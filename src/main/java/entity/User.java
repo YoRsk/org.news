@@ -18,6 +18,8 @@ public class User {
 
     private Date createTime;
 
+    private int isOnline;//是否在线 0:不在线 1:在线
+
     public User(long userType, String username, String userPassword, String userEmail, int userAge) {
         this.userType = userType;
         this.username = username;
@@ -97,4 +99,13 @@ public class User {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+    public int getIsOnline() {
+        return isOnline;
+    }
+
+    public void setIsOnline(int isOnline) {
+        this.isOnline = isOnline;
+    }
+
 }

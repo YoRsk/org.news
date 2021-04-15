@@ -31,6 +31,16 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <mvc:interceptors>
+        <!--  使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求   -->
+        <mvc:interceptor>
+            <mvc:mapping path="/new/**"/>
+            <mvc:mapping path="/user/center"/>
+            <mvc:exclude-mapping path="/new/detail"/>
+            <bean class="interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <mvc:resources mapping="/img/**" location="resource/img" />
     <mvc:resources mapping="/lib/**" location="resource/lib" />
     <mvc:resources mapping="/ueditor/**" location="resource/ueditor" />

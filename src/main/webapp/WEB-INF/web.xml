@@ -40,6 +40,7 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
         <url-pattern>*.jpeg</url-pattern>
     </servlet-mapping>
 
+
     <!-- 中文乱码处理 -->
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>

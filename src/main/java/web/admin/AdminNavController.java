@@ -15,6 +15,7 @@ import service.NewService;
 import service.UserService;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /*AdminNavController:管理员界面跳转
@@ -72,10 +73,15 @@ public class AdminNavController {
         User user = (User) session.getAttribute("user");
         if (user != null) {//表示已经登录
             List<User> list = userService.selectAllUser();
+            for (User u: list) {
+                int state = userService.isOnline(u.getUserId());
+                if(state == 0)//不在线
+                u.setIsOnline(0);
+                else u.setIsOnline(1);//在线
+            }
             model.addAttribute("userList", list);
             return "AdminIndexUser";
         }else{
-            System.out.println("nihao");
             return "redirect:/admin/login";
         }
     }

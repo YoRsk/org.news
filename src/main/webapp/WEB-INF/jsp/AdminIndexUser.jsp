@@ -166,12 +166,23 @@
                                 <td><fmt:formatDate value="${user.createTime}"
                                                     pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
                                 <td>
+                                    <c:choose>
+                                        <c:when test="${user.isOnline==1}">
+                                            <a href="${pageContext.request.contextPath}/admin/ForceLogout?userId=${user.userId}">
+                                                <button class="toast-btn btn btn-success" id="goToPageB">
+                                                    <i class="fa fa-check">
+                                                        下线</i></button>
+                                            </a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="${pageContext.request.contextPath}/admin/ForceLogout?userId=${user.userId}">
+                                                <button class="toast-btn btn btn-facebook" id="">
+                                                    <i class="fa fa-check">
+                                                        未上线</i></button>
+                                            </a>
+                                        </c:otherwise>
+                                    </c:choose>
 
-                                    <a href="${pageContext.request.contextPath}/admin/ForceLogout?userId=${user.userId}">
-                                        <button class="toast-btn btn btn-success" id="goToPageB">
-                                            <i class="fa fa-check">
-                                               下线</i></button>
-                                    </a>
                                     <a href="">
                                         <button class="btn btn-primary"><i class="fa fa-pencil">修改
                                         </i></button>

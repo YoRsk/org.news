@@ -46,16 +46,29 @@ public class AdminAccountController {
         }
         return "redirect:/new/userList";
     }
+
     /*
      * 实现强制下线
      * */
     @RequestMapping(value = "/ForceLogout")
     public String ForceLogout(long userId, RedirectAttributes attributes) {
         User admin = (User)session.getAttribute("user");
-        NewsResult<User> result;//返回结果
+        NewsResult<User> result = new NewsResult<>(false,"强制下线结果");//返回结果
         if(admin.getUserType()==1) {//检测当前操作用户是否为管理员
-            userService.ForceLogout(userId);
-            result = new NewsResult<User>(true, "注销成功");
+            int state = userService.ForceLogout(userId);//0不在线 1下线成功 -1下线失败
+            switch (state){
+                case 0: {
+                    result = new NewsResult<User>(false, "该用户不在线");
+                    break;
+                }
+                case 1:{
+                    result = new NewsResult<User>(true, "下线成功");
+                    break;
+                }
+                case -1:{
+                    result = new NewsResult<User>(false, "下线失败");
+                }
+            }
         }
         else {
             result = new NewsResult<>(false,"当前用户无该权限");

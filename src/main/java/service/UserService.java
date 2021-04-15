@@ -38,9 +38,14 @@ public interface UserService {
     User selectByEmail(String email,String username);
 
     /*
-    * 强制下线
+    * 查找用户是否在线 返回值：0不在线 -1在线
     * */
-    void ForceLogout(long userId);
+    int isOnline(long userId);
+
+    /*
+    * 强制下线 返回值： 0不在线 1下线成功 -1下线失败
+    * */
+    int ForceLogout(long userId);
 
     /*
      * 主动下线

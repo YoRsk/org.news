@@ -25,6 +25,10 @@ public class UserServiceImplTest {
     private UserService userService;
 
     @Test
+    public void isOnline(){
+        User user = new User();
+    }
+    @Test
     public void register() {
         User user=new User(0,"yangxin666","888888","8255@qq.com",18);
 

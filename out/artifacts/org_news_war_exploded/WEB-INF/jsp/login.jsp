@@ -15,9 +15,7 @@
                 <br>
                 <input type="password" id="password" name="password" class="form-control" placeholder="Password">
                 <label class="checkbox">
-                    <div class="col-sm-offset-1">
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </div>
+
                     <span class="pull-right">
                         <a data-toggle="modal" href="${pageContext.request.contextPath}/user/forgetPassword"> 忘记密码?</a>
                 </span>

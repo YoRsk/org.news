@@ -73,7 +73,12 @@ public class NavController {
     @GetMapping(value = "/user/center")
     public String center(Model model) {
         User user = (User) session.getAttribute("user");
-        if (user != null) {//表示已经登录
+        List<NewsData> list = newService.selectNewsByUserId(user.getUserId());
+        List<CommentData> list1 = commentService.selectCommentByUser(user.getUserId());
+        model.addAttribute("news", list);
+        model.addAttribute("comment", list1);
+        return "NewsAndComment";
+        /*if (user != null) {//表示已经登录
             List<NewsData> list = newService.selectNewsByUserId(user.getUserId());
             List<CommentData> list1 = commentService.selectCommentByUser(user.getUserId());
             model.addAttribute("news", list);
@@ -83,7 +88,7 @@ public class NavController {
             NewsResult<String> result = new NewsResult<>(false, "未登录");
             model.addAttribute("result", result);
             return "redirect:/user/login";
-        }
+        }*/
     }
     /*
      * 跳转到具体新闻 记录浏览量
