@@ -1,6 +1,7 @@
 package service.impl;
 
 import dao.CategoryDao;
+import dao.NewDao;
 import dto.CategoryState;
 import dto.InsertNewState;
 import entity.Category;
@@ -23,7 +24,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryDao categoryDao;
-
+    @Autowired
+    private NewDao newDao;
 
     @Override
     @Transactional
@@ -56,20 +58,32 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public CategoryState deleteCategory(long categoryId) {
-        Category c = categoryDao.queryByCategoryId(categoryId);
-        int countDelete = categoryDao.deleteCategory(categoryId);
+    public CategoryState deleteCategory(long categoryId)
+            throws CategoryException,CategoryInsertException{
+        try{
+            Category c = categoryDao.queryByCategoryId(categoryId);
+            int countDelete = categoryDao.deleteCategory(categoryId);
 
-        if (countDelete <= 0) {
+            if (countDelete <= 0) {
+                return new CategoryState(categoryId, CategoryEnums.FAIL);
+            } else {
+                //刷新主键
+                categoryDao.deleteAllId();//删除所有主键
+                int freshId = categoryDao.updateAllId();//删除一个目录后重新刷新所有目录id
+
+                if(freshId <= 0)
+                    return new CategoryState(categoryId, CategoryEnums.FRESHFAIL);
+                else
+                    return new CategoryState(categoryId, CategoryEnums.SUCCESS, c);
+            }
+        }catch (CategoryInsertException e1) {
+            logger.error(e1.getMessage(), e1);
             return new CategoryState(categoryId, CategoryEnums.FAIL);
-        } else {
-            int freshId = categoryDao.updateAllId();//删除一个目录后重新刷新所有目录id
-
-            if(freshId <= 0)
-                return new CategoryState(categoryId, CategoryEnums.FRESHFAIL);
-            else
-                return new CategoryState(categoryId, CategoryEnums.SUCCESS, c);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return new CategoryState(categoryId, CategoryEnums.INNER_ERROR);
         }
+
     }
 
     @Override

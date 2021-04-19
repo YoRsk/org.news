@@ -41,6 +41,8 @@ public interface CategoryDao {
      * 获取所有目录
      * */
     List<Category> queryAllCategory();
+
+    int deleteAllId();
     /*
      * 重新刷新自增id
      * */

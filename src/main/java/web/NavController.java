@@ -1,5 +1,8 @@
 package web;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import dto.*;
 import entity.Category;
 import entity.New;
@@ -61,11 +64,17 @@ public class NavController {
      * 跳转主页页面
      * */
     @RequestMapping(value = "/index")
-    public String index(Model model) {
+    public String index(@RequestParam(required = false,defaultValue="1")Integer pageNum,Model model) {
         /*NewList newList = newService.selectIndexNew();*/ //好像没用
+        PageHelper.startPage(pageNum,5);
         List<NewsData> newsData = newService.selectAllNews();
+        //使用pageInfo包装查询出来的结果,只需要把pageInfo交给页面
+        //其中封装详细的分页信息
+        PageInfo<NewsData> pageInfo = new PageInfo<>(newsData);//连续显示的页数
+
         List<Category> categoryList = categoryService.queryAllCategory();
         /*model.addAttribute("list", newList);*/
+        model.addAttribute("pageInfo",pageInfo);
         model.addAttribute("newData", newsData);
         model.addAttribute("categoryList",categoryList);
         return "NewIndex";

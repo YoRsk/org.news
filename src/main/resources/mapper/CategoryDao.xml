@@ -53,8 +53,11 @@
         from category
     </select>
     <!--刷新自增id-->
+    <update id="deleteAllId">
+    alter table category drop category_id
+    </update>
     <update id="updateAllId">
-    alter table categroy add category_id  int(20) not null primary key auto_increment first
+     ALTER TABLE `category`  ADD `category_id` INT( 20 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST
     </update>
 
 </mapper>

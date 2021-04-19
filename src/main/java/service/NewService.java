@@ -51,6 +51,7 @@ public interface NewService {
     * 删除指定新闻
     * 1.是用户本身删除自己的新闻：需要验证用户信息
     * 2.管理员删除不合格的新闻，验证用户是不是为管理员。
+    * 3.将该新闻下的评论一起删除
     * */
     InsertNewState deleteNew(long newId, User user);
 

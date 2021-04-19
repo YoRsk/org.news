@@ -64,6 +64,7 @@
                  user_password=#{userPassword},
                  user_name=#{username},
                  user_email=#{userEmail},
+                 user_type=#{userType},
                  user_age=#{userAge}
             where user_id=#{userId}
     </update>

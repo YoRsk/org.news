@@ -164,7 +164,7 @@
                             <th><i class="fa fa-tags"></i> 类别</th>
                             <th><i class="fa fa-user"></i> 作者账户</th>
                             <th><i class="fa fa-tasks"></i> 标题</th>
-                            <th class="hidden-phone"><i class="fa fa-question-circle"></i> 描述</th>
+                            <th class="hidden-phone"><i class="fa fa-question-circle"></i> 关键字</th>
                             <th class="hidden-phone"><i class="fa fa-bars"></i> 创建时间</th>
                             <th>操作</th>
                         </tr>

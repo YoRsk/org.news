@@ -112,7 +112,7 @@
                         <h2 class="with-line">${title}</h2>
                     </c:otherwise>
                 </c:choose>
-                <c:forEach var="data" items="${newData}">
+                <c:forEach var="data" items="${pageInfo.list}">
                     <c:if test="${data.aNew.states==2}">
                     <article class="clearfix">
                         <header class="grid_8 alpha">
@@ -149,7 +149,32 @@
                     </article>
                     </c:if>
                 </c:forEach>
-
+                <div class="row">
+                    <div class="col-md-6">
+                        当前第[${pageInfo.pageNum}]页，共[${pageInfo.pages}]页 </div>
+                </div>
+                <!-- 分页导航条 -->
+                <div class="pagenation">
+                    <a href="${pageContext.request.contextPath}/index"><span class="btn-page btn-default">首页</span></a>
+                    <a href="${pageContext.request.contextPath}/index?pageNum=${pageInfo.prePage}"><span
+                            class="btn-page btn-default">上一页</span></a>
+                   <%-- <-- 遍历导航页 -->
+                    <a th:each="page,pageStat:${pageInfo.navigatepageNums}"
+                       th:href="@{/sys/log/(pageNum=${page})}">
+                                        <span th:if="${page}==${pageInfo.pageNum}">
+                                            <span class="btn-page btn-active" th:text="${page}"></span>
+                                        </span>
+                        <span th:if="${page}!=${pageInfo.pageNum}">
+                                            <span class="btn-page btn-default" th:text="${page}"></span>
+                                        </span>
+                    </a>
+                    <-- 导航页 -->--%>
+                    <a href="${pageContext.request.contextPath}/index?pageNum=${pageInfo.pages}"><span
+                            class="btn-page btn-default">下一页</span></a>
+                    <%--<a th:href="@{/sys/log/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"><span
+                            class="btn-page btn-default">下一页</span></a>
+                    <a th:href="@{/sys/log/(pageNum=${pageInfo.pages})}"><span class="btn-page btn-default">尾页</span></a>--%>
+                </div>
             </div>
 
             <div class="col-md-4 right_column" style="float: left;">

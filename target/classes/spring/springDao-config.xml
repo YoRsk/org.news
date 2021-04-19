@@ -31,6 +31,20 @@
         <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
         <property name="typeAliasesPackage" value="entity"/>
+
+        <!-- 配置PageHelper分页插件 -->
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <props>
+                            <prop key="helperDialect">mysql</prop>
+                            <prop key="reasonable">true</prop>
+                        </props>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
     <!-- 4.配置Dao接口扫描，实现动态接口注入-->

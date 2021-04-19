@@ -2,6 +2,7 @@ package dao;
 
 import entity.Category;
 import entity.Comment;
+import org.apache.ibatis.annotations.Param;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,20 @@ public class CategoryDaoTest {
             System.out.println(category.getCategoryName());
         }
 
+    }
+
+    @Test
+    public void deleteCategory(){
+        categoryDao.deleteCategory(2);
+    }
+    @Test
+    public void updateAllId(){
+        categoryDao.deleteAllId();
+        categoryDao.updateAllId();
+      /*  List<Category> list = categoryDao.queryAllCategory();
+        for (Category category : list) {
+            System.out.println(category.getCategoryId());
+        }*/
     }
 
 }

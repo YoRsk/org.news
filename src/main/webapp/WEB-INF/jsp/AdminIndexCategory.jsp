@@ -122,21 +122,21 @@
     <section id="main-content">
         <div class="mt" style="margin-right: 5px;margin-left: 5px;margin-top: 5px;margin-bottom: 5px">
             <div class="col-md-12">
-                <div style="color: rebeccapurple">${result}</div>
+                <div style="color: rebeccapurple">${result.errMes}</div>
                 <div class="content-panel">
                     <h4><i class="fa fa-angle-right"></i> 目录列表</h4>
                     <hr>
                     <div class="form-panel">
                         <form class="form-inline"  role="form"
-                              action="/new/selectUserByLike"
+                              action="${pageContext.request.contextPath}/category/insertCategory"
                               style="display: contents">
                             <div class="form-group" style="display: contents">
-                                <label class="sr-only" for="exampleInput1">模糊查询</label>
+                                <label class="sr-only" for="categoryName">新添目录名字</label>
                                 <span style="color: rebeccapurple" id="tip1"></span>
-                                <input type="text" class="form-control"  id="exampleInput1" name="selectkey"
-                                       placeholder="模糊查询">
+                                <input type="text" class="form-control"  id="categoryName" name="categoryName"
+                                       placeholder="新添目录名字">
                             </div>
-                            <button type="submit" class="btn btn-theme">查找</button>
+                            <button type="submit" class="btn btn-theme">添加</button>
                         </form>
 
                     </div>
@@ -164,7 +164,7 @@
                                         </i></button>
                                     </a>
 
-                                    <a href="">
+                                    <a href="${pageContext.request.contextPath}/category/deleteCategory?categoryId=${category.categoryId}">
                                         <button class="btn btn-danger">
                                             <i class="fa fa-trash-o ">
                                                 删除</i></button>
@@ -230,6 +230,7 @@
     jQuery(document).ready(function () {
         TaskList.initTaskWidget();
     });
+
 
     function checktext1() {
         text = document.getElementById("exampleInput1");

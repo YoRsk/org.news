@@ -6,9 +6,8 @@
 
     <!--插入目录-->
     <insert id="insertCategory" parameterType="entity.Category">
-        insert ignore into category(catgory_id,category_name,views_num)
-        values (#{categoryId},#{categoryName},#{viewsNum})
-
+        insert ignore into category(category_name,views_num)
+        values (#{categoryName},#{viewsNum})
     </insert>
     <!--删除目录-->
     <delete id="deleteCategory">
@@ -53,8 +52,11 @@
         from category
     </select>
     <!--刷新自增id-->
+    <update id="deleteAllId">
+    alter table category drop category_id
+    </update>
     <update id="updateAllId">
-    alter table categroy add category_id  int(20) not null primary key auto_increment first
+     ALTER TABLE `category`  ADD `category_id` INT( 20 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST
     </update>
 
 </mapper>

@@ -12,8 +12,8 @@ function checkEditorTitle() {
     let pattern=/^([\u4e00-\u9fa5]|\w)+$/;//只能字母数字和汉字
     let len = escape(title.value).replace(/%u\w{2}/g,"").length;
 
-    if(len >= 40 || !pattern.test(title.value)){
-        tip.innerHTML = "请输入适合长度的汉字字母或者数字";
+    if(len >= 80 || !pattern.test(title.value)){
+        tip.innerHTML = "请输入80字以内汉字字母或者数字";
         return false;
     }else{
         tip.innerHTML = "";
@@ -27,7 +27,7 @@ function checkEditorKeywords() {
     let len = escape(keywords.value).replace(/%u\w{2}/g,"").length;
 
     if(len >= 20 || !pattern.test(keywords.value)){
-        tip.innerHTML = "请输入适合长度的汉字字母或者数字";
+        tip.innerHTML = "请输入长度20的汉字字母或者数字";
         return false;
     }else{
         tip.innerHTML = "";

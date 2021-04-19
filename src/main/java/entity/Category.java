@@ -11,6 +11,12 @@ public class Category {
     public Category(long categoryId, String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
+        this.viewsNum = 0;
+    }
+
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
+        this.viewsNum = 0;
     }
 
     public Category() {

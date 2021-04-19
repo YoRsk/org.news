@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * getSalt MD5加密
  * @author pengliuyi
  */
 @Service
