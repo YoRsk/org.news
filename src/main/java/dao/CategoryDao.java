@@ -42,9 +42,18 @@ public interface CategoryDao {
      * */
     List<Category> queryAllCategory();
 
+    /*
+    * 删除自增id
+    * */
     int deleteAllId();
+
     /*
      * 重新刷新自增id
      * */
     int updateAllId();
+
+    /*
+    * 刷新目录总点击数
+    * */
+    int freshViewsNum();
 }

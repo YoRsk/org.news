@@ -122,14 +122,14 @@
     <section id="main-content">
         <div class="mt" style="margin-right: 5px;margin-left: 5px;margin-top: 5px;margin-bottom: 5px">
             <div class="col-md-12">
-                <div style="color: rebeccapurple">${result.errMes}</div>
                 <div class="content-panel">
                     <h4><i class="fa fa-angle-right"></i> 目录列表</h4>
                     <hr>
                     <div class="form-panel">
                         <form class="form-inline"  role="form"
                               action="${pageContext.request.contextPath}/category/insertCategory"
-                              style="display: contents">
+                              style="display: contents"
+                              method="post">
                             <div class="form-group" style="display: contents">
                                 <label class="sr-only" for="categoryName">新添目录名字</label>
                                 <span style="color: rebeccapurple" id="tip1"></span>
@@ -137,7 +137,11 @@
                                        placeholder="新添目录名字">
                             </div>
                             <button type="submit" class="btn btn-theme">添加</button>
+                            <div style="color: rebeccapurple">${result.errMes}</div>
                         </form>
+                        <a href="${pageContext.request.contextPath}/category/export">
+                            <button class="btn btn-theme">导出访问统计报表</button>
+                        </a>
 
                     </div>
                     <!-- /form-panel -->
@@ -159,10 +163,10 @@
                                 </td>
                                 <td class="hidden-phone">${category.categoryName}</td>
                                 <td>
-                                    <a href="">
+                                    <%--<a href="">
                                         <button class="btn btn-primary"><i class="fa fa-pencil">修改
                                         </i></button>
-                                    </a>
+                                    </a>--%>
 
                                     <a href="${pageContext.request.contextPath}/category/deleteCategory?categoryId=${category.categoryId}">
                                         <button class="btn btn-danger">

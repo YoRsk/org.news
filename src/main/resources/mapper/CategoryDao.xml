@@ -6,7 +6,7 @@
 
     <!--插入目录-->
     <insert id="insertCategory" parameterType="entity.Category">
-        insert ignore into category(catgory_id,category_name,views_num)
+        insert ignore into category(category_id,category_name,views_num)
         values (#{categoryId},#{categoryName},#{viewsNum})
 
     </insert>
@@ -60,4 +60,10 @@
      ALTER TABLE `category`  ADD `category_id` INT( 20 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST
     </update>
 
+    <!--刷新目录总点击数-->
+    <update id="freshViewsNum">
+        update category INNER JOIN new
+        on category.category_id = new.category_id
+        set category.views_num = category.views_num+1;
+    </update>
 </mapper>

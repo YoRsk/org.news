@@ -79,7 +79,8 @@ public interface NewService {
     New selectNewsBytitle(String title);
 
     /*
-     * 点击时增加点击量
+     * synchronized和AtomicInteger解决并发问题
+     * 点击时增加该新闻与该新闻目录的点击量
      * */
     NewDetail updateViews(NewDetail n);
 

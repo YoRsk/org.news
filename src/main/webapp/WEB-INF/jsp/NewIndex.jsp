@@ -124,7 +124,8 @@
                             </div>
                             <div class="clearfix"></div>
                         </header>
-                        <c:if test="${data.aNew.newId%3==0}">
+                        <%--随机首页图片--%>
+<%--                        <c:if test="${data.aNew.newId%3==0}">
                             <div class="alpha1"><a href="/new/detail?newId=${data.aNew.newId}"><img
                                     src="${pageContext.request.contextPath}/resource/img/index-3_img-1.jpg" alt=""/></a>
                             </div>
@@ -138,10 +139,10 @@
                             <div class="alpha1"><a href="single.html"><img
                                     src="${pageContext.request.contextPath}/resource/img/index-3_img-3.jpg" alt=""/></a>
                             </div>
-                        </c:if>
+                        </c:if>--%>
 
                         <div class="grid_b4">
-                            <h5>${data.aNew.title}</h5>
+                         <%--   <h5>${data.aNew.title}</h5>--%>
                             <p>${data.typeName}|${data.aNew.keyWords}</p>
                             <a href="/new/detail?newId=${data.aNew.newId}" class="btn btn-1 btn-1c">Read More</a>
                         </div>

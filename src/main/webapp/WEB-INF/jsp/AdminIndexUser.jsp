@@ -174,18 +174,18 @@
                                             </a>
                                         </c:when>
                                         <c:otherwise>
-                                            <a href="${pageContext.request.contextPath}/admin/ForceLogout?userId=${user.userId}">
-                                                <button class="toast-btn btn btn-facebook" id="">
+                                            <a href="">
+                                                <button class="btn btn-facebook" id="">
                                                     <i class="fa fa-check">
                                                         未上线</i></button>
                                             </a>
                                         </c:otherwise>
                                     </c:choose>
 
-                                    <a href="${pageContext.request.contextPath}/user/profile?userId=${user.userId}">
+                               <%--     <a href="${pageContext.request.contextPath}/user/profile?userId=${user.userId}">
                                         <button class="btn btn-primary"><i class="fa fa-pencil">修改
                                         </i></button>
-                                    </a>
+                                    </a>--%>
 
                                     <a href="">
                                         <a href="${pageContext.request.contextPath}/admin/DeleteUser?userId=${user.userId}">

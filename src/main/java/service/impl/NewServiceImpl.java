@@ -1,5 +1,6 @@
 package service.impl;
 
+import dao.CategoryDao;
 import dao.CommentDao;
 import dao.NewDao;
 import dao.UserDao;
@@ -7,6 +8,7 @@ import dto.InsertNewState;
 import dto.NewDetail;
 import dto.NewList;
 import dto.NewsData;
+import entity.Category;
 import entity.New;
 import entity.User;
 import enums.InsertNewEnums;
@@ -37,6 +39,9 @@ public class NewServiceImpl implements NewService {
 
     @Autowired
     private CommentDao commentDao;
+
+    @Autowired
+    private CategoryDao categoryDao;
 
     @Override
     @Transactional
@@ -220,13 +225,16 @@ public class NewServiceImpl implements NewService {
         //synchronized和AtomicInteger解决并发问题
         AtomicInteger count = new AtomicInteger(0);
         New n = nd.getaNew();
-        if(n != null){
-            synchronized (n){
-                count.getAndIncrement();
-                n.setViews(n.getViews() + count.get());
-                newDao.updateNew(n);
-            }
-        }else logger.info("点击后查找不到该文章");
+        Category c = categoryDao.queryByCategoryId(n.getCategoryId());
+        synchronized (n){
+            count.getAndIncrement();
+            n.setViews(n.getViews() + count.get());
+            newDao.updateNew(n);
+        }
+        synchronized (c){
+            c.setViewsNum(c.getViewsNum() + count.get());
+            categoryDao.updateCategory(c);
+        }
         return nd;
     }
 }

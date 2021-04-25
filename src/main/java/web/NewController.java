@@ -304,6 +304,12 @@ public class NewController {
         logger.info("############pengliuyi专用日志###########  模糊查询功能模块的前台返回的字段数据："+selectkey);
         if(!selectkey.equals("")){
             List<User> list = userService.selectUserByLike(selectkey);
+            for (User u: list) {
+                int state = userService.isOnline(u.getUserId());
+                if(state == 0)//不在线
+                    u.setIsOnline(0);
+                else u.setIsOnline(1);//在线
+            }
             model.addAttribute("userList",list);
             return "AdminIndexUser";
         }
