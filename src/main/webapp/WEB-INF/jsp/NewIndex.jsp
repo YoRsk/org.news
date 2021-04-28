@@ -191,15 +191,17 @@
             <div class="col-md-4 right_column" style="float: left;">
 
                 <div class="item2">
+                    <%if(user != null){%>
                     <header>
                         <h2 class="with-line">与我相关</h2>
                     </header>
                     <ul>
                         <li><a href="${pageContext.request.contextPath}/new/editor?index=1">添加文章</a></li>
-                        <li><a href="${pageContext.request.contextPath}/user/center">我发表的文章</a></li>
+                        <li><a href="${pageContext.request.contextPath}/user/center?userId=<%=user.getUserId()%>">我发表的文章</a></li>
                         <%--<li><a href="${pageContext.request.contextPath}/user/center">我的评论</a></li>
                         <li><a href="${pageContext.request.contextPath}/user/center">我的消息</a></li>--%>
                     </ul>
+                    <%}%>
                 </div>
 
                 <div class="item">
