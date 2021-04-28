@@ -69,6 +69,11 @@ public interface NewService {
     List<NewsData> selectNewsByLike(String key);
 
     /*
+    * 首页模糊查询
+    * */
+    List<NewsData> selectNewsByLikeIndex(String key);
+
+    /*
      * 关键字查询
      * */
     List<NewsData> selectNewsByKey(String key);

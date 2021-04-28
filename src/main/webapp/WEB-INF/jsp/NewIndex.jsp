@@ -71,7 +71,17 @@
             <%
                 }
             %>
-
+            <form class="form-inline" role="form"
+                  action="${pageContext.request.contextPath}/like" method="post"
+                  style="display: contents">
+                <div class="form-group" style="display: contents">
+                    <label class="sr-only" for="exampleInput1">新闻查询</label>
+                    <span style="color: rebeccapurple" id="tip1"></span>
+                    <input type="text" class="form-control" name="selectkey"  id="exampleInput1"
+                           placeholder="新闻查询">
+                </div>
+                <button type="submit" class="btn btn-theme">查找</button>
+            </form>
             <span class="menu"></span>
             <div class="top-menu">
                 <ul>

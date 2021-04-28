@@ -68,15 +68,14 @@ public class NavController {
         /*NewList newList = newService.selectIndexNew();*/ //好像没用
         PageHelper.startPage(pageNum,5);
         List<NewsData> newsData = newService.selectAllNews();
+        List<Category> categoryList = categoryService.queryAllCategory();
         //使用pageInfo包装查询出来的结果,只需要把pageInfo交给页面
         //其中封装详细的分页信息
         PageInfo<NewsData> pageInfo = new PageInfo<>(newsData);//连续显示的页数
-
-        List<Category> categoryList = categoryService.queryAllCategory();
-        /*model.addAttribute("list", newList);*/
         model.addAttribute("pageInfo",pageInfo);
-        model.addAttribute("newData", newsData);
+       // model.addAttribute("newData", newsData);
         model.addAttribute("categoryList",categoryList);
+        /*model.addAttribute("list", newList);*/
         return "NewIndex";
     }
 
@@ -136,11 +135,41 @@ public class NavController {
         List<NewsData> newsData = newService.selectNewsByCategoryId(categoryId);
         List<Category> categoryList = categoryService.queryAllCategory();
         String title = newsData.get(0).getTypeName();//把categories name 作为title
+        //使用pageInfo包装查询出来的结果,只需要把pageInfo交给页面
+        //其中封装详细的分页信息
+        //PageHelper.startPage(pageNum,5);
+        PageInfo<NewsData> pageInfo = new PageInfo<>(newsData);//连续显示的页数
+        model.addAttribute("pageInfo",pageInfo);
         /*model.addAttribute("list", newList);*/
-        model.addAttribute("newData", newsData);
+        //model.addAttribute("newData", newsData);
         model.addAttribute("categoryList",categoryList);
         model.addAttribute("title",title);
         return "NewIndex";
+    }
+
+    /*
+    * 通过模糊查询返回用户查询结果
+    * */
+    @RequestMapping(value = "/like")
+    public String UsersLike(@RequestParam(required = false,defaultValue="1")Integer pageNum,String selectkey,Model model){
+        logger.info("############pengliuyi专用日志###########  模糊查询功能模块的前台返回的字段数据："+selectkey);
+        if(!selectkey.equals("")){
+            List<NewsData> newsData = newService.selectNewsByLikeIndex(selectkey);
+            List<Category> categoryList = categoryService.queryAllCategory();
+            String title = "新闻查询结果";
+            //使用pageInfo包装查询出来的结果,只需要把pageInfo交给页面
+            //其中封装详细的分页信息
+            PageHelper.startPage(pageNum,5);
+            PageInfo<NewsData> pageInfo = new PageInfo<>(newsData);//连续显示的页数
+            model.addAttribute("pageInfo",pageInfo);
+            model.addAttribute("categoryList",categoryList);
+            model.addAttribute("title",title);
+            //model.addAttribute("newData",newsData);
+            return "NewIndex";
+        }
+        else{
+            return "redirect:/index";
+        }
     }
 
     /*
@@ -150,7 +179,11 @@ public class NavController {
     public String hot(Model model){
         List<NewsData> newsData = newService.selectHotNewsByViews();
         List<Category> categoryList = categoryService.queryAllCategory();
-        model.addAttribute("newData", newsData);
+       //使用pageInfo包装查询出来的结果,只需要把pageInfo交给页面
+       //其中封装详细的分页信息
+       PageInfo<NewsData> pageInfo = new PageInfo<>(newsData);//连续显示的页数
+       model.addAttribute("pageInfo",pageInfo);
+        //model.addAttribute("newData", newsData);
         model.addAttribute("categoryList",categoryList);
         model.addAttribute("title","热点");
         return "NewIndex";

@@ -210,6 +210,11 @@ public class NewServiceImpl implements NewService {
     }
 
     @Override
+    public List<NewsData> selectNewsByLikeIndex(String key) {
+        return newDao.selectByLikeIndex(key);
+    }
+
+    @Override
     public List<NewsData> selectNewsByKey(String key) {
         return newDao.selectByKeyWords(key);
     }

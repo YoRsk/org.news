@@ -6,12 +6,9 @@
     <settings>
         <!-- 获取jdbc的自增主键，默认是false-->
         <setting name="useGeneratedKeys" value="true"/>
-
         <setting name="useColumnLabel"  value="true"/>
-
         <!-- 开启驼峰命名-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
-        
     </settings>
     <!--mapper肯定是不能配在mybatis-config.xml的<Mappers>里了，因为里面的方式都需要接口和xml在统一文件夹下
     其次，在sqlSessionFactory.mapperLocations指定mapper.xml的路径，

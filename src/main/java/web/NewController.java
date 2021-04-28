@@ -269,7 +269,7 @@ public class NewController {
     * */
     @RequestMapping(value = "/selectByLike")
     public String selectNewsByLike(String selectkey,Model model){
-        logger.info("############yangxin专用日志###########  模糊查询功能模块的前台返回的字段数据："+selectkey);
+        logger.info("############pengliuyi专用日志###########  模糊查询功能模块的前台返回的字段数据："+selectkey);
         if(!selectkey.equals("")){
             List<NewsData> newsData = newService.selectNewsByLike(selectkey);
             model.addAttribute("Newslist",newsData);

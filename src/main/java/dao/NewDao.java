@@ -69,6 +69,11 @@ public interface NewDao {
     List<NewsData> selectByLike(@Param("key")String key);
 
     /*
+     * 首页模糊查询
+     * */
+    List<NewsData> selectByLikeIndex(@Param("key")String key);
+
+    /*
      * 关键字查询
      * */
     List<NewsData> selectByKeyWords(@Param("keyWords")String keyWords);

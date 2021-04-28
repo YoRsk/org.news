@@ -3,14 +3,11 @@ package dao;
 import com.dyuproject.protostuff.LinkedBuffer;
 import com.dyuproject.protostuff.ProtostuffIOUtil;
 import com.dyuproject.protostuff.runtime.RuntimeSchema;
-import entity.New;
 import entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-
-import java.util.List;
 
 public class RedisDao {
     private final Logger logger= LoggerFactory.getLogger(this.getClass());
