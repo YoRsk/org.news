@@ -129,7 +129,7 @@
                             <div class="sub">
                                 <a target="_blank" href="/new/detail?newId=${data.aNew.newId}"
                                    class="readblog">${data.aNew.title}</a>
-                                <p class="sub_head">作者: <a href="#">${data.username}</a> 浏览量: ${data.aNew.views}
+                                <p class="sub_head">作者: <a href="${pageContext.request.contextPath}/user/pplprofile?userId=${data.aNew.userId}">${data.username}</a> 浏览量: ${data.aNew.views}
                                 </p>
                             </div>
                             <div class="clearfix"></div>

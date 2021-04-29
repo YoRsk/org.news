@@ -112,6 +112,16 @@ public class NavController {
             return "redirect:/user/login";
         }*/
     }
+
+    /*
+     * 跳转到用户个人资料
+     * */
+    @GetMapping(value = "/user/pplprofile")
+    public String pplprofile(long userId, Model model) {
+        User user = userService.selectById(userId);
+        model.addAttribute("user",user);
+        return "pplprofile";
+    }
     /*
      * 跳转到具体新闻 记录浏览量
      * */

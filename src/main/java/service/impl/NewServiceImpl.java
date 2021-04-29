@@ -138,6 +138,7 @@ public class NewServiceImpl implements NewService {
      * 3.将附带的评论一起删除
      * */
     @Override
+    @Transactional
     public InsertNewState deleteNew(long newId, User user) {
         New n = newDao.queryByNewId(newId);
         if (n.getUserId() == user.getUserId() || user.getUserType() == 1) {
