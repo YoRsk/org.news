@@ -23,6 +23,7 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet-mapping>
         <servlet-name>news-dispatcher</servlet-name>
         <!--默认匹配所有请求-->
+        <!-- 不会匹配到*.jsp，由JspServlet（tomcat中默认的web.xml中配置的）拦截处理，即*.jsp不会进入spring的 DispatcherServlet类 。-->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 

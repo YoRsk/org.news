@@ -48,4 +48,7 @@
     <!-- 扫描web相关的bean-->
     <context:component-scan base-package="web"/>
 
+    <!--设置首页-->
+    <mvc:view-controller path="/" view-name="redirect:/index" />
+
 </beans>

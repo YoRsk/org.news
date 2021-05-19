@@ -81,7 +81,8 @@ public class NewController {
         if (login.getUserType() == 1)
             return "redirect:/new/commentList";
         else
-            return "redirect:/index";
+            model.addAttribute("userId",user.getUserId());
+        return "redirect:/user/center";
     }
 
     /*
@@ -176,8 +177,10 @@ public class NewController {
             NewsResult<New> result = new NewsResult<New>(true, state.getStateInfo());
             model.addAttribute("result", result);
         }
-        if(tag==1)
+        if(tag==1){
+            model.addAttribute("userId",user.getUserId());
             return "redirect:/user/center";
+        }
             return "redirect:/new/adminIndex";
     }
 
@@ -225,8 +228,11 @@ public class NewController {
             } else {
                 NewsResult<New> newNewsResult = new NewsResult<New>(true, news);
                 model.addAttribute("updateResult", newNewsResult);
-                if(user.getUserType()!=1)
+                if(user.getUserType()!=1){
+                    model.addAttribute("userId",user.getUserId());
                     return "redirect:/user/center";
+                }
+
                 return "redirect:/new/adminIndex";
             }
         } else {
