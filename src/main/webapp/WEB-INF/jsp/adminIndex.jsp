@@ -204,12 +204,12 @@
                                             <i class="fa fa-check">
                                                 详情</i></button>
                                     </a>
-                                    <a href="/new/edit?newId=${news.aNew.newId}&userName=${news.username}">
+                                    <a href="/new/edit?newId=${news.aNew.newId}&username=${news.username}">
                                         <button class="btn btn-primary"><i class="fa fa-pencil">修改
                                         </i></button>
                                     </a>
 
-                                    <a href="/new/delete?newId=${news.aNew.newId}&userName=${news.username}&tag=2">
+                                    <a href="/new/delete?newId=${news.aNew.newId}&username=${news.username}&tag=2">
                                         <button class="btn btn-danger">
                                             <i class="fa fa-trash-o ">
                                                 删除</i></button>
