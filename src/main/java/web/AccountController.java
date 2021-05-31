@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import service.UserService;
 
@@ -84,7 +85,7 @@ public class AccountController {
      *               已经处理事务
      * */
     @PostMapping(value = "/toRegister")
-    public String toRegister(User user, Model model) {
+    public String toRegister(@RequestBody User user, Model model) {
         logger.info("############pengliuyi专用日志###########  注册功能模块的前台传来的注册数据：" + user);
         User existUser = userService.selectByName(user.getUsername());
         if (existUser != null) {//说明昵称已经存在
@@ -106,7 +107,30 @@ public class AccountController {
             }
         }
     }
-
+    //用于测试 无redis注册结果
+    @PostMapping(value = "/toRegister2")
+    public String toRegister2(@RequestBody User user, Model model) {
+        logger.info("############pengliuyi专用日志###########  注册功能模块的前台传来的注册数据：" + user);
+        User existUser = userService.selectByName(user.getUsername());
+        if (existUser != null) {//说明昵称已经存在
+            NewsResult<User> register = new NewsResult<User>(false, UserRegisterEnums.DBAEXIST.getStateInfo());
+            model.addAttribute("result", register);
+            return "register";
+        } else {
+            user.setCreateTime(new Date());
+            RegisterState res = userService.registerNoRedis(user);
+            if (res.getState() != 1) {//表示不成功
+                NewsResult<User> register = new NewsResult<User>(false, res.getStateInfo());
+                model.addAttribute("result", register);
+                return "register";
+            } else {
+                NewsResult<User> register = new NewsResult<User>(true, user);
+                model.addAttribute("result", register);
+                session.setAttribute("user", user);
+                return "login";
+            }
+        }
+    }
     /*
      * 忘记密码找回密码逻辑
      * */

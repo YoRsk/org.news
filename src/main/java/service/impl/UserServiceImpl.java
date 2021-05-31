@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import service.UserService;
@@ -46,13 +47,13 @@ public class UserServiceImpl implements UserService {
      *       2.自定义异常类，出现相应的错误，抛出异常回滚。
      * */
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     public RegisterState register(User user)
             throws UserException, UserExistException, UserMisssException, UserInsertException {
         String password = user.getUserPassword();
         user.setUserPassword(getSalt(password));
         String redisKey = "user:";
-        try {
+
             User redisUser = redisDao.getUser(redisKey, user.getUserId());
             if (redisUser == null) {
 
@@ -67,17 +68,26 @@ public class UserServiceImpl implements UserService {
             } else {//如果redis中已经存在，表示该用户名不能被注册
                 throw new UserExistException(UserRegisterEnums.RedisEXIST.getStateInfo());
             }
-        } catch (UserExistException existException) {
-            return new RegisterState(user.getUserId(), UserRegisterEnums.RedisEXIST);
-        } catch (UserMisssException e) {
-            throw e;
-        } catch (UserInsertException e) {
-            logger.error(e.getMessage(), e);
-            return new RegisterState(user.getUserId(), UserRegisterEnums.FAIL);
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            return new RegisterState(user.getUserId(), UserRegisterEnums.INNER_ERROR);
-        }
+
+    }
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public RegisterState registerNoRedis(User user)
+            throws UserException, UserExistException, UserMisssException, UserInsertException {
+        String password = user.getUserPassword();
+        user.setUserPassword(getSalt(password));
+        User User = userDao.queryByOnlyId(user.getUserId());
+            if (User == null) {
+                logger.info("############pengliuyi专用日志########### 注册功能模块的插入数据返回值：" + user);
+                int insertCount = userDao.insertUser(user);
+                if (insertCount <= 0) {
+                    throw new UserInsertException(UserRegisterEnums.FAIL.getStateInfo());
+                } else {
+                    return new RegisterState(user.getUserId(), UserRegisterEnums.SUCCESS, user);
+                }
+            } else {//如果redis中已经存在，表示该用户名不能被注册
+                throw new UserExistException(UserRegisterEnums.RedisEXIST.getStateInfo());
+            }
     }
 
     @Override

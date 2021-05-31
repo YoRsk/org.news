@@ -13,6 +13,11 @@ public interface UserService {
     RegisterState register(User user);
 
     /*
+    * 注册用户 不使用redis
+    * */
+    RegisterState registerNoRedis(User user);
+
+    /*
      * 修改用户，仅本用户及管理员可，不能修改姓名
      * */
     RegisterState profile(User user);

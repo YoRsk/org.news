@@ -12,6 +12,7 @@ import redis.clients.jedis.JedisPool;
 public class RedisDao {
     private final Logger logger= LoggerFactory.getLogger(this.getClass());
     private JedisPool jedisPool;
+    //ip and port于Xml->constructor-arg
     public RedisDao(String ip,int port) {
         jedisPool=new JedisPool(ip,port);
     }
@@ -25,7 +26,7 @@ public class RedisDao {
             //根据jedisPool获得他们的资源 .getResource();
             Jedis jedis=jedisPool.getResource();
             try{
-                //因为Redis是key-value存储的，那么我们首先要构建一个key。
+                //构建key，作用于key-value存储
                 String key=redisKey+userId;
                 /*
                     Redis并没有实现内部序列化操作。
@@ -35,7 +36,7 @@ public class RedisDao {
                     使用的是JDK的自己的序列化。   ②大师级：既然是在优化这个暴露接口，那么就把他做到最好，使用JDk原生的
                     序列化的速度，效率，占的空间，转化的字节数(最少,在网络中传输的字节数就会最少，效率最高)等都不是最好
                     的。采用自定义序列化；我们使用的是protostuff,那么在Pom.xml中添加 protostuff-core和protostuff-runtime
-                    系列化依赖。
+                    系列化依赖，实现序列化。
                 */
                 byte[]bytes=jedis.get(key.getBytes());
                 if(bytes!=null){
