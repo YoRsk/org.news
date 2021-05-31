@@ -180,7 +180,7 @@
                                         </span>
                     </a>
                     <-- 导航页 -->--%>
-                    <a href="${pageContext.request.contextPath}/index?pageNum=${pageInfo.pages}"><span
+                    <a href="${pageContext.request.contextPath}/index?pageNum=${pageInfo.nextPage}"><span
                             class="btn-page btn-default">下一页</span></a>
                     <%--<a th:href="@{/sys/log/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"><span
                             class="btn-page btn-default">下一页</span></a>
