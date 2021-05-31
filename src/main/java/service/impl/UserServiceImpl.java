@@ -48,18 +48,17 @@ public class UserServiceImpl implements UserService {
      * */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public RegisterState register(User user)
+    public  RegisterState register(User user)
             throws UserException, UserExistException, UserMisssException, UserInsertException {
         String password = user.getUserPassword();
         user.setUserPassword(getSalt(password));
         String redisKey = "user:";
-
             User redisUser = redisDao.getUser(redisKey, user.getUserId());
             if (redisUser == null) {
-
                 String res = redisDao.setUser(redisKey, user);
                 logger.info("############pengliuyi专用日志########### 注册功能模块的插入Redis数据返回值：" + res);
                 int insertCount = userDao.insertUser(user);
+
                 if (insertCount <= 0) {
                     throw new UserInsertException(UserRegisterEnums.FAIL.getStateInfo());
                 } else {

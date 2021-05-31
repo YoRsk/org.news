@@ -8,13 +8,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 public class RedisDao {
     private final Logger logger= LoggerFactory.getLogger(this.getClass());
     private JedisPool jedisPool;
     //ip and port于Xml->constructor-arg
     public RedisDao(String ip,int port) {
-        jedisPool=new JedisPool(ip,port);
+        if(null == jedisPool) {
+            synchronized (RedisDao.class) {
+                if (null == jedisPool) {
+                    JedisPoolConfig poolConfig = new JedisPoolConfig();
+                    poolConfig.setMaxTotal(1000);
+                    poolConfig.setMaxIdle(32);
+                    poolConfig.setMaxWaitMillis(1000*100);
+                    poolConfig.setTestOnBorrow(true);
+                    jedisPool = new JedisPool(poolConfig,ip, port);
+                }
+            }
+        }
     }
 
     //使用第三方的protostuff序列化，需要先指定需要序列化的类接口，如下，但是这个类必须是pojo型。
@@ -24,10 +36,9 @@ public class RedisDao {
         //缓存Redis操作。
         try{
             //根据jedisPool获得他们的资源 .getResource();
-            Jedis jedis=jedisPool.getResource();
-            try{
+            try (Jedis jedis = jedisPool.getResource()) {
                 //构建key，作用于key-value存储
-                String key=redisKey+userId;
+                String key = redisKey + userId;
                 /*
                     Redis并没有实现内部序列化操作。
                     我们需要在获取redis资源的时候要进行反序列化操作
@@ -38,16 +49,14 @@ public class RedisDao {
                     的。采用自定义序列化；我们使用的是protostuff,那么在Pom.xml中添加 protostuff-core和protostuff-runtime
                     系列化依赖，实现序列化。
                 */
-                byte[]bytes=jedis.get(key.getBytes());
-                if(bytes!=null){
+                byte[] bytes = jedis.get(key.getBytes());
+                if (bytes != null) {
                     //创建一个空对象,在Redis中赋值给这个空对象。
-                    User user=schema.newMessage();
-                    ProtostuffIOUtil.mergeFrom(bytes,user,schema);
+                    User user = schema.newMessage();
+                    ProtostuffIOUtil.mergeFrom(bytes, user, schema);
                     //空对象secKill，在调用上面语句之后被赋值。
                     return user;
                 }
-            }finally {
-                jedis.close();
             }
         }catch(Exception e){
             logger.error(e.getMessage(),e);
@@ -74,5 +83,10 @@ public class RedisDao {
         }
         return "";
     }
+    public synchronized void returnResource(Jedis jedis) {
 
+        if (jedis != null) {
+            jedis.close();
+        }
+    }
 }

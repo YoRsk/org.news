@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -84,8 +85,14 @@ public class AccountController {
      *
      *               已经处理事务
      * */
+    //不用json时把@RequestBody去除
+/*    @PostMapping(value = "/toRegister")
+    public synchronized String toRegister(@RequestBody User user, Model model){
+        return toRegisterFunction(user,model);
+    }*/
     @PostMapping(value = "/toRegister")
-    public String toRegister(@RequestBody User user, Model model) {
+    @Transactional
+    public String toRegisterFunction(User user, Model model) {
         logger.info("############pengliuyi专用日志###########  注册功能模块的前台传来的注册数据：" + user);
         User existUser = userService.selectByName(user.getUsername());
         if (existUser != null) {//说明昵称已经存在
@@ -95,6 +102,7 @@ public class AccountController {
         } else {
             user.setCreateTime(new Date());
             RegisterState res = userService.register(user);
+
             if (res.getState() != 1) {//表示不成功
                 NewsResult<User> register = new NewsResult<User>(false, res.getStateInfo());
                 model.addAttribute("result", register);
@@ -109,7 +117,11 @@ public class AccountController {
     }
     //用于测试 无redis注册结果
     @PostMapping(value = "/toRegister2")
-    public String toRegister2(@RequestBody User user, Model model) {
+    public synchronized String toRegister2(@RequestBody User user, Model model){
+        return toRegister2Function(user,model);
+    }
+    @Transactional
+    public String toRegister2Function(@RequestBody User user, Model model) {
         logger.info("############pengliuyi专用日志###########  注册功能模块的前台传来的注册数据：" + user);
         User existUser = userService.selectByName(user.getUsername());
         if (existUser != null) {//说明昵称已经存在
